@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:fillViewport="true"
+    android:layout_gravity="center"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="@dimen/_280sdp"
+        android:padding="@dimen/_10sdp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_dialog">
+
+        <TextView
+            android:id="@+id/txtRptDlgID"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ubuntu_bold"
+            android:text="Report #23"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_20ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtRptDlgSubmittedByLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/ubuntu_medium"
+            android:text="Submitted as:"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintStart_toStartOf="@+id/txtRptDlgID"
+            app:layout_constraintTop_toBottomOf="@+id/txtRptDlgID" />
+
+        <TextView
+            android:id="@+id/txtRptDlgTypeLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/ubuntu_medium"
+            android:text="Type:"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintStart_toStartOf="@+id/txtRptDlgSubmittedByLabel"
+            app:layout_constraintTop_toBottomOf="@+id/txtRptDlgSubmittedBy" />
+
+        <TextView
+            android:id="@+id/txtRptDlgSubmittedBy"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:fontFamily="@font/ubuntu_regular"
+            android:text="Jhozua Diaz"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintEnd_toEndOf="@+id/txtRptDlgID"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/txtRptDlgSubmittedByLabel"
+            app:layout_constraintTop_toTopOf="@+id/txtRptDlgSubmittedByLabel" />
+
+        <TextView
+            android:id="@+id/txtRptDlgUrgentClass"
+            android:background="@drawable/round_card"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:padding="@dimen/_3sdp"
+            android:textAlignment="center"
+            android:fontFamily="@font/ubuntu_bold"
+            android:text="Urgent"
+            android:textColor="@color/firebrick"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="@+id/txtMovieDialogGenreLabel"
+            app:layout_constraintEnd_toEndOf="@+id/txtRptDlgType"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/txtMovieDialogGenreLabel"
+            app:layout_constraintTop_toTopOf="@+id/txtMovieDialogGenreLabel" />
+
+        <TextView
+            android:id="@+id/txtMovieDialogGenreLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:fontFamily="@font/ubuntu_medium"
+            android:text="Urgency Classification:"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintStart_toStartOf="@+id/txtRptDlgTypeLabel"
+            app:layout_constraintTop_toBottomOf="@+id/txtRptDlgType" />
+
+        <TextView
+            android:id="@+id/txtMovieDialogGenreLabel2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/ubuntu_medium"
+            android:text="Submitted at:"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintStart_toStartOf="@+id/txtRptDlgDescription"
+            app:layout_constraintTop_toBottomOf="@+id/txtRptDlgDescription" />
+
+        <TextView
+            android:id="@+id/txtRptDlgRespondedAtLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/ubuntu_medium"
+            android:text="Responded at:"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintStart_toStartOf="@+id/ivRptDlgPicture"
+            app:layout_constraintTop_toBottomOf="@+id/ivRptDlgPicture" />
+
+        <TextView
+            android:id="@+id/txtRptDlgType"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:fontFamily="@font/ubuntu_regular"
+            android:text="But I've got to go through."
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintEnd_toEndOf="@+id/txtRptDlgSubmittedBy"
+            app:layout_constraintStart_toEndOf="@+id/txtRptDlgTypeLabel"
+            app:layout_constraintTop_toTopOf="@+id/txtRptDlgTypeLabel" />
+
+        <TextView
+            android:id="@+id/txtRptDlgSubmittedAt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="11dp"
+            android:fontFamily="@font/ubuntu_regular"
+            android:text="2022-01-18 11:00:34"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="@+id/txtMovieDialogGenreLabel2"
+            app:layout_constraintEnd_toEndOf="@+id/txtRptDlgDescription"
+            app:layout_constraintStart_toEndOf="@+id/txtMovieDialogGenreLabel2"
+            app:layout_constraintTop_toTopOf="@+id/txtMovieDialogGenreLabel2" />
+
+        <TextView
+            android:id="@+id/txtRptDlgRespondedAt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/ubuntu_regular"
+            android:text="2022-01-18 11:00:34"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/txtRptDlgRespondedAtLabel"
+            app:layout_constraintTop_toBottomOf="@+id/txtRptDlgRespondedAtLabel" />
+
+        <TextView
+            android:id="@+id/txtRptDlgStatus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="11dp"
+            android:background="@drawable/round_card"
+            android:padding="@dimen/_3sdp"
+            android:textAlignment="center"
+            android:fontFamily="@font/ubuntu_regular"
+            android:text="Pending"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintEnd_toEndOf="@+id/txtRptDlgDescription"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/txtMovieDialogCertificateLabel4"
+            app:layout_constraintTop_toTopOf="@+id/txtMovieDialogCertificateLabel4" />
+
+        <TextView
+            android:id="@+id/txtMovieDialogCertificateLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/ubuntu_medium"
+            android:text="Landmark:"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintStart_toStartOf="@+id/txtMovieDialogGenreLabel"
+            app:layout_constraintTop_toBottomOf="@+id/txtRptDlgUrgentClass" />
+
+        <TextView
+            android:id="@+id/txtMovieDialogCertificateLabel2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/ubuntu_medium"
+            android:text="Location Address:"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintStart_toStartOf="@+id/txtRptDlgLandmark"
+            app:layout_constraintTop_toBottomOf="@+id/txtRptDlgLandmark" />
+
+        <TextView
+            android:id="@+id/txtMovieDialogCertificateLabel3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/ubuntu_medium"
+            android:text="Submitted Image:"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintStart_toStartOf="@+id/txtRptDlgDescription"
+            app:layout_constraintTop_toBottomOf="@+id/txtMovieDialogGenreLabel2" />
+
+        <TextView
+            android:id="@+id/txtMovieDialogCertificateLabel4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/ubuntu_medium"
+            android:text="Status:"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintStart_toEndOf="@+id/ivRptDlgPicture"
+            app:layout_constraintTop_toTopOf="@+id/ivRptDlgPicture" />
+
+        <TextView
+            android:id="@+id/txtRptDlgAdminMessageLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/ubuntu_medium"
+            android:text="Admin Message:"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintStart_toStartOf="@+id/txtMovieDialogCertificateLabel4"
+            app:layout_constraintTop_toBottomOf="@+id/txtMovieDialogCertificateLabel4" />
+
+        <TextView
+            android:id="@+id/txtMovieDialogBackgroundLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/ubuntu_medium"
+            android:text="Report Description"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_20ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/txtRptDlgLocation"
+            app:layout_constraintTop_toBottomOf="@+id/txtRptDlgLocation" />
+
+        <TextView
+            android:id="@+id/txtRptDlgDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/ubuntu_regular"
+            android:text="Duchess replied, in a natural way again. 'I should like to try the experiment?' 'HE might bite,' Alice cautiously replied, not feeling at all know whether it would feel very uneasy: to be Number One,' said Alice. 'Why, there they are!' said the King added in an offended tone, 'was, that the poor little juror (it was exactly three inches high). 'But I'm NOT a."
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintEnd_toEndOf="@+id/txtMovieDialogBackgroundLabel"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/txtMovieDialogBackgroundLabel"
+            app:layout_constraintTop_toBottomOf="@+id/txtMovieDialogBackgroundLabel" />
+
+        <TextView
+            android:id="@+id/txtRptDlgLandmark"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/ubuntu_regular"
+            android:paddingStart="@dimen/_10sdp"
+            android:text="Rowan Garden"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintEnd_toEndOf="@+id/txtRptDlgUrgentClass"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/txtMovieDialogCertificateLabel"
+            app:layout_constraintTop_toBottomOf="@+id/txtMovieDialogCertificateLabel" />
+
+        <TextView
+            android:id="@+id/txtRptDlgLocation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/ubuntu_regular"
+            android:paddingStart="@dimen/_10sdp"
+            android:text="54939 Tyshawn Prairie Apt. 412"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintEnd_toEndOf="@+id/txtRptDlgLandmark"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/txtMovieDialogCertificateLabel2"
+            app:layout_constraintTop_toBottomOf="@+id/txtMovieDialogCertificateLabel2" />
+
+        <TextView
+            android:id="@+id/txtRptDlgAdminMessage"
+            android:layout_width="0dp"
+
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/ubuntu_regular"
+            android:paddingStart="@dimen/_10sdp"
+            android:text="Alice called out as loud as she could, and waited till she heard a voice outside, and stopped to listen. 'Mary Ann! Mary Ann!' said the voice."
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/txtRptDlgAdminMessageLabel"
+            app:layout_constraintTop_toBottomOf="@+id/txtRptDlgAdminMessageLabel" />
+
+        <Button
+            android:id="@+id/btnRptDlgBack"
+            android:layout_width="88dp"
+            android:layout_height="47dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/black"
+            android:text="EXIT"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.952"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtRptDlgAdminMessage" />
+
+        <ImageView
+            android:id="@+id/ivRptDlgPicture"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_120sdp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="@+id/txtMovieDialogCertificateLabel3"
+            app:layout_constraintTop_toBottomOf="@+id/txtMovieDialogCertificateLabel3"
+            app:srcCompat="@drawable/no_picture" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

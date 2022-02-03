@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/_280sdp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/background_dialog"
+    android:layout_gravity="center"
+    android:padding="@dimen/_10sdp">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtCommentDialogTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Comment"
+        android:textColor="@color/white"
+        android:fontFamily="@font/ubuntu_bold"
+        android:textSize="@dimen/_30ssp"/>
+
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:id="@+id/editTxtGenreID"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:focusable="true"
+        android:focusedByDefault="true"
+        app:boxStrokeColor="@color/white"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:hint="Comment"
+        app:counterTextColor="@color/white"
+        android:textColorHint="@color/white"
+        android:id="@+id/txtLayoutComment">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ubuntu_regular"
+            android:inputType="textMultiLine"
+            android:textColor="@color/white"
+            android:id="@+id/txtComment" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+
+        android:layout_marginTop="@dimen/_17sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="right">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnCancelComment"
+            android:text="Cancel"
+            android:fontFamily="@font/ubuntu_regular"
+            android:textColor="@color/white"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:background="@color/transparent"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:background="@color/white"
+            android:layout_width="wrap_content"
+            android:id="@+id/btnSubmitComment"
+            android:fontFamily="@font/ubuntu_bold"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:textColor="@color/black"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

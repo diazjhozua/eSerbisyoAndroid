@@ -1,0 +1,559 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".HomeFragments.MainFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/_20sdp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="@dimen/_40sdp"
+            android:fontFamily="@font/leckerlione_regular"
+            android:text="@string/app_name"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_30ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textView2"
+            android:layout_width="189dp"
+            android:layout_height="31dp"
+            android:fontFamily="@font/ubuntu_regular"
+            android:text="@string/barangay_cupang_n_electronic_service"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.299"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageView"
+            android:layout_width="112dp"
+            android:layout_height="106dp"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:src="@drawable/cupang"
+            app:layout_constraintEnd_toStartOf="@+id/textView"
+            app:layout_constraintHorizontal_bias="0.164"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearLayout"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_120sdp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:padding="@dimen/_5sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.509"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardAnnouncement"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:background="@color/transparent"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="@dimen/_10sdp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/primaryColor">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtAnnouncement"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/ivAnnouncement"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/ubuntu_medium"
+                        android:text="@string/announcements"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_13ssp" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivAnnouncement"
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_55sdp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:src="@drawable/informative" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardEmployee"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/_5sdp"
+                android:layout_weight="1"
+                app:cardElevation="@dimen/_10sdp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/primaryColor">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtOfficial"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/ivOfficial"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/ubuntu_medium"
+                        android:text="@string/officials"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_13ssp" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivOfficial"
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_55sdp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:src="@drawable/official" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearLayout2"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_120sdp"
+            android:layout_marginTop="2dp"
+            android:orientation="horizontal"
+            android:padding="@dimen/_5sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.313"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardFeedback"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/_5sdp"
+                android:layout_weight="1"
+                app:cardElevation="@dimen/_10sdp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/primaryColor">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtFeedback"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/imageView4"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/ubuntu_medium"
+                        android:text="@string/feedbacks"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_13ssp" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_55sdp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:src="@drawable/feedback" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardOrdinance"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/_5sdp"
+                android:layout_weight="1"
+                app:cardElevation="@dimen/_10sdp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/primaryColor">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtOrdinance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/imageView5"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/ubuntu_medium"
+                        android:text="@string/ordinances"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_13ssp" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageView5"
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_60sdp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"
+                        android:src="@drawable/rules" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearLayout3"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_120sdp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:padding="@dimen/_5sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.313"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardProject"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/_5sdp"
+                android:layout_weight="1"
+                app:cardElevation="@dimen/_10sdp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/primaryColor">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtProject"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/ivProject"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/ubuntu_medium"
+                        android:text="@string/projects"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_13ssp" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivProject"
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_55sdp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:src="@drawable/clipboard" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardDocument"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/_5sdp"
+                android:layout_weight="1"
+                app:cardElevation="@dimen/_10sdp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/primaryColor">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtDocument"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/ivDocument"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/ubuntu_medium"
+                        android:text="@string/public_documents"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_13ssp" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivDocument"
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_60sdp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"
+                        android:src="@drawable/budget" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearLayout4"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_120sdp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:padding="@dimen/_5sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.313"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardMissingPerson"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/_5sdp"
+                android:layout_weight="1"
+                app:cardElevation="@dimen/_10sdp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/primaryColor">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtMissingPerson"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/ivMissingPerson"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/ubuntu_medium"
+                        android:text="@string/missing_person"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_13ssp" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivMissingPerson"
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_55sdp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:src="@drawable/search" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardMissingItem"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/_5sdp"
+                android:layout_weight="1"
+                app:cardElevation="@dimen/_10sdp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/primaryColor">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtMissingItem"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/ivMissingItem"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/ubuntu_medium"
+                        android:text="@string/missing_item"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_13ssp" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivMissingItem"
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_60sdp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"
+                        android:src="@drawable/lost_items" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearLayout5"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_120sdp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:padding="@dimen/_5sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.313"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardComplaint"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/_5sdp"
+                android:layout_weight="1"
+                app:cardElevation="@dimen/_10sdp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/primaryColor">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtComplaint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/ivComplaint"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/ubuntu_medium"
+                        android:text="@string/complaints"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_13ssp" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivComplaint"
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_55sdp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:src="@drawable/complaint" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardReport"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/_5sdp"
+                android:layout_weight="1"
+                app:cardElevation="@dimen/_10sdp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/primaryColor">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtReport"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/ivReport"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/ubuntu_medium"
+                        android:text="@string/report"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_13ssp" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivReport"
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_60sdp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"
+                        android:src="@drawable/report" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearLayout1235"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_120sdp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:padding="@dimen/_5sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.313"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardCertificate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/_5sdp"
+                android:layout_weight="1"
+                app:cardElevation="@dimen/_10sdp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/primaryColor">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtCertificate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/ivCertificate"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/ubuntu_medium"
+                        android:text="Certificate"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_13ssp" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivCertificate"
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_60sdp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"
+                        android:src="@drawable/certificate" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardOrder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/_5sdp"
+                android:layout_weight="1"
+                app:cardElevation="@dimen/_10sdp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/primaryColor">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtOrder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/ivOrder"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/ubuntu_medium"
+                        android:text="Order Cert"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_13ssp" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivOrder"
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_60sdp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"
+                        android:src="@drawable/order" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.core.widget.NestedScrollView>

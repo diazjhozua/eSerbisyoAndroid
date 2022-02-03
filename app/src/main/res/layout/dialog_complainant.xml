@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/_280sdp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/background_dialog"
+    android:orientation="vertical"
+    android:padding="@dimen/_5sdp">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:padding="@dimen/_10sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ivDialogOperation"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:src="@drawable/plus" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtDialogOperation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ubuntu_bold"
+            android:text="Add Complainant"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_15ssp" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:id="@+id/txtLayoutDialogName"
+            android:layout_height="wrap_content"
+            android:hint="Name of the complainant"
+            app:counterTextColor="@color/white"
+            android:textColorHint="@color/white"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/inputTxtDialogName"
+                android:inputType="text"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12ssp"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtSignatureLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Signature (Double click to erase the signature)"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:fontFamily="@font/ubuntu_medium"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+            tools:ignore="HardcodedText" />
+
+        <com.github.gcacace.signaturepad.views.SignaturePad
+            android:id="@+id/spSignature"
+            app:clearOnDoubleClick="true"
+            android:background="@color/white"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_180sdp"
+            app:penColor="@android:color/black"
+            />
+
+        <ImageView
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:id="@+id/ivSignature"
+            android:layout_height="@dimen/_180sdp"
+            />
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnDialogCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:background="@color/transparent"
+            android:fontFamily="@font/ubuntu_regular"
+            android:text="Cancel"
+            android:textColor="@color/white" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnDialogSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/ubuntu_bold"
+            android:text="Add"
+            android:textColor="@color/black" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

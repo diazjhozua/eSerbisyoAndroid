@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView tools:context=".AccountActivities.UserVerificationActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@color/primaryColor"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            tools:context=".ModelActivity.FeedbackAddActivity">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:background="@android:color/transparent"
+                    android:onClick="cancelEdit"
+                    android:src="@drawable/ic_baseline_arrow_back_24"
+                    android:tint="@color/white"
+                    tools:ignore="UsingOnClickInXml" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/verification_status"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_15ssp" />
+
+            </com.google.android.material.appbar.MaterialToolbar>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/primaryColor"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:padding="@dimen/_40sdp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txtCurrentRequest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:background="@drawable/round_white_card"
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:gravity="center_horizontal"
+                    android:padding="@dimen/_10sdp"
+                    android:text="Your current requests is still pending. Please wait for the admin to respond to your requests"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txtSubmittedCredential"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:gravity="center_horizontal"
+                    android:text="Submitted Credential"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+<!--                <androidx.appcompat.widget.AppCompatTextView-->
+<!--                    android:id="@+id/txtNewRequests"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginBottom="@dimen/_10sdp"-->
+<!--                    android:background="@drawable/round_card"-->
+<!--                    android:fontFamily="@font/ubuntu_regular"-->
+<!--                    android:gravity="center_horizontal"-->
+<!--                    android:padding="@dimen/_10sdp"-->
+<!--                    android:text="If you want to access the full functionality of this android application, fill-up the forms the get verified. You will receive sms and email notification once your requests has been responded by the administrator"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="@dimen/_10ssp" />-->
+
+                <ImageView
+                    android:id="@+id/imgCredential"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_100sdp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:src="@color/colorLightGrey" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txtSelectPhoto"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:gravity="center_horizontal"
+                    android:text="Select photo credentials"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txtCredentialGuide"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:background="@drawable/round_white_card"
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:gravity="center_horizontal"
+                    android:padding="@dimen/_10sdp"
+                    android:text="Please make sure that the credentials (Valid ID) you've passed matched the details in your account such as Name and Address "
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10ssp" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txtLayoutStatus"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:hint="Status"
+                    android:textColorHint="@color/white"
+                    app:counterTextColor="@color/white">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/inputTxtStatus"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:inputType="text"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_12ssp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txtLayoutAdminMessage"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:hint="Admin Message"
+                    android:textColorHint="@color/white"
+                    app:counterTextColor="@color/white">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/inputTxtAdminMessage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:inputType="textMultiLine"
+                        android:lines="5"
+                        android:maxLength="1000"
+                        android:maxLines="5"
+                        android:minLines="3"
+                        android:scrollbars="vertical"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_12ssp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnSubmit"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:background="@color/white"
+                    android:fontFamily="@font/ubuntu_bold"
+                    android:text="Submit"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_17ssp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnResubmit"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:background="@color/firebrick"
+                    android:fontFamily="@font/ubuntu_bold"
+                    android:text="Resubmit"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_17ssp" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.core.widget.NestedScrollView>
+
+

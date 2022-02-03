@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/primaryColor"
+    android:padding="@dimen/_10sdp"
+    android:layout_height="match_parent"
+    tools:ignore="HardcodedText"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".OrderActivity.SelectPickupActivity">
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:background="@drawable/round_white_card"
+        android:fontFamily="@font/ubuntu_regular"
+        android:gravity="center_horizontal"
+        android:padding="@dimen/_10sdp"
+        android:maxLines="10"
+        android:text="@string/order_type_desc"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_12ssp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ubuntu_bold"
+        android:textSize="@dimen/_20ssp"
+        android:textColor="@color/white"
+        android:text="SELECT ORDER TYPE" />
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtLayoutReportType"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:paddingStart="@dimen/_20sdp"
+        android:paddingEnd="@dimen/_20sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:hint="Order Type"
+        android:textColorHint="@color/white"
+        app:counterTextColor="@color/white">
+
+
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteOrderType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:textColor="@color/white"
+            tools:ignore="LabelFor" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:background="@drawable/round_white_card"
+        android:fontFamily="@font/ubuntu_regular"
+        android:padding="@dimen/_10sdp"
+        android:maxLines="10"
+        android:text="@string/order_type_desc3"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_12ssp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:gravity="center_horizontal"
+        android:background="@drawable/round_white_card"
+        android:fontFamily="@font/ubuntu_regular"
+        android:padding="@dimen/_10sdp"
+        android:maxLines="10"
+        android:text="@string/order_type_desc4"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_12ssp" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

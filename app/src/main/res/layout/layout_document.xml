@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/cirIvPicture"
+                android:src="@drawable/cupang"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingStart="6dp"
+                android:orientation="vertical"
+                tools:ignore="RtlSymmetry">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:id="@+id/txtPostName"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:text="@string/barangay_cupang"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="11sp"
+                    android:id="@+id/txtDocumentCreatedAt"
+                    android:textColor="@color/colorLightGrey"
+                    android:text="Jun 13"
+                    tools:ignore="HardcodedText" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtDocumentType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp"
+            android:text="Document: List of Notice of Awards - (4th Quarter October-December)"
+            android:textColor="@color/primaryColor"
+            android:textSize="14sp"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:id="@+id/txtDocumentYear"
+            android:textColor="@color/black"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp"
+            android:text="Year: "
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/txtDocumentDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp"
+            android:text="Sit nulla labore aut. Facilis et non rerum quos. Eligendi doloribus ollitia ut .Explice placeat pequatur voluptatum magni debitis et in. Quisquam dolores culpa est. Exercitationem aut et vitae ducimus enim architecto eligendi. Est sed ipsam est dolores quam et..........."
+            android:textColor="@color/colorGrey"
+            android:textSize="14sp"
+            tools:ignore="HardcodedText" />
+
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

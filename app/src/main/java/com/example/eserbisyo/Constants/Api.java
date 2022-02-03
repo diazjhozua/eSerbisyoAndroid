@@ -1,0 +1,59 @@
+package com.example.eserbisyo.Constants;
+
+public class Api {
+    public static final String URL = "http://192.168.1.2:8001/";
+    public static final String HOME = URL+"api";
+    public static final String LOGIN = HOME+"/login";
+    public static final String REGISTER = HOME+"/register";
+    public static final String CHANGE_EMAIL = HOME+"/changeEmail";
+    public static final String CHANGE_PASSWORD = HOME+"/changePassword";
+    public static final String MY_PROFILE = HOME+"/myProfile";
+    public static final String LOGOUT = HOME+"/logout";
+    public static final String SAVE_USER_INFO = HOME+"/updateProfile/";
+    public static final String MY_VERIFICATION_REQUEST = HOME+"/myVerificationRequest/";
+    public static final String SUBMIT_VERIFICATION_REQUEST = HOME+"/submitVerificationRequest/";
+
+    public static final String FEEDBACKS = HOME+"/feedbacks/";
+    public static final String FEEDBACKS_CREATE = HOME+"/feedbacks/create";
+
+    public static final String REPORTS = HOME+"/reports/";
+    public static final String REPORTS_CREATE = HOME+"/reports/create";
+
+    public static final String USER_REQUIREMENTS = HOME+"/userRequirements/";
+    public static final String USER_REQUIREMENTS_CREATE = USER_REQUIREMENTS+"create";
+
+    public static final String ANNOUNCEMENTS = HOME+"/announcements";
+    public static final String ANNOUNCEMENTS_LIKE = ANNOUNCEMENTS+"/like/";
+    public static final String ANNOUNCEMENTS_COMMENTS = ANNOUNCEMENTS+"/comment/";
+
+    public static final String COMMENTS = HOME+"/comments/";
+
+    public static final String EDIT = "/edit/" ;
+    public static final String CREATE = "create/";
+
+    public static final String ORDINANCES = HOME+"/ordinances/";
+    public static final String DOCUMENTS = HOME+"/documents/";
+    public static final String PROJECTS = HOME+"/projects/";
+    public static final String EMPLOYEES = HOME+"/employees/";
+
+    public static final String MISSING_PERSONS = HOME+"/missingPersons/";
+    public static final String MISSING_PERSONS_CREDENTIALS = HOME+"/missingPersons/getCredentialFile/";
+    public static final String MISSING_PERSONS_AUTH = MISSING_PERSONS+"authReports/";
+    public static final String MISSING_PERSONS_COMMENTS = MISSING_PERSONS+"comment/";
+    public static final String MISSING_ITEMS = HOME+"/missingItems/";
+    public static final String MISSING_ITEMS_CREDENTIALS = HOME+"/missingItems/getCredentialFile/";
+    public static final String MISSING_ITEMS_AUTH = MISSING_ITEMS+"authReports/";
+    public static final String MISSING_ITEMS_COMMENTS = MISSING_ITEMS+"comment/";
+
+    public static final String COMPLAINTS = HOME+"/complaints/";
+    public static final String DEFENDANTS = HOME+"/defendants/";
+    public static final String COMPLAINANTS = HOME+"/complainants/";
+
+    public static final String ORDERS = HOME+"/orders/";
+    public static final String ORDER_CERTIFICATE = HOME+"/orders/certificates";
+
+    public static final String VIEW_FILE = URL+"view/" ;
+    public static final String DOWNLOAD_FILE = URL+"download/" ;
+    public static final String STORAGE = URL+"storage/" ;
+
+}

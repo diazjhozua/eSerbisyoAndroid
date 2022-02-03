@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:padding="@dimen/_3sdp"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/ivEmpPicture"
+        android:layout_width="87dp"
+        android:layout_height="105dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/txtEmpName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="Mr. Diamond Zieme"
+        android:textColor="@color/black"
+        android:fontFamily="@font/ubuntu_bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivEmpPicture"
+        app:layout_constraintTop_toTopOf="@+id/ivEmpPicture"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/txtEmpTerm"
+        android:layout_width="0dp"
+        android:fontFamily="@font/ubuntu_medium"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Term: Reiner Bulos Term (2022-2026)"
+        app:layout_constraintEnd_toEndOf="@+id/txtEmpName"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/txtEmpName"
+        app:layout_constraintTop_toBottomOf="@+id/txtEmpName"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/txtEmpPos"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/ubuntu_medium"
+        android:text="Position: Barangay Captain"
+        app:layout_constraintEnd_toEndOf="@+id/txtEmpTerm"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/txtEmpTerm"
+        app:layout_constraintTop_toBottomOf="@+id/txtEmpTerm"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Description:"
+        android:fontFamily="@font/ubuntu_medium"
+        app:layout_constraintEnd_toEndOf="@+id/txtEmpTerm"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/ivEmpPicture"
+        app:layout_constraintTop_toBottomOf="@+id/ivEmpPicture"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/txtEmpDesc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/ubuntu_regular"
+        android:layout_marginBottom="8dp"
+        android:text="HIS time of life. The King's argument was, that she was holding, and she felt a little shaking among the party. Some of the edge of her favourite word 'moral,' and the baby at her hands, and was a."
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/txtEmpTerm"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/ivEmpPicture"
+        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        app:layout_constraintVertical_bias="0.014"
+        tools:ignore="HardcodedText" />
+</androidx.constraintlayout.widget.ConstraintLayout>

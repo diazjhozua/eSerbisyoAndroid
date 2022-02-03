@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/cirIvPicture"
+                android:src="@drawable/cupang"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingLeft="6dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:id="@+id/txtPostName"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:text="@string/barangay_cupang"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="11sp"
+                    android:id="@+id/txtAnnounceDate"
+                    android:textColor="@color/colorLightGrey"
+                    android:text="Jun 13"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:id="@+id/txtAnnounceTitle"
+            android:textColor="@color/black"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp"
+            android:text="et aliquam ut in ut (Facilis accusantium dolorem voluptatem minima dolores)"/>
+
+        <TextView
+            android:id="@+id/txtAnnounceDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp"
+            android:text="Sit nulla labore aut. Facilis et non rerum quos. Eligendi doloribus ollitia ut .Explice placeat pequatur voluptatum magni debitis et in. Quisquam dolores culpa est. Exercitationem aut et vitae ducimus enim architecto eligendi. Est sed ipsam est dolores quam et..........."
+            android:textColor="@color/colorGrey"
+            android:textSize="14sp" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/_10sdp"
+            app:cardUseCompatPadding="true"
+            >
+
+            <com.denzcoskun.imageslider.ImageSlider
+                android:id="@+id/imageSlider"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_290sdp"
+                app:iss_auto_cycle="true"
+                app:iss_period="3000"
+                app:iss_delay="0"/>
+        </androidx.cardview.widget.CardView>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="12dp"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="12dp">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnAnnounceLike"
+                android:layout_marginRight="12dp"
+                android:src="@drawable/ic_baseline_favorite_border_24"
+                android:background="@android:color/transparent"/>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnAnnounceComment"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_comment"
+                android:background="@android:color/transparent"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12 Likes"
+            android:id="@+id/txtAnnounceLikes"
+            android:textStyle="bold"
+            android:layout_marginLeft="12dp"
+            android:textSize="13sp"
+            android:textColor="@color/colorGrey"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View all 3 comments"
+            android:id="@+id/txtAnnounceComments"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginBottom="20dp"
+            android:textSize="12sp"
+            android:textColor="@color/colorLightGrey"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#ccc"/>
+
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

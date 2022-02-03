@@ -1,0 +1,151 @@
+<resources>
+    <string name="app_name">eSerbisyo</string>
+    <string name="appTitle">Barangay Cupang \n e-Serbisyo</string>
+    <string name="appDesc">Barangay Cupang Information Dessimination and \n Certificate Issuance System</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="new_user_sign_up">New user? Sign Up!</string>
+    <string name="login">Login</string>
+    <string name="remember_me">Remember me</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="sign_in_to_continue">Sign in to continue</string>
+    <string name="hello_there_welcome_back">Hello there, Welcome Back</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="already_logged_in_sign_in">Already logged in? Sign In!</string>
+    <string name="register">Register</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="sign_up_to_continue">Sign up to continue</string>
+    <string name="welcome">Welcome</string>
+    <string name="address">Address</string>
+    <string name="select_purok">Select Purok</string>
+    <string name="last_name">Last name</string>
+    <string name="middle_name">Middle Name</string>
+    <string name="first_name">First Name</string>
+    <string name="select_photo">Select photo</string>
+    <string name="user_info">User Info</string>
+    <string name="logout">Logout</string>
+    <string name="profile">Profile</string>
+    <string name="home">Home</string>
+    <string name="orders">Orders</string>
+    <string name="feedbacks">Feedbacks</string>
+    <string name="reports">Reports</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="jhozua_diaz">Jhozua Diaz</string>
+    <string name="change_email">Change Email</string>
+    <string name="verification_status">Verification Status</string>
+    <string name="my_profile">My Profile</string>
+    <string name="change_password">Change Password</string>
+    <string name="current_email">Current Email</string>
+    <string name="new_email">New Email</string>
+    <string name="confirm_new_email">Confirm New Email</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="edit">Edit</string>
+    <string name="new_request_message">If you want to access the full functionality of this android application, fill-up the forms the get verified. You will receive sms and email notification once your requests has been responded by the administrator</string>
+    <string name="pending_request_message">Your current requests is still pending. Please wait for the admin to respond to your requests</string>
+
+    <string name="denied_request_message">Your request has been denied by the administrator, please see the admin message to know the reason why your request
+        has been denied. You may submit another requests</string>
+    <string name="feedback_desc">These are the list of your submitted feedbacks. You can only submit one feedback a day.
+        Rest assured that if you submit a feedback that is marked as anonymous, your details will not be shown in the admin dashboard.
+    </string>
+    <string name="report_desc">These are the list of your submitted reports. You can only submit three reports a day. Rest assured that if you submit a
+        report that is marked as anonymous, your details will not be shown in the admin dashboard.
+    </string>
+    <string name="requirement_desc">These are the list of your submitted requirements in the system. These requirements is used for ordering of certificates,
+        since every certificate have required requirements. Rest assured that the only time the administrator will see your requirements list is when you submit a order to the
+        system. Rest assured that if you delete any of the requirements, the attached image/credentials will also be deleted. Prevent deleting a requirement when you have a pending
+        order.
+    </string>
+
+    <string name="complaint_desc">These are the list of your submitted complaints in the system. Take note you can only edit/delete a complaint when that complaint status is Pending or Declined.
+        When you update a specific report, it automatically change its status to Pending. Please always see the administrator message for the updates of your complaint. You will receive an email and sms notification
+        when the administrator respond to your complaint.
+    </string>
+
+    <string name="order_desc">These are the list of your submitted orders in the system. Once you submit a order you cannot edit or delete that order. Please always see the administrator message for the updates of your orders. You will receive an email and sms notification
+        when the administrator made changes to your order.
+    </string>
+    <string name="search">Search</string>
+    <string name="submit">Submit</string>
+    <string name="feedback_no">Feedback # </string>
+    <string name="report_no">Report # </string>
+    <string name="submit_feedback">Submit feedback</string>
+    <string name="submit_report">Submit report</string>
+    <string name="select_type">Select Type</string>
+    <string name="click_this_if_you_want_a_custom_type">Click this if you want a custom type</string>
+    <string name="custom_feedback_type">Custom feedback type</string>
+    <string name="message_content">Message Content</string>
+    <string name="send_as_anonymous">Send as anonymous</string>
+    <string name="message">Message</string>
+    <string name="landmark">Landmark</string>
+    <string name="urgency_classification">Urgency Classification</string>
+    <string name="account">Account</string>
+    <string name="requirements">Requirements</string>
+    <string name="title_activity_requirement_add">RequirementAddActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="capture">Capture</string>
+    <string name="barangay_cupang">Barangay Cupang</string>
+    <string name="open_paren">(</string>
+    <string name="close_paren">)</string>
+    <string name="view_all">View all </string>
+    <string name="comments"> comments</string>
+    <string name="logout_account">LOGOUT ACCOUNT</string>
+    <string name="barangay_cupang_n_electronic_service">Barangay Cupang \n Electronic Service</string>
+    <string name="request_certificate">Request Certificate</string>
+    <string name="complaints">Complaints</string>
+    <string name="missing_item">Missing Item</string>
+    <string name="missing_person">Missing Person</string>
+    <string name="public_documents">Public Documents</string>
+    <string name="projects">Projects</string>
+    <string name="ordinances">Ordinances</string>
+    <string name="announcements">Announcements</string>
+    <string name="officials">Officials</string>
+    <string name="report">Report</string>
+    <string name="my_missing_item_report">My Missing Item Report</string>
+    <string name="my_missing_person_report">My Missing Person Report</string>
+    <string name="missing_person_desc">These are the list of approved missing person report.
+        Please contact the user name who posted the said report if you have the information that may help him/her finding the report.
+        You can see the contact information of the use by clicking the name or by writing a comment.</string>
+
+    <string name="auth_missing_person_desc">These are the list of your current missing person report.
+        Please take notice that if you update a specific report that is "Approved" by the administrator, the status will automatically change to "Pending".
+        If your submitted report status was "Denied", please see the admin message and re-edit the specific missing person report.
+    </string>
+
+    <string name="auth_missing_item_desc">These are the list of your current missing item report.
+        Please take notice that if you update a specific report that is "Approved" by the administrator, the status will automatically change to "Pending".
+        If your submitted report status was "Denied", please see the admin message and re-edit the specific missing item report.
+    </string>
+
+    <string name="missing_item_desc">These are the list of approved missing item report.
+        Please contact the user name who posted the said report if you have the information that may help him/her finding the report.
+        You can see the contact information of the use by clicking the name or by writing a comment.</string>
+    <string name="order_type_desc">Take note that the certificates available depends on which order type you have chosen.
+        There are certain types of certificate only available for pickup.
+    </string>
+
+
+    <string name="order_type_desc2">(PICKUP MODE) - You will pickup the document based on your preferred pickup date.
+    </string>
+
+
+    <string name="order_type_desc3">
+        (DELIVERY MODE) - Once the administrator approved of your request, your order will wait for the bikers to choose your order. Pickup date may be change
+        in accordance to the availability of the administrator.
+    </string>
+
+    <string name="order_type_desc4">Please make sure that you have the required requirements when proceeding. Go to the certificates section to see the required requirements.
+    </string>
+
+</resources>
