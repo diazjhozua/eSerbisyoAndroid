@@ -484,10 +484,15 @@ public class FormAddActivity extends AppCompatActivity {
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if (Double.parseDouble(inputTxtHeight.getText().toString().trim()) >= 1 &&
-                            Double.parseDouble(inputTxtHeight.getText().toString().trim()) <= 10.99){
+                    try {
+                        if (Double.parseDouble(inputTxtHeight.getText().toString().trim()) >= 1 &&
+                                Double.parseDouble(inputTxtHeight.getText().toString().trim()) <= 10.99){
+
+                        }
+                    } catch (NumberFormatException ignored) {
                         layoutHeight.setErrorEnabled(false);
                     }
+
                 }
 
                 @Override
@@ -505,8 +510,12 @@ public class FormAddActivity extends AppCompatActivity {
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if (Double.parseDouble(inputTxtWeight.getText().toString().trim()) >= 1 &&
-                            Double.parseDouble(inputTxtWeight.getText().toString().trim()) <= 200.99){
+                    try {
+                        if (Double.parseDouble(inputTxtWeight.getText().toString().trim()) >= 1 &&
+                                Double.parseDouble(inputTxtWeight.getText().toString().trim()) <= 200.99){
+                            layoutWeight.setErrorEnabled(false);
+                        }
+                    } catch (NumberFormatException ignored) {
                         layoutWeight.setErrorEnabled(false);
                     }
                 }
@@ -970,7 +979,7 @@ public class FormAddActivity extends AppCompatActivity {
         String birthday = Objects.requireNonNull(inputDateBirthday.getText()).toString().trim();
         String citizenship = Objects.requireNonNull(inputTxtCitizenship.getText()).toString().trim();
         String purpose = Objects.requireNonNull(inputTxtPurpose.getText()).toString().trim();
-        String birthplace = Objects.requireNonNull(inputTxtPurpose.getText()).toString().trim();
+        String birthplace = Objects.requireNonNull(inputTxtBirthplace.getText()).toString().trim();
         String profession = Objects.requireNonNull(inputTxtProfession.getText()).toString().trim();
 
         Double weight;
@@ -1008,7 +1017,7 @@ public class FormAddActivity extends AppCompatActivity {
 
         CreateOrderActivity.formArrayList.add(0,mForm);
         CreateOrderActivity.txtCertificateCount.setText("Certificate Requested: " + CreateOrderActivity.formsAdapter.getItemCount() + " (Total)");
-        CreateOrderActivity.totalCertPrice = CreateOrderActivity.totalCertPrice + mCertificate.getPrice();
+        CreateOrderActivity.totalCertPrice = CreateOrderActivity.formsAdapter.getTotalPrice();
         CreateOrderActivity.totalFee = CreateOrderActivity.totalFee + mCertificate.getPrice();
         CreateOrderActivity.txtTotalCertPrice.setText("Total Certificate Price: ₱ " + CreateOrderActivity.totalCertPrice);
         CreateOrderActivity.txtTotalFee.setText("Total fee: ₱ " + CreateOrderActivity.totalFee);

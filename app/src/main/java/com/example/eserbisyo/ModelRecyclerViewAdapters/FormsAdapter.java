@@ -125,7 +125,6 @@ public class FormsAdapter extends RecyclerView.Adapter<FormsAdapter.FormsHolder>
         });
 
         dialogDel.show();
-
     }
 
     private void getData() {

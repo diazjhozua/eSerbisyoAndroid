@@ -1038,7 +1038,7 @@ public class FormEditActivity extends AppCompatActivity {
         String birthday = Objects.requireNonNull(inputDateBirthday.getText()).toString().trim();
         String citizenship = Objects.requireNonNull(inputTxtCitizenship.getText()).toString().trim();
         String purpose = Objects.requireNonNull(inputTxtPurpose.getText()).toString().trim();
-        String birthplace = Objects.requireNonNull(inputTxtPurpose.getText()).toString().trim();
+        String birthplace = Objects.requireNonNull(inputTxtBirthplace.getText()).toString().trim();
         String profession = Objects.requireNonNull(inputTxtProfession.getText()).toString().trim();
 
         Double weight;
