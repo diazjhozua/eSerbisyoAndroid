@@ -67,7 +67,6 @@ public class CreateOrderActivity extends AppCompatActivity {
     public static TextView txtCertificateCount, txtTotalCertPrice,txtDeliveryFee, txtTotalFee;
     public static Double totalCertPrice, deliveryFee, totalFee;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,7 +135,11 @@ public class CreateOrderActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(CreateOrderActivity.this));
 
         formArrayList = new ArrayList<>();
-        // formArrayList.add(new Form(1 ,1, "Sample", 200.0));
+        formArrayList.add(new Form(
+                0, 1, "Barangay Indigency", 200.0, "Jhozua", "Manguera", "Diaz",
+                "633 Purok 5", "Single", "09-12-2000", "Filipino", "NBI Clearance", null, null, null, null, null,
+                null, null, null, null, null, null, null, null
+        ));
         formsAdapter = new FormsAdapter(CreateOrderActivity.this, formArrayList);
         recyclerView.setAdapter(formsAdapter);
         userPref = getApplicationContext().getSharedPreferences(Pref.USER_PREFS, Context.MODE_PRIVATE);
@@ -157,8 +160,8 @@ public class CreateOrderActivity extends AppCompatActivity {
             deliveryFee = 0.0;
         }
 
-        totalFee = totalCertPrice + deliveryFee;
-        txtTotalCertPrice.setText("Total Certificate Price: ₱ " + totalCertPrice);
+        totalFee = formsAdapter.getTotalPrice() + deliveryFee;
+        txtTotalCertPrice.setText("Total Certificate Price: ₱ " + formsAdapter.getTotalPrice());
         txtDeliveryFee.setText("Delivery fee: ₱ " + deliveryFee);
         txtTotalFee.setText("Total fee: ₱ " + totalFee);
 

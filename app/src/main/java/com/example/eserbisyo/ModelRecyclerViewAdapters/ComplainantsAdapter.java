@@ -74,7 +74,6 @@ public class ComplainantsAdapter extends RecyclerView.Adapter<ComplainantsAdapte
     private JSONObject errorObj = null;
 
     private ProgressDialog progressDialog;
-
     private Dialog dialogDel;
     private TextView dialogDelTitle;
     private Button btnDialogDelCancel;

@@ -1,8 +1,11 @@
 package com.example.eserbisyo.Models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Date;
 
-public class Form {
+public class Form implements Parcelable {
 
     private int id;
     private int certId;
@@ -41,6 +44,8 @@ public class Form {
         this.certName = certName;
         this.certPrice = certPrice;
     }
+
+
 
     public Form(int id, int certId, String certName, Double certPrice, String firstName, String middleName, String lastName, String address, String civilStatus, String birthday, String citizenship, String purpose, String businessName, String birthplace, Double height, Double weight, String profession, String cedulaType, String sex, String tinNo, String icrNo, String phoneNo, String contactPerson, String contactPersonPhoneNo, String contactPersonRelation) {
         this.id = id;
@@ -341,4 +346,106 @@ public class Form {
     public void setContactPersonRelation(String contactPersonRelation) {
         this.contactPersonRelation = contactPersonRelation;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeInt(this.certId);
+        dest.writeString(this.certName);
+        dest.writeValue(this.certPrice);
+        dest.writeString(this.firstName);
+        dest.writeString(this.middleName);
+        dest.writeString(this.lastName);
+        dest.writeString(this.address);
+        dest.writeString(this.civilStatus);
+        dest.writeString(this.birthday);
+        dest.writeString(this.citizenship);
+        dest.writeString(this.purpose);
+        dest.writeString(this.businessName);
+        dest.writeString(this.birthplace);
+        dest.writeValue(this.height);
+        dest.writeValue(this.weight);
+        dest.writeString(this.profession);
+        dest.writeString(this.cedulaType);
+        dest.writeString(this.sex);
+        dest.writeString(this.tinNo);
+        dest.writeString(this.icrNo);
+        dest.writeString(this.phoneNo);
+        dest.writeString(this.contactPerson);
+        dest.writeString(this.contactPersonPhoneNo);
+        dest.writeString(this.contactPersonRelation);
+    }
+
+    public void readFromParcel(Parcel source) {
+        this.id = source.readInt();
+        this.certId = source.readInt();
+        this.certName = source.readString();
+        this.certPrice = (Double) source.readValue(Double.class.getClassLoader());
+        this.firstName = source.readString();
+        this.middleName = source.readString();
+        this.lastName = source.readString();
+        this.address = source.readString();
+        this.civilStatus = source.readString();
+        this.birthday = source.readString();
+        this.citizenship = source.readString();
+        this.purpose = source.readString();
+        this.businessName = source.readString();
+        this.birthplace = source.readString();
+        this.height = (Double) source.readValue(Double.class.getClassLoader());
+        this.weight = (Double) source.readValue(Double.class.getClassLoader());
+        this.profession = source.readString();
+        this.cedulaType = source.readString();
+        this.sex = source.readString();
+        this.tinNo = source.readString();
+        this.icrNo = source.readString();
+        this.phoneNo = source.readString();
+        this.contactPerson = source.readString();
+        this.contactPersonPhoneNo = source.readString();
+        this.contactPersonRelation = source.readString();
+    }
+
+    protected Form(Parcel in) {
+        this.id = in.readInt();
+        this.certId = in.readInt();
+        this.certName = in.readString();
+        this.certPrice = (Double) in.readValue(Double.class.getClassLoader());
+        this.firstName = in.readString();
+        this.middleName = in.readString();
+        this.lastName = in.readString();
+        this.address = in.readString();
+        this.civilStatus = in.readString();
+        this.birthday = in.readString();
+        this.citizenship = in.readString();
+        this.purpose = in.readString();
+        this.businessName = in.readString();
+        this.birthplace = in.readString();
+        this.height = (Double) in.readValue(Double.class.getClassLoader());
+        this.weight = (Double) in.readValue(Double.class.getClassLoader());
+        this.profession = in.readString();
+        this.cedulaType = in.readString();
+        this.sex = in.readString();
+        this.tinNo = in.readString();
+        this.icrNo = in.readString();
+        this.phoneNo = in.readString();
+        this.contactPerson = in.readString();
+        this.contactPersonPhoneNo = in.readString();
+        this.contactPersonRelation = in.readString();
+    }
+
+    public static final Parcelable.Creator<Form> CREATOR = new Parcelable.Creator<Form>() {
+        @Override
+        public Form createFromParcel(Parcel source) {
+            return new Form(source);
+        }
+
+        @Override
+        public Form[] newArray(int size) {
+            return new Form[size];
+        }
+    };
 }

@@ -77,7 +77,6 @@ public class FormAddActivity extends AppCompatActivity {
             "Individual", "Corporation"
     };
 
-    private DatePickerDialog datePickerDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

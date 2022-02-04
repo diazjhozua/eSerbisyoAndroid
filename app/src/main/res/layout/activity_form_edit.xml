@@ -1,9 +1,637 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.core.widget.NestedScrollView tools:context=".OrderActivity.FormEditActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OrderActivity.FormEditActivity">
+    android:fillViewport="true"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="HardcodedText"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@color/primaryColor"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:context=".ModelActivity.FeedbackAddActivity">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:background="@android:color/transparent"
+                    android:onClick="cancelEdit"
+                    android:src="@drawable/ic_baseline_arrow_back_24"
+                    android:tint="@color/white"
+                    tools:ignore="UsingOnClickInXml" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txtTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fill in forms"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_15ssp" />
+
+            </com.google.android.material.appbar.MaterialToolbar>
+
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:padding="@dimen/_10sdp">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtCurrentRequest"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_10sdp"
+                        android:background="@drawable/round_white_card"
+                        android:fontFamily="@font/ubuntu_regular"
+                        android:gravity="center_horizontal"
+                        android:padding="@dimen/_10sdp"
+                        android:text="Make sure that the data that you will input matches the requirements that you passed. Otherwise your request would have a chance to be decline by the administrator."
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp" />
+
+                    <!--First Name-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:id="@+id/txtLayoutFirstName"
+                        android:layout_height="wrap_content"
+                        android:hint="First Name"
+                        app:counterTextColor="@color/white"
+                        android:textColorHint="@color/white"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/inputTxtFirstName"
+                            android:inputType="text"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_12ssp"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!--Middle Name-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:id="@+id/txtLayoutMiddleName"
+                        android:layout_height="wrap_content"
+                        android:hint="Middle Name"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:counterTextColor="@color/white"
+                        android:textColorHint="@color/white"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/inputTxMiddleName"
+                            android:inputType="text"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_12ssp"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!--Last Name-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:id="@+id/txtLayoutLastName"
+                        android:layout_height="wrap_content"
+                        android:hint="Last Name"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:counterTextColor="@color/white"
+                        android:textColorHint="@color/white"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/inputTxtLastName"
+                            android:inputType="text"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_12ssp"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtAddressLabel1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Address (Do not include Barangay Cupang Muntinlupa City)"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:fontFamily="@font/ubuntu_medium"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_10ssp"
+                        tools:ignore="HardcodedText" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtAddressLabel2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Include only the following: \n (Room / Floor / Unit No. and Building Name) \n (House / Lot / Block No.) \n (Street) \n (Subdivision) \n"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:fontFamily="@font/ubuntu_medium"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_10ssp"
+                        tools:ignore="HardcodedText" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtAddressLabel3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="For instance: If your address is (122 Purok 2 Cupang Muntinlupa City), you will just input (122 Purok 2)"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:fontFamily="@font/ubuntu_medium"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_10ssp"
+                        tools:ignore="HardcodedText" />
+
+                    <!--Address -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/txtLayoutAddress"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+
+                        android:hint="@string/address"
+                        android:textColorHint="@color/white"
+                        app:counterTextColor="@color/white">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/inputTxtAddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textMultiLine"
+                            android:lines="5"
+                            android:maxLength="1000"
+                            android:maxLines="5"
+                            android:minLines="3"
+                            android:scrollbars="vertical"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_12ssp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!--Civil Status -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/txtLayoutCivilStatus"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+
+                        android:hint="Civil Status"
+                        android:textColorHint="@color/white"
+                        app:counterTextColor="@color/white">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/autoCompleteCivilStatus"
+                            android:layout_width="match_parent"
+                            android:textSize="@dimen/_12ssp"
+                            android:layout_height="wrap_content"
+                            android:inputType="none"
+                            android:textColor="@color/white"
+                            tools:ignore="LabelFor" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!--Birthday -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:id="@+id/txtLayoutBirthday"
+                        android:layout_height="wrap_content"
+                        android:hint="Birthday"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:counterTextColor="@color/white"
+                        android:textColorHint="@color/white"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        >
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:id="@+id/inputTxtBirthday"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_12ssp"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!--Citizenship-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:id="@+id/txtLayoutCitizenship"
+                        android:layout_height="wrap_content"
+                        android:hint="Citizenship"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:counterTextColor="@color/white"
+                        android:textColorHint="@color/white"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/inputTxtCitizenship"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_12ssp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!--Purpose-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/txtLayoutPurpose"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:hint="Purpose of this request"
+                        android:textColorHint="@color/white"
+                        app:counterTextColor="@color/white">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/inputTxtPurpose"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textMultiLine"
+                            android:lines="5"
+                            android:maxLength="1000"
+                            android:maxLines="5"
+                            android:minLines="3"
+                            android:scrollbars="vertical"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_12ssp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!--Birthplace-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:id="@+id/txtLayoutBirthplace"
+                        android:layout_height="wrap_content"
+                        android:hint="Birthplace"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:counterTextColor="@color/white"
+                        android:textColorHint="@color/white"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/inputTxtBirthplace"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_12ssp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!--Profession-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:id="@+id/txtLayoutProfession"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:hint="Profession"
+                        app:counterTextColor="@color/white"
+                        android:textColorHint="@color/white"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/inputTxtProfession"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_12ssp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!--Height and Weight-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <!--Height-->
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="@dimen/_120sdp"
+                            android:id="@+id/txtLayoutHeight"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_5sdp"
+                            android:layout_height="wrap_content"
+                            android:hint="Height (ft)"
+                            app:counterTextColor="@color/white"
+                            android:textColorHint="@color/white"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/inputTxtHeight"
+                                android:inputType="numberDecimal"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_12ssp"/>
+
+                        </com.google.android.material.textfield.TextInputLayout>
+                        <!--Weight-->
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:id="@+id/txtLayoutWeight"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_height="wrap_content"
+                            android:hint="Weight (kg)"
+                            app:counterTextColor="@color/white"
+                            android:textColorHint="@color/white"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/inputTxtWeight"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="numberDecimal"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_12ssp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                    <!--Sex and Cedula-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <!--Sex-->
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/txtLayoutSex"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                            android:layout_width="@dimen/_120sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_5sdp"
+                            android:layout_height="wrap_content"
+                            android:hint="Sex"
+                            android:textColorHint="@color/white"
+                            app:counterTextColor="@color/white">
+
+                            <AutoCompleteTextView
+                                android:textSize="@dimen/_12ssp"
+                                android:id="@+id/autoCompleteSex"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="none"
+                                android:textColor="@color/white"
+                                tools:ignore="LabelFor" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <!--Cedula Type-->
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/txtLayoutCedulaType"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:hint="Cedula Type"
+                            android:textColorHint="@color/white"
+                            app:counterTextColor="@color/white">
+
+                            <AutoCompleteTextView
+                                android:textSize="@dimen/_12ssp"
+                                android:id="@+id/autoCompleteCedulaType"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="none"
+                                android:textColor="@color/white"
+                                tools:ignore="LabelFor" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                    <!--TIN NO-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:id="@+id/txtLayoutTinNo"
+                        android:layout_height="wrap_content"
+                        android:hint="TIN No. (If any)"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:counterTextColor="@color/white"
+                        android:textColorHint="@color/white"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/inputTxtTinNo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_12ssp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!--ICR NO-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:id="@+id/txtLayoutIcrNo"
+                        android:layout_height="wrap_content"
+                        android:hint="ICR No. (If an alien)"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:counterTextColor="@color/white"
+                        android:textColorHint="@color/white"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/inputTxtIcrNo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_12ssp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!--Contact No.-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:id="@+id/txtLayoutContactNo"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:hint="Contact No."
+                        app:counterTextColor="@color/white"
+                        android:textColorHint="@color/white"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/inputTxtContactNo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_12ssp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!--Contact Person and Contact Person Relation-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <!--Contact Person.-->
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="@dimen/_140sdp"
+                            android:paddingTop="@dimen/_10sdp"
+                            android:id="@+id/txtLayoutContactPersonName"
+                            android:layout_height="wrap_content"
+                            android:hint="Contact Person"
+                            android:layout_marginEnd="@dimen/_5sdp"
+                            app:counterTextColor="@color/white"
+                            android:textColorHint="@color/white"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            >
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/inputTxtContactPersonName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_12ssp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!--Contact Person Relation-->
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:paddingTop="@dimen/_10sdp"
+                            android:id="@+id/txtLayoutContactPersonRelation"
+                            android:layout_height="wrap_content"
+                            android:hint="Relation"
+                            app:counterTextColor="@color/white"
+                            android:textColorHint="@color/white"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            >
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/inputTxtContactPersonRelation"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_12ssp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+
+                    <!--Contact Person No.-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:id="@+id/txtLayoutContactPersonNo"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:hint="Contact Person No."
+                        app:counterTextColor="@color/white"
+                        android:textColorHint="@color/white"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/inputTxtContactPersonNo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_12ssp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!--Business Name-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:id="@+id/txtLayoutBusinessName"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:hint="Business Name"
+                        app:counterTextColor="@color/white"
+                        android:textColorHint="@color/white"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/inputTxtBusinessName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_12ssp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnSubmit"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_40sdp"
+                    android:background="@color/white"
+                    android:fontFamily="@font/ubuntu_bold"
+                    android:text="@string/submit"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15ssp" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.core.widget.NestedScrollView>
+
