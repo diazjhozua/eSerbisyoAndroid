@@ -144,20 +144,12 @@ public class FormAddActivity extends AppCompatActivity {
 
         userPref = getApplicationContext().getSharedPreferences(Pref.USER_PREFS, Context.MODE_PRIVATE);
 
-        inputDateBirthday.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new DatePickerDialog(FormAddActivity.this, R.style.MyDatePickerDialogTheme, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        myCalendar.set(Calendar.YEAR, year);
-                        myCalendar.set(Calendar.MONTH,monthOfYear);
-                        myCalendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
-                        updateDateLabel();
-                    }
-                }, 2015, 02, 26).show();
-            }
-        });
+        inputDateBirthday.setOnClickListener(view -> new DatePickerDialog(FormAddActivity.this, R.style.MyDatePickerDialogTheme, (view1, year, monthOfYear, dayOfMonth) -> {
+            myCalendar.set(Calendar.YEAR, year);
+            myCalendar.set(Calendar.MONTH,monthOfYear);
+            myCalendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+            updateDateLabel();
+        }, 2015, 02, 26).show());
 
         hideUnnecessaryInput();
     }
@@ -232,6 +224,26 @@ public class FormAddActivity extends AppCompatActivity {
     private void setData() {
 
         txtTitle.setText("FILL IN " + mCertificate.getName().toUpperCase(Locale.ROOT));
+
+        inputTxtFirstName.setText(userPref.getString(Pref.FIRST_NAME, ""));
+        inputTxtMiddleName.setText(userPref.getString(Pref.MIDDLE_NAME, ""));
+        inputTxtLastName.setText(userPref.getString(Pref.LAST_NAME, ""));
+        inputTxtAddress.setText(userPref.getString(Pref.FORM_ADDRESS, ""));
+        inputDateBirthday.setText(userPref.getString(Pref.FORM_BIRTHDAY, ""));
+        inputTxtCitizenship.setText(userPref.getString(Pref.FORM_CITIZENSHIP, ""));
+        inputTxtPurpose.setText(userPref.getString(Pref.FORM_PURPOSE, ""));
+        inputTxtBirthplace.setText(userPref.getString(Pref.FORM_BIRTHPLACE, ""));
+        inputTxtProfession.setText(userPref.getString(Pref.FORM_PROFESSION, ""));
+        inputTxtWeight.setText(userPref.getString(Pref.FORM_WEIGHT, ""));
+        inputTxtHeight.setText(userPref.getString(Pref.FORM_HEIGHT, ""));
+        inputTxtTinNo.setText(userPref.getString(Pref.FORM_TIN, ""));
+        inputTxtIcrNo.setText(userPref.getString(Pref.FORM_ICR, ""));
+        inputTxtContactNo.setText(userPref.getString(Pref.FORM_PHONE, ""));
+        inputTxtContactPerson.setText(userPref.getString(Pref.FORM_CONTACT_PERSON, ""));
+        inputTxtContactPersonRelation.setText(userPref.getString(Pref.FORM_CONTACT_RELATION, ""));
+        inputTxtContactPersonNo.setText(userPref.getString(Pref.FORM_CONTACT_PHONE, ""));
+        inputTxtBusinessName.setText(userPref.getString(Pref.FORM_BUSINESS, ""));
+
         ArrayAdapter<String> adapterCivilStatus = new ArrayAdapter<>(
                 FormAddActivity.this,
                 R.layout.list_item,
@@ -974,7 +986,7 @@ public class FormAddActivity extends AppCompatActivity {
         String firstName = Objects.requireNonNull(inputTxtFirstName.getText()).toString().trim();
         String middleName = Objects.requireNonNull(inputTxtMiddleName.getText()).toString().trim();
         String lastName = Objects.requireNonNull(inputTxtLastName.getText()).toString().trim();
-        String address =  Objects.requireNonNull(inputTxtLastName.getText()).toString().trim();
+        String address =  Objects.requireNonNull(inputTxtAddress.getText()).toString().trim();
         String civilStatus = Objects.requireNonNull(autoCompleteCivilStatus.getText()).toString().trim();
         String birthday = Objects.requireNonNull(inputDateBirthday.getText()).toString().trim();
         String citizenship = Objects.requireNonNull(inputTxtCitizenship.getText()).toString().trim();
@@ -982,18 +994,26 @@ public class FormAddActivity extends AppCompatActivity {
         String birthplace = Objects.requireNonNull(inputTxtBirthplace.getText()).toString().trim();
         String profession = Objects.requireNonNull(inputTxtProfession.getText()).toString().trim();
 
+        SharedPreferences.Editor editor = userPref.edit();
+        editor.putString(Pref.FORM_ADDRESS, address);
+        editor.putString(Pref.FORM_BIRTHDAY, birthday);
+        editor.putString(Pref.FORM_CITIZENSHIP, citizenship);
+        editor.putString(Pref.FORM_PURPOSE, purpose);
+        editor.putString(Pref.FORM_BIRTHPLACE, birthplace);
+        editor.putString(Pref.FORM_PROFESSION, profession);
+
         Double weight;
         try {
             weight = Double.parseDouble(Objects.requireNonNull(inputTxtWeight.getText()).toString().trim());
         } catch (NumberFormatException e) {
-            weight = null;
+            weight = 0.0;
         }
 
         Double height;
         try {
             height = Double.parseDouble(Objects.requireNonNull(inputTxtHeight.getText()).toString().trim());
         } catch (NumberFormatException e) {
-            height = null;
+            height = 0.0;
         }
 
         String cedulaType = Objects.requireNonNull(autoCompleteCedulaType.getText()).toString().trim();
@@ -1005,6 +1025,18 @@ public class FormAddActivity extends AppCompatActivity {
         String contactPersonRelation = Objects.requireNonNull(inputTxtContactPersonRelation.getText()).toString().trim();
         String contactPersonNo = Objects.requireNonNull(inputTxtContactPersonNo.getText()).toString().trim();
         String businessName = Objects.requireNonNull(inputTxtBusinessName.getText()).toString().trim();
+
+        editor.putString(Pref.FORM_WEIGHT, String.valueOf(weight));
+        editor.putString(Pref.FORM_HEIGHT, String.valueOf(height));
+        editor.putString(Pref.FORM_TIN, tinNo);
+        editor.putString(Pref.FORM_ICR, citizenship);
+        editor.putString(Pref.FORM_PHONE, contactNo);
+        editor.putString(Pref.FORM_CONTACT_PERSON, contactPerson);
+        editor.putString(Pref.FORM_CONTACT_RELATION, contactPersonRelation);
+        editor.putString(Pref.FORM_CONTACT_PHONE, contactPersonNo);
+        editor.putString(Pref.FORM_BUSINESS, businessName);
+
+        editor.apply();
 
         Form mForm = new Form(
                 0, mCertificate.getId(), mCertificate.getName(), mCertificate.getPrice(), firstName, middleName, lastName,

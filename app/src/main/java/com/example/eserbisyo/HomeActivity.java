@@ -38,7 +38,6 @@ import com.example.eserbisyo.AccountActivities.UserVerificationActivity;
 import com.example.eserbisyo.Constants.Api;
 import com.example.eserbisyo.Constants.Extra;
 import com.example.eserbisyo.Constants.Pref;
-import com.example.eserbisyo.HomeFragments.AnnouncementFragment;
 import com.example.eserbisyo.HomeFragments.AuthMissingItemFragment;
 import com.example.eserbisyo.HomeFragments.AuthMissingPersonFragment;
 import com.example.eserbisyo.HomeFragments.FeedbackFragment;
@@ -331,10 +330,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onBackPressed() {
         /* when the user press back we dont want to exit the activity instead check first if the drawer is open then it will close
-         *  but if the drawer is not open, the activity then will be close*/
+         *  but if the drawer is not open, the activity then will be close */
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
-
         } else {
             super.onBackPressed();
         }

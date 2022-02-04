@@ -1033,7 +1033,7 @@ public class FormEditActivity extends AppCompatActivity {
         String firstName = Objects.requireNonNull(inputTxtFirstName.getText()).toString().trim();
         String middleName = Objects.requireNonNull(inputTxtMiddleName.getText()).toString().trim();
         String lastName = Objects.requireNonNull(inputTxtLastName.getText()).toString().trim();
-        String address =  Objects.requireNonNull(inputTxtLastName.getText()).toString().trim();
+        String address =  Objects.requireNonNull(inputTxtAddress.getText()).toString().trim();
         String civilStatus = Objects.requireNonNull(autoCompleteCivilStatus.getText()).toString().trim();
         String birthday = Objects.requireNonNull(inputDateBirthday.getText()).toString().trim();
         String citizenship = Objects.requireNonNull(inputTxtCitizenship.getText()).toString().trim();

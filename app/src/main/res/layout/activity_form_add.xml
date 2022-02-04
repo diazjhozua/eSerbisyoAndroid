@@ -59,11 +59,11 @@
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:layout_marginEnd="@dimen/_10sdp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
                     android:orientation="vertical">
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -81,66 +81,63 @@
 
                     <!--First Name-->
                     <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
                         android:id="@+id/txtLayoutFirstName"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="First Name"
-                        app:counterTextColor="@color/white"
                         android:textColorHint="@color/white"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        >
+                        app:counterTextColor="@color/white">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/inputTxtFirstName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/inputTxtFirstName"
                             android:inputType="text"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/_12ssp"/>
+                            android:textSize="@dimen/_12ssp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <!--Middle Name-->
                     <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
                         android:id="@+id/txtLayoutMiddleName"
-                        android:layout_height="wrap_content"
-                        android:hint="Middle Name"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        app:counterTextColor="@color/white"
-                        android:textColorHint="@color/white"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        >
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:hint="Middle Name"
+                        android:textColorHint="@color/white"
+                        app:counterTextColor="@color/white">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/inputTxMiddleName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/inputTxMiddleName"
                             android:inputType="text"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/_12ssp"/>
+                            android:textSize="@dimen/_12ssp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <!--Last Name-->
                     <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
                         android:id="@+id/txtLayoutLastName"
-                        android:layout_height="wrap_content"
-                        android:hint="Last Name"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        app:counterTextColor="@color/white"
-                        android:textColorHint="@color/white"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        >
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:hint="Last Name"
+                        android:textColorHint="@color/white"
+                        app:counterTextColor="@color/white">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/inputTxtLastName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/inputTxtLastName"
                             android:inputType="text"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/_12ssp"/>
+                            android:textSize="@dimen/_12ssp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -148,9 +145,9 @@
                         android:id="@+id/txtAddressLabel1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Address (Do not include Barangay Cupang Muntinlupa City)"
                         android:layout_marginTop="@dimen/_6sdp"
                         android:fontFamily="@font/ubuntu_medium"
+                        android:text="Address (Do not include Barangay Cupang Muntinlupa City)"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_10ssp"
                         tools:ignore="HardcodedText" />
@@ -159,9 +156,9 @@
                         android:id="@+id/txtAddressLabel2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Include only the following: \n (Room / Floor / Unit No. and Building Name) \n (House / Lot / Block No.) \n (Street) \n (Subdivision) \n"
                         android:layout_marginTop="@dimen/_3sdp"
                         android:fontFamily="@font/ubuntu_medium"
+                        android:text="Include only the following: \n (Room / Floor / Unit No. and Building Name) \n (House / Lot / Block No.) \n (Street) \n (Subdivision) \n"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_10ssp"
                         tools:ignore="HardcodedText" />
@@ -170,9 +167,9 @@
                         android:id="@+id/txtAddressLabel3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="For instance: If your address is (122 Purok 2 Cupang Muntinlupa City), you will just input (122 Purok 2)"
                         android:layout_marginTop="@dimen/_3sdp"
                         android:fontFamily="@font/ubuntu_medium"
+                        android:text="For instance: If your address is (122 Purok 2 Cupang Muntinlupa City), you will just input (122 Purok 2)"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_10ssp"
                         tools:ignore="HardcodedText" />
@@ -218,50 +215,48 @@
                         <AutoCompleteTextView
                             android:id="@+id/autoCompleteCivilStatus"
                             android:layout_width="match_parent"
-                            android:textSize="@dimen/_12ssp"
                             android:layout_height="wrap_content"
                             android:inputType="none"
                             android:textColor="@color/white"
+                            android:textSize="@dimen/_12ssp"
                             tools:ignore="LabelFor" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <!--Birthday -->
                     <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
                         android:id="@+id/txtLayoutBirthday"
-                        android:layout_height="wrap_content"
-                        android:hint="Birthday"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        app:counterTextColor="@color/white"
-                        android:textColorHint="@color/white"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        >
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:hint="Birthday"
+                        android:textColorHint="@color/white"
+                        app:counterTextColor="@color/white">
 
                         <EditText
+                            android:id="@+id/inputTxtBirthday"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:clickable="false"
                             android:cursorVisible="false"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
-                            android:id="@+id/inputTxtBirthday"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/_12ssp"/>
+                            android:textSize="@dimen/_12ssp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <!--Citizenship-->
                     <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
                         android:id="@+id/txtLayoutCitizenship"
-                        android:layout_height="wrap_content"
-                        android:hint="Citizenship"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        app:counterTextColor="@color/white"
-                        android:textColorHint="@color/white"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        >
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:hint="Citizenship"
+                        android:textColorHint="@color/white"
+                        app:counterTextColor="@color/white">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/inputTxtCitizenship"
@@ -300,15 +295,14 @@
 
                     <!--Birthplace-->
                     <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
                         android:id="@+id/txtLayoutBirthplace"
-                        android:layout_height="wrap_content"
-                        android:hint="Birthplace"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        app:counterTextColor="@color/white"
-                        android:textColorHint="@color/white"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        >
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:hint="Birthplace"
+                        android:textColorHint="@color/white"
+                        app:counterTextColor="@color/white">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/inputTxtBirthplace"
@@ -322,15 +316,14 @@
 
                     <!--Profession-->
                     <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
                         android:id="@+id/txtLayoutProfession"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:hint="Profession"
-                        app:counterTextColor="@color/white"
                         android:textColorHint="@color/white"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        >
+                        app:counterTextColor="@color/white">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/inputTxtProfession"
@@ -350,35 +343,35 @@
 
                         <!--Height-->
                         <com.google.android.material.textfield.TextInputLayout
-                            android:layout_width="@dimen/_120sdp"
                             android:id="@+id/txtLayoutHeight"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="@dimen/_120sdp"
+                            android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_10sdp"
                             android:layout_marginEnd="@dimen/_5sdp"
-                            android:layout_height="wrap_content"
                             android:hint="Height (ft)"
-                            app:counterTextColor="@color/white"
                             android:textColorHint="@color/white"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                            app:counterTextColor="@color/white">
 
                             <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/inputTxtHeight"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/inputTxtHeight"
                                 android:inputType="numberDecimal"
                                 android:textColor="@color/white"
-                                android:textSize="@dimen/_12ssp"/>
+                                android:textSize="@dimen/_12ssp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
                         <!--Weight-->
                         <com.google.android.material.textfield.TextInputLayout
-                            android:layout_width="match_parent"
                             android:id="@+id/txtLayoutWeight"
-                            android:layout_marginTop="@dimen/_10sdp"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
                             android:hint="Weight (kg)"
-                            app:counterTextColor="@color/white"
                             android:textColorHint="@color/white"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                            app:counterTextColor="@color/white">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/inputTxtWeight"
@@ -404,20 +397,20 @@
                             android:id="@+id/txtLayoutSex"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                             android:layout_width="@dimen/_120sdp"
+                            android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_10sdp"
                             android:layout_marginEnd="@dimen/_5sdp"
-                            android:layout_height="wrap_content"
                             android:hint="Sex"
                             android:textColorHint="@color/white"
                             app:counterTextColor="@color/white">
 
                             <AutoCompleteTextView
-                                android:textSize="@dimen/_12ssp"
                                 android:id="@+id/autoCompleteSex"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="none"
                                 android:textColor="@color/white"
+                                android:textSize="@dimen/_12ssp"
                                 tools:ignore="LabelFor" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -435,12 +428,12 @@
                             app:counterTextColor="@color/white">
 
                             <AutoCompleteTextView
-                                android:textSize="@dimen/_12ssp"
                                 android:id="@+id/autoCompleteCedulaType"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="none"
                                 android:textColor="@color/white"
+                                android:textSize="@dimen/_12ssp"
                                 tools:ignore="LabelFor" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -449,15 +442,14 @@
 
                     <!--TIN NO-->
                     <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
                         android:id="@+id/txtLayoutTinNo"
-                        android:layout_height="wrap_content"
-                        android:hint="TIN No. (If any)"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        app:counterTextColor="@color/white"
-                        android:textColorHint="@color/white"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        >
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:hint="TIN No. (If any)"
+                        android:textColorHint="@color/white"
+                        app:counterTextColor="@color/white">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/inputTxtTinNo"
@@ -471,15 +463,14 @@
 
                     <!--ICR NO-->
                     <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
                         android:id="@+id/txtLayoutIcrNo"
-                        android:layout_height="wrap_content"
-                        android:hint="ICR No. (If an alien)"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        app:counterTextColor="@color/white"
-                        android:textColorHint="@color/white"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        >
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:hint="ICR No. (If an alien)"
+                        android:textColorHint="@color/white"
+                        app:counterTextColor="@color/white">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/inputTxtIcrNo"
@@ -493,15 +484,14 @@
 
                     <!--Contact No.-->
                     <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
                         android:id="@+id/txtLayoutContactNo"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:hint="Contact No."
-                        app:counterTextColor="@color/white"
                         android:textColorHint="@color/white"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        >
+                        app:counterTextColor="@color/white">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/inputTxtContactNo"
@@ -522,16 +512,15 @@
 
                         <!--Contact Person.-->
                         <com.google.android.material.textfield.TextInputLayout
-                            android:layout_width="@dimen/_140sdp"
-                            android:paddingTop="@dimen/_10sdp"
                             android:id="@+id/txtLayoutContactPersonName"
-                            android:layout_height="wrap_content"
-                            android:hint="Contact Person"
-                            android:layout_marginEnd="@dimen/_5sdp"
-                            app:counterTextColor="@color/white"
-                            android:textColorHint="@color/white"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                            >
+                            android:layout_width="@dimen/_140sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/_5sdp"
+                            android:hint="Contact Person"
+                            android:paddingTop="@dimen/_10sdp"
+                            android:textColorHint="@color/white"
+                            app:counterTextColor="@color/white">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/inputTxtContactPersonName"
@@ -545,15 +534,14 @@
 
                         <!--Contact Person Relation-->
                         <com.google.android.material.textfield.TextInputLayout
-                            android:layout_width="match_parent"
-                            android:paddingTop="@dimen/_10sdp"
                             android:id="@+id/txtLayoutContactPersonRelation"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Relation"
-                            app:counterTextColor="@color/white"
+                            android:paddingTop="@dimen/_10sdp"
                             android:textColorHint="@color/white"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                            >
+                            app:counterTextColor="@color/white">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/inputTxtContactPersonRelation"
@@ -569,15 +557,14 @@
 
                     <!--Contact Person No.-->
                     <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
                         android:id="@+id/txtLayoutContactPersonNo"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:hint="Contact Person No."
-                        app:counterTextColor="@color/white"
                         android:textColorHint="@color/white"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        >
+                        app:counterTextColor="@color/white">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/inputTxtContactPersonNo"
@@ -591,15 +578,14 @@
 
                     <!--Business Name-->
                     <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
                         android:id="@+id/txtLayoutBusinessName"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:hint="Business Name"
-                        app:counterTextColor="@color/white"
                         android:textColorHint="@color/white"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        >
+                        app:counterTextColor="@color/white">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/inputTxtBusinessName"

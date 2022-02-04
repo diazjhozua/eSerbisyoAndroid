@@ -37,9 +37,10 @@
 
     <style name="Theme.ESerbisyo.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="MyTimePickerDialogTheme" parent="@style/Theme.AppCompat.Light.Dialog">
+    <style name="MyDatePickerDialogTheme" parent="@style/Theme.AppCompat.Light.Dialog">
         <item name="android:textColor">@color/primaryColor</item>
         <item name="colorAccent">@color/primaryColor</item>
+        <item name="colorOnPrimary">@color/primaryColor</item>
     </style>
 
 </resources>

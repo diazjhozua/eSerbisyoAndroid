@@ -141,7 +141,7 @@
                         android:fontFamily="@font/ubuntu_regular"
                         android:gravity="right"
                         android:padding="@dimen/_5sdp"
-                        android:text="Click to mark the location in the google map"
+                        android:text="Click to set location"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="12sp"
@@ -159,7 +159,7 @@
                         android:fontFamily="@font/ubuntu_regular"
                         android:gravity="right"
                         android:padding="@dimen/_5sdp"
-                        android:text="Location has been set. Click this to reselect the location"
+                        android:text="Location has been set. Click this to reset the location"
 
                         android:textAlignment="center"
                         android:textColor="@color/white"

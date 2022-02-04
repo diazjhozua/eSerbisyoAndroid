@@ -148,6 +148,16 @@ public class FormsAdapter extends RecyclerView.Adapter<FormsAdapter.FormsHolder>
         return totalPrice;
     }
 
+    public boolean checkIfExists(int id) {
+        for(int i = 0; i < list.size(); i++){
+            if (list.get(i).getCertId() == id) {
+                return true;
+
+            }
+        }
+        return false;
+    }
+
     public class FormsHolder extends RecyclerView.ViewHolder {
         private final TextView txtCertificate;
         private final ImageButton imageButton;

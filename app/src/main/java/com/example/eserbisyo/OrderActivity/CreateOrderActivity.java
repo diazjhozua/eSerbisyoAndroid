@@ -2,14 +2,23 @@ package com.example.eserbisyo.OrderActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,6 +29,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.eserbisyo.Adapters.DDCertificatesAdapter;
 import com.example.eserbisyo.Adapters.DDTypeAdapter;
@@ -42,10 +52,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-public class CreateOrderActivity extends AppCompatActivity {
+import es.dmoral.toasty.Toasty;
+
+public class CreateOrderActivity extends AppCompatActivity implements LocationListener {
     private TextInputLayout layoutName, layoutLocation, layoutEmail, layoutPhoneNo;
     private TextInputEditText inputTxtName, inputTxtLocation, inputTxtEmail, inputTxtPhoneNo;
     private TextView txtOrderType, txtMarkLocation, txtLocationSet, txtAddCertificate;
@@ -64,15 +77,19 @@ public class CreateOrderActivity extends AppCompatActivity {
     public static FormsAdapter formsAdapter;
     private Certificate selCertificate;
 
-    public static TextView txtCertificateCount, txtTotalCertPrice,txtDeliveryFee, txtTotalFee;
+    public static TextView txtCertificateCount, txtTotalCertPrice, txtDeliveryFee, txtTotalFee;
     public static Double totalCertPrice, deliveryFee, totalFee;
+
+    private LocationManager locationManager;
+
+    private Double longitude, latitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_order);
 
-        Bundle extras  = getIntent().getExtras();
+        Bundle extras = getIntent().getExtras();
         if (extras != null) {
             try {
                 JSONArray jsonArray = new JSONArray(extras.getString(Extra.JSON_ARRAY));
@@ -95,6 +112,15 @@ public class CreateOrderActivity extends AppCompatActivity {
 
             }
         }
+
+        //Runtime permissions
+        if (ContextCompat.checkSelfPermission(CreateOrderActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(CreateOrderActivity.this, new String[]{
+                    Manifest.permission.ACCESS_FINE_LOCATION
+            }, 100);
+        }
+
         init();
 
     }
@@ -148,10 +174,60 @@ public class CreateOrderActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onLocationChanged(Location location) {
+        progressDialog.hide();
+        Toasty.success(this, "Location has been set", Toasty.LENGTH_LONG, true).show();
+        longitude = location.getLongitude();
+        latitude = location.getLatitude();
+
+        txtMarkLocation.setVisibility(View.GONE);
+        txtLocationSet.setVisibility(View.VISIBLE);
+
+
+        try {
+            Geocoder geocoder = new Geocoder(CreateOrderActivity.this, Locale.getDefault());
+            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+            String address = addresses.get(0).getAddressLine(0);
+
+//            textView_location.setText(address);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     @SuppressLint("SetTextI18n")
     private void setData() {
-        txtCertificateCount.setText("Certificate Requested: " + formsAdapter.getItemCount() + " (Total)");
+        if (orderType.equals("Delivery")) {
+            txtMarkLocation.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //create method
+                    progressDialog.setMessage("Getting current location.....");
+                    progressDialog.show();
 
+                    getLocation();
+                }
+            });
+
+            txtLocationSet.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //create method
+                    progressDialog.setMessage("Getting current location.....");
+                    progressDialog.show();
+
+                    getLocation();
+                }
+            });
+        } else {
+            layoutDelivery.setVisibility(View.GONE);
+        }
+
+
+        txtCertificateCount.setText("Certificate Requested: " + formsAdapter.getItemCount() + " (Total)");
         totalCertPrice = 0.0;
 
         if (orderType.equals("Delivery")) {
@@ -181,6 +257,19 @@ public class CreateOrderActivity extends AppCompatActivity {
         initListener();
     }
 
+    @SuppressLint("MissingPermission")
+    private void getLocation() {
+
+        try {
+            locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,5000,5,CreateOrderActivity.this);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
     private void initListener() {
         btnSubmit.setOnClickListener(v -> {
             // store feedback
@@ -190,9 +279,13 @@ public class CreateOrderActivity extends AppCompatActivity {
         });
 
         txtAddCertificate.setOnClickListener(v -> {
-             Intent intent = new Intent(CreateOrderActivity.this, FormAddActivity.class);
-             intent.putExtra(Extra.MODEL, selCertificate);
-             startActivity(intent);
+            if (formsAdapter.checkIfExists(selCertificate.getId())) {
+                Toasty.info(CreateOrderActivity.this, "You already requested this certificate.", Toasty.LENGTH_LONG, true).show();
+            } else {
+                Intent intent = new Intent(CreateOrderActivity.this, FormAddActivity.class);
+                intent.putExtra(Extra.MODEL, selCertificate);
+                startActivity(intent);
+            }
         });
 
         spnType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -293,32 +386,46 @@ public class CreateOrderActivity extends AppCompatActivity {
         if (Objects.requireNonNull(inputTxtName.getText()).toString().length() < 3){
             layoutName.setErrorEnabled(true);
             layoutName.setError("Required at least 3 characters");
+            Toasty.error(this, "Name: Required at least 3 characters", Toasty.LENGTH_LONG, true).show();
             return false;
         }
 
         if (Objects.requireNonNull(inputTxtName.getText()).toString().length() > 100){
             layoutName.setErrorEnabled(true);
             layoutName.setError("Required no more than 100 characters");
+            Toasty.error(this, "Name: Required no more than 100 characters", Toasty.LENGTH_LONG, true).show();
             return false;
         }
 
         if (Objects.requireNonNull(inputTxtLocation.getText()).toString().length() < 3){
             layoutLocation.setErrorEnabled(true);
             layoutLocation.setError("Required at least 3 characters");
+            Toasty.error(this, "Location: Required at least 3 characters", Toasty.LENGTH_LONG, true).show();
             return false;
         }
 
         if (Objects.requireNonNull(inputTxtLocation.getText()).toString().length() > 200){
             layoutLocation.setErrorEnabled(true);
             layoutLocation.setError("Required no more than 200 characters");
+            Toasty.error(this, "Location: Required no more than 200 characters", Toasty.LENGTH_LONG, true).show();
             return false;
         }
 
+        if (orderType.equals("Delivery")) {
+            if (longitude == null || latitude == null) {
+                Toasty.error(this, "Please set the location", Toasty.LENGTH_LONG, true).show();
+            }
+        }
+
+        if (formsAdapter.getItemCount() <= 0) {
+            Toasty.error(this, "FORM: Please add a minimum of 1 request of certificate to proceed", Toasty.LENGTH_LONG, true).show();
+        }
 
         /* Email Validation  */
         if (!Patterns.EMAIL_ADDRESS.matcher(Objects.requireNonNull(inputTxtEmail.getText()).toString()).matches() || Objects.requireNonNull(inputTxtEmail.getText()).toString().isEmpty()){
             layoutEmail.setErrorEnabled(true);
             layoutEmail.setError("Invalid email address");
+            Toasty.error(this, "Email: Invalid email address", Toasty.LENGTH_LONG, true).show();
             return false;
         }
 
@@ -326,6 +433,7 @@ public class CreateOrderActivity extends AppCompatActivity {
         if (Objects.requireNonNull(inputTxtPhoneNo.getText()).toString().length() != 11){
             layoutPhoneNo.setErrorEnabled(true);
             layoutPhoneNo.setError("Invalid phone number. Must start at 09*********");
+            Toasty.error(this, "Phone: Invalid phone number. Must start at 09*********", Toasty.LENGTH_LONG, true).show();
             return false;
         }
 

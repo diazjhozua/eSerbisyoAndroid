@@ -17,6 +17,24 @@ public class Pref {
     public final static String IS_REMEMBER = "isRemember";
     public final static String IS_FIRST_TIME = "isFirstTime";
 
+    // form info
+    public final static String FORM_ADDRESS = "formAddress";
+    public final static String FORM_BIRTHDAY = "formBirthday";
+    public final static String FORM_CITIZENSHIP = "formCitizenship";
+    public final static String FORM_PURPOSE = "formPurpose";
+    public final static String FORM_BIRTHPLACE = "formBirthplace";
+    public final static String FORM_PROFESSION = "formProfession";
+    public final static String FORM_HEIGHT = "formHeight";
+    public final static String FORM_WEIGHT = "formWeight";
+    public final static String FORM_TIN = "formTIN";
+    public final static String FORM_ICR = "formICR";
+    public final static String FORM_PHONE = "formPhone";
+    public final static String FORM_CONTACT_PERSON = "formContactPerson";
+    public final static String FORM_CONTACT_RELATION = "formContactRelation";
+    public final static String FORM_CONTACT_PHONE = "formContactPhone";
+    public final static String FORM_BUSINESS = "formBusiness";
+
+
     // bike info
     public final static String BIKE_INFO = "bikeInfo";
     public final static String BIKE_COLOR = "bikeColor";

@@ -360,6 +360,7 @@ public class ComplainantsAdapter extends RecyclerView.Adapter<ComplainantsAdapte
         btnCompDiaSubmit.setText("Update");
 
         if (selComplainant.isCreating()) {
+            signatureBitmap = selComplainant.getBitmapSignature();
             inputCompDiaName.setText(selComplainant.getName());
             spCompSignature.setSignatureBitmap(selComplainant.getBitmapSignature());
         } else {
@@ -370,13 +371,10 @@ public class ComplainantsAdapter extends RecyclerView.Adapter<ComplainantsAdapte
             spCompSignature.setVisibility(View.GONE);
             ivSignature.setVisibility(View.VISIBLE);
 
-            ivSignature.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    spCompSignature.setVisibility(View.VISIBLE);
-                    ivSignature.setVisibility(View.GONE);
-                    return false;
-                }
+            ivSignature.setOnLongClickListener(view -> {
+                spCompSignature.setVisibility(View.VISIBLE);
+                ivSignature.setVisibility(View.GONE);
+                return false;
             });
         }
 
