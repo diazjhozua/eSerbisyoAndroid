@@ -2,27 +2,136 @@ package com.example.eserbisyo.Models;
 
 public class Order {
     private int id;
+    private String name;
+    private String email;
+    private String phoneNo;
+    private String locationAddress;
     private String createdAt;
     private String orderType;
     private String orderStatus;
+    private String pickupAt;
     private String receivedAt;
     private Double totalPrice;
     private Double deliveryFee;
     private String applicationStatus;
+    private User mBiker;
     private String adminMessage;
     private String updatedAt;
 
-    public Order(int id, String createdAt, String orderType, String orderStatus, String receivedAt, Double totalPrice, Double deliveryFee, String applicationStatus, String adminMessage, String updatedAt) {
+//    public Order(int id, String createdAt, String orderType, String orderStatus, String receivedAt, Double totalPrice, Double deliveryFee, String applicationStatus, User mBiker, String adminMessage, String updatedAt) {
+//        this.id = id;
+//        this.createdAt = createdAt;
+//        this.orderType = orderType;
+//        this.orderStatus = orderStatus;
+//        this.receivedAt = receivedAt;
+//        this.totalPrice = totalPrice;
+//        this.deliveryFee = deliveryFee;
+//        this.applicationStatus = applicationStatus;
+//        this.mBiker = mBiker;
+//        this.adminMessage = adminMessage;
+//        this.updatedAt = updatedAt;
+//    }
+
+    public Order(int id, String createdAt, String orderType, String orderStatus, String pickupAt, String receivedAt, Double totalPrice, Double deliveryFee, String applicationStatus, User mBiker, String adminMessage, String updatedAt) {
         this.id = id;
         this.createdAt = createdAt;
         this.orderType = orderType;
         this.orderStatus = orderStatus;
+        this.pickupAt = pickupAt;
         this.receivedAt = receivedAt;
         this.totalPrice = totalPrice;
         this.deliveryFee = deliveryFee;
         this.applicationStatus = applicationStatus;
+        this.mBiker = mBiker;
         this.adminMessage = adminMessage;
         this.updatedAt = updatedAt;
+    }
+
+
+    public Order(int id, String name, String email, String phoneNo, String locationAddress, String createdAt, String orderType, String orderStatus, String pickupAt, String receivedAt, Double totalPrice, Double deliveryFee, String applicationStatus, User mBiker, String adminMessage, String updatedAt) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phoneNo = phoneNo;
+        this.locationAddress = locationAddress;
+        this.createdAt = createdAt;
+        this.orderType = orderType;
+        this.orderStatus = orderStatus;
+        this.pickupAt = pickupAt;
+        this.receivedAt = receivedAt;
+        this.totalPrice = totalPrice;
+        this.deliveryFee = deliveryFee;
+        this.applicationStatus = applicationStatus;
+        this.mBiker = mBiker;
+        this.adminMessage = adminMessage;
+        this.updatedAt = updatedAt;
+    }
+
+//    public Order(int id, String name, String email, String phoneNo, String locationAddress, String createdAt, String orderType, String orderStatus, String receivedAt, Double totalPrice, Double deliveryFee, String applicationStatus, User mBiker, String adminMessage, String updatedAt) {
+//        this.id = id;
+//        this.name = name;
+//        this.email = email;
+//        this.phoneNo = phoneNo;
+//        this.locationAddress = locationAddress;
+//        this.createdAt = createdAt;
+//        this.orderType = orderType;
+//        this.orderStatus = orderStatus;
+//        this.receivedAt = receivedAt;
+//        this.totalPrice = totalPrice;
+//        this.deliveryFee = deliveryFee;
+//        this.applicationStatus = applicationStatus;
+//        this.mBiker = mBiker;
+//        this.adminMessage = adminMessage;
+//        this.updatedAt = updatedAt;
+//    }
+
+
+    public String getPickupAt() {
+        return pickupAt;
+    }
+
+    public void setPickupAt(String pickupAt) {
+        this.pickupAt = pickupAt;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNo() {
+        return phoneNo;
+    }
+
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
+    }
+
+    public String getLocationAddress() {
+        return locationAddress;
+    }
+
+    public void setLocationAddress(String locationAddress) {
+        this.locationAddress = locationAddress;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public User getmBiker() {
+        return mBiker;
+    }
+
+    public void setmBiker(User mBiker) {
+        this.mBiker = mBiker;
     }
 
     public int getId() {

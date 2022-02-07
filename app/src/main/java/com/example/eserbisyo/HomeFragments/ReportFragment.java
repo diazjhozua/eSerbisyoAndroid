@@ -31,6 +31,7 @@ import com.example.eserbisyo.AuthActivity;
 import com.example.eserbisyo.Constants.Api;
 import com.example.eserbisyo.Constants.Pref;
 import com.example.eserbisyo.HomeActivity;
+import com.example.eserbisyo.ModelActivities.FeedbackAddActivity;
 import com.example.eserbisyo.ModelActivities.ReportAddActivity;
 import com.example.eserbisyo.ModelRecyclerViewAdapters.ReportsAdapter;
 import com.example.eserbisyo.Models.Report;
@@ -107,7 +108,13 @@ public class ReportFragment extends Fragment {
 
         getReports();
 
-        btnAdd.setOnClickListener(v -> startActivity(new Intent(((HomeActivity)getContext()), ReportAddActivity.class)));
+        btnAdd.setOnClickListener(view -> {
+            if(sharedPreferences.getInt(Pref.IS_VERIFIED, 0) != 1){
+                Toasty.info(requireContext(), "This function is for verified user only.", Toast.LENGTH_LONG, true).show();
+            } else {
+                startActivity(new Intent(((HomeActivity)getContext()), ReportAddActivity.class));
+            }
+        });
 
         refreshLayout.setOnRefreshListener(this::getReports);
 

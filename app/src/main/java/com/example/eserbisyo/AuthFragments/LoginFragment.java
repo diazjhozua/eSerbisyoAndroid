@@ -185,6 +185,7 @@ public class LoginFragment extends Fragment {
                 if (user.isNull("first_name")) {
                     startActivity(new Intent(((AuthActivity)getContext()), UserInfoActivity.class));
                 } else {
+
                     editor.putInt(Pref.ID, user.getInt("id"));
                     editor.putInt(Pref.USER_ROLE_ID, user.getInt("user_role_id"));
                     editor.putString(Pref.FIRST_NAME, user.getString("first_name"));
@@ -194,6 +195,7 @@ public class LoginFragment extends Fragment {
                     editor.putString(Pref.TOKEN, object.getString("access_token"));
                     editor.putString(Pref.STATUS, user.getString("status"));
                     editor.putInt(Pref.IS_VERIFIED, user.getInt("is_verified"));
+                    editor.putInt(Pref.USER_ROLE_ID, user.getInt("user_role_id"));
 
                     editor.apply();
 

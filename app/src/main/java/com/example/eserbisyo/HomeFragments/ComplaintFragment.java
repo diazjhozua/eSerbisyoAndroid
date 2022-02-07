@@ -143,6 +143,7 @@ public class ComplaintFragment extends Fragment {
                 JSONObject object = new JSONObject(response);
 
                 JSONArray array = new JSONArray(object.getString("data"));
+
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject complaintJSONObject = array.getJSONObject(i);
                     Log.d("complaint", complaintJSONObject.toString(4));
@@ -157,6 +158,7 @@ public class ComplaintFragment extends Fragment {
 
                     arrayList.add(mComplaint);
                 }
+
                 complaintsAdapter = new ComplaintsAdapter(requireContext(), arrayList);
                 recyclerView.setAdapter(complaintsAdapter);
 

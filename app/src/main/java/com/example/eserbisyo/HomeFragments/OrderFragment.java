@@ -38,6 +38,7 @@ import com.example.eserbisyo.ModelRecyclerViewAdapters.OrdersAdapter;
 import com.example.eserbisyo.Models.Complaint;
 import com.example.eserbisyo.Models.Order;
 import com.example.eserbisyo.Models.Type;
+import com.example.eserbisyo.Models.User;
 import com.example.eserbisyo.OrderActivity.SelectPickupActivity;
 import com.example.eserbisyo.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -106,7 +107,13 @@ public class OrderFragment extends Fragment {
 
         getData();
 
-        btnAdd.setOnClickListener(v -> startActivity(new Intent(((HomeActivity)getContext()), SelectPickupActivity.class)));
+        btnAdd.setOnClickListener(view -> {
+            if(sharedPreferences.getInt(Pref.IS_VERIFIED, 0) != 1){
+                Toasty.info(requireContext(), "This function is for verified user only.", Toast.LENGTH_LONG, true).show();
+            } else {
+                new Intent(((HomeActivity)getContext()), SelectPickupActivity.class);
+            }
+        });
 
         refreshLayout.setOnRefreshListener(this::getData);
 
@@ -143,12 +150,28 @@ public class OrderFragment extends Fragment {
                     JSONObject orderJSONObject = array.getJSONObject(i);
                     Log.d("order", orderJSONObject.toString(4));
 
+
+                    User mBiker = null;
+
+                    if (!orderJSONObject.isNull("biker")) {
+                        JSONObject bikerJSONObject = orderJSONObject.getJSONObject("biker");
+
+                        mBiker = new User(
+                                bikerJSONObject.getInt("id"), bikerJSONObject.getString("first_name") + bikerJSONObject.getString("middle_name") + bikerJSONObject.getString("last_name"),
+                                bikerJSONObject.getString("phone_no"), bikerJSONObject.getString("email"),
+                                bikerJSONObject.getString("picture_name"), bikerJSONObject.getString("file_path"), bikerJSONObject.getString("bike_type"),
+                                bikerJSONObject.getString("bike_color"),    bikerJSONObject.getString("bike_size")
+                        );
+                    }
+
                     Order mOrder = new Order(
                             orderJSONObject.getInt("id"), orderJSONObject.getString("created_at"), orderJSONObject.getString("pick_up_type"),
-                            orderJSONObject.getString("order_status"), orderJSONObject.getString("pickup_date"), orderJSONObject.getDouble("total_price"),
-                            orderJSONObject.getDouble("delivery_fee"), orderJSONObject.getString("application_status"), orderJSONObject.getString("admin_message"),
-                            orderJSONObject.getString("updated_at")
+                            orderJSONObject.getString("order_status"), orderJSONObject.getString("pickup_date"), orderJSONObject.getString("received_at"), orderJSONObject.getDouble("total_price"),
+                            orderJSONObject.getDouble("delivery_fee"), orderJSONObject.getString("application_status"), mBiker,
+                            orderJSONObject.getString("admin_message"), orderJSONObject.getString("updated_at")
                     );
+
+                    Log.d("order status", String.valueOf(mOrder.getmBiker() == null));
 
                     arrayList.add(mOrder);
                 }

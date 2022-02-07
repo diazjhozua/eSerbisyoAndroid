@@ -55,30 +55,13 @@ public class MainFragment extends Fragment {
         SharedPreferences userPref = requireContext().getSharedPreferences(Pref.USER_PREFS, Context.MODE_PRIVATE);
         int isVerified =  userPref.getInt(Pref.IS_VERIFIED, 0);
 
-        cardAnnouncement.setOnClickListener(v->{
-            if(checkVerified(isVerified)){
-                ((HomeActivity) requireActivity()).switchFragment(new AnnouncementFragment());
-            }
-        });
+        cardAnnouncement.setOnClickListener(v-> ((HomeActivity) requireActivity()).switchFragment(new AnnouncementFragment()));
 
-        cardReport.setOnClickListener(v->{
-            if(checkVerified(isVerified)){
-                ((HomeActivity) requireActivity()).switchFragment(new ReportFragment());
-            }
-        });
+        cardReport.setOnClickListener(v-> ((HomeActivity) requireActivity()).switchFragment(new ReportFragment()));
 
-        cardFeedback.setOnClickListener(v->{
-            if(checkVerified(isVerified)){
-                ((HomeActivity) requireActivity()).switchFragment(new FeedbackFragment());
-            }
-        });
+        cardFeedback.setOnClickListener(v-> ((HomeActivity) requireActivity()).switchFragment(new FeedbackFragment()));
 
-
-        cardCertificate.setOnClickListener(v->{
-            if(checkVerified(isVerified)){
-                ((HomeActivity) requireActivity()).switchFragment(new CertificateFragment());
-            }
-        });
+        cardCertificate.setOnClickListener(v-> ((HomeActivity) requireActivity()).switchFragment(new CertificateFragment()));
 
         cardOrdinance.setOnClickListener(v-> ((HomeActivity) requireActivity()).switchFragment(new OrdinanceFragment()));
 
@@ -96,7 +79,7 @@ public class MainFragment extends Fragment {
 
         cardOrder.setOnClickListener(v->{
             if(checkVerified(isVerified)){
-                startActivity(new Intent(((HomeActivity)getContext()), SelectPickupActivity.class));
+                startActivity(new Intent(requireContext(), SelectPickupActivity.class));
             }
         });
     }

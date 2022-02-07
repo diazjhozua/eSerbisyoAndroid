@@ -1,5 +1,6 @@
 package com.example.eserbisyo.OrderActivity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 
@@ -64,6 +65,12 @@ public class SelectPickupActivity extends AppCompatActivity {
         init();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        finish();
+    }
+
     private void init() {
         autoCompleteOrderType = findViewById(R.id.autoCompleteOrderType);
         userPref = getApplicationContext().getSharedPreferences(Pref.USER_PREFS, Context.MODE_PRIVATE);
@@ -111,6 +118,7 @@ public class SelectPickupActivity extends AppCompatActivity {
                     Intent intent = new Intent(SelectPickupActivity.this, CreateOrderActivity.class);
                     intent.putExtra(Extra.JSON_ARRAY, array.toString());
                     intent.putExtra(Extra.ORDER_TYPE, pickupType);
+
                     startActivity(intent);
 
                 } else {
@@ -180,6 +188,10 @@ public class SelectPickupActivity extends AppCompatActivity {
                 Toasty.error(this, value.toString().replaceAll("\\p{P}", ""), Toast.LENGTH_LONG, true).show();
             } catch (JSONException ignored) {}
         }
+    }
+
+    public static void finishThis() {
+
     }
 
     @Override

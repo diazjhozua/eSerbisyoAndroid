@@ -161,7 +161,7 @@ public class FormEditActivity extends AppCompatActivity {
     }
 
     private void updateDateLabel() {
-        String myFormat="MM/dd/yy";
+        String myFormat="yyyy/dd/MM";
         SimpleDateFormat dateFormat=new SimpleDateFormat(myFormat, Locale.ROOT);
         inputDateBirthday.setText(dateFormat.format(myCalendar.getTime()));
     }
@@ -1068,7 +1068,7 @@ public class FormEditActivity extends AppCompatActivity {
         Form mForm = new Form(
                 0, selForm.getCertId(), selForm.getCertName(), selForm.getCertPrice(), firstName, middleName, lastName,
                 address, civilStatus, birthday, citizenship, purpose, businessName, birthplace, height, weight, profession,
-                cedulaType, sex, tinNo, icrNo, contactNo, contactPerson, contactPersonNo, contactPersonRelation
+                cedulaType, sex, tinNo, icrNo, contactNo, contactPerson, contactPersonNo, contactPersonRelation, true
         );
 
         CreateOrderActivity.formArrayList.set(formPos,mForm);

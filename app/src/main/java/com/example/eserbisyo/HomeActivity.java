@@ -138,6 +138,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frameHomeContainer, new MainFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
+
         }
     }
 
@@ -145,6 +146,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
+
         if (id == R.id.nav_home) {
             switchFragment(new MainFragment());
         } else if (id == R.id.nav_feedback) {
@@ -160,7 +162,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             switchFragment(new RequirementFragment());
         } else if (id == R.id.nav_my_missing_item) {
             switchFragment(new AuthMissingItemFragment());
-        }else if (id == R.id.nav_my_missing_person) {
+        } else if (id == R.id.nav_bike) {
+            if(userPref.getInt(Pref.IS_VERIFIED, 0) != 1){
+                Toasty.info(this, "This function is for verified user only.", Toast.LENGTH_LONG, true).show();
+            } else {
+
+//                Toasty.info(this, "This function is for verified user only.", Toast.LENGTH_LONG, true).show();
+            }
+        } else if (id == R.id.nav_my_missing_person) {
             switchFragment(new AuthMissingPersonFragment());
         } else if (id == R.id.nav_change_email) {
             startActivity(new Intent(this, ChangeEmailActivity.class));

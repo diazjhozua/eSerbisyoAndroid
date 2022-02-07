@@ -45,11 +45,14 @@ public class Api {
     public static final String MISSING_ITEMS_AUTH = MISSING_ITEMS+"authReports/";
     public static final String MISSING_ITEMS_COMMENTS = MISSING_ITEMS+"comment/";
 
+
+
     public static final String COMPLAINTS = HOME+"/complaints/";
     public static final String DEFENDANTS = HOME+"/defendants/";
     public static final String COMPLAINANTS = HOME+"/complainants/";
 
     public static final String ORDERS = HOME+"/orders/";
+    public static final String ORDER_SUBMIT_REPORT = HOME+"/orders/submitReport/";
     public static final String ORDER_CERTIFICATE = HOME+"/orders/certificates";
 
     public static final String VIEW_FILE = URL+"view/" ;

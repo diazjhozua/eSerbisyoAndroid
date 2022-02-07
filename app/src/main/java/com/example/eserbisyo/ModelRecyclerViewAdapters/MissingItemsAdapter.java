@@ -100,7 +100,7 @@ public class MissingItemsAdapter extends RecyclerView.Adapter<MissingItemsAdapte
         holder.txtLastSeen.setText("Last Seen: " + missingItemObj.getLastSeen());
         holder.txtCommentCount.setText("View all "+ missingItemObj.getCommentsCount() + ((missingItemObj.getCommentsCount() > 1 ) ? " comments" : " comment"));
 
-        if (sharedPreferences.getInt(Pref.ID, 0) != missingItemObj.getUserId()) {
+        if (sharedPreferences.getInt(Pref.ID, 0) != missingItemObj.getUserId() || sharedPreferences.getInt(Pref.IS_VERIFIED, 0) != 1) {
             holder.imgBtnOption.setVisibility(View.GONE);
             holder.linLayAdmin.setVisibility(View.GONE);
         } else {
@@ -155,6 +155,7 @@ public class MissingItemsAdapter extends RecyclerView.Adapter<MissingItemsAdapte
         });
 
         holder.imgBtnOption.setOnClickListener(v -> {
+
             Context wrapper = new ContextThemeWrapper(context, R.style.popupMenuStyle);
             PopupMenu popupMenu = new PopupMenu(wrapper, holder.imgBtnOption);
             popupMenu.inflate(R.menu.model_menu);

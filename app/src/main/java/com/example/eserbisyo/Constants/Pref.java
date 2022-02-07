@@ -13,6 +13,7 @@ public class Pref {
     public final static String PASSWORD = "password";
     public final static String TOKEN = "token";
     public final static String STATUS = "status";
+    public final static String USER_ROLE = "userRole";
     public final static String IS_VERIFIED = "isVerified";
     public final static String IS_REMEMBER = "isRemember";
     public final static String IS_FIRST_TIME = "isFirstTime";

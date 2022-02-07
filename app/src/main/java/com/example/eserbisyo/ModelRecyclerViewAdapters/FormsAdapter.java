@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.eserbisyo.Constants.Extra;
 import com.example.eserbisyo.ModelActivities.ComplaintAddActivity;
 import com.example.eserbisyo.Models.Certificate;
+import com.example.eserbisyo.Models.Complainant;
 import com.example.eserbisyo.Models.Form;
 import com.example.eserbisyo.OrderActivity.CreateOrderActivity;
 import com.example.eserbisyo.OrderActivity.FormAddActivity;
@@ -64,28 +65,33 @@ public class FormsAdapter extends RecyclerView.Adapter<FormsAdapter.FormsHolder>
         Form mForm = list.get(position);
         holder.txtCertificate.setText(mForm.getCertName() + "\n ( ₱ " + mForm.getCertPrice()+" )");
 
-        holder.imageButton.setOnClickListener(v -> {
-            Context wrapper = new ContextThemeWrapper(context, R.style.popupMenuStyle);
-            PopupMenu popupMenu = new PopupMenu(wrapper, holder.imageButton);
-            popupMenu.inflate(R.menu.model_menu);
+        if (!mForm.isModifiable()) {
+            holder.imageButton.setVisibility(View.GONE);
+        } else {
+            holder.imageButton.setOnClickListener(v -> {
+                Context wrapper = new ContextThemeWrapper(context, R.style.popupMenuStyle);
+                PopupMenu popupMenu = new PopupMenu(wrapper, holder.imageButton);
+                popupMenu.inflate(R.menu.model_menu);
 
-            popupMenu.setOnMenuItemClickListener(item -> {
-                selForm = mForm;
-                selPos = position;
-                switch (item.getItemId()) {
-                    case R.id.item_edit: {
-                        getData();
-                        return true;
+                popupMenu.setOnMenuItemClickListener(item -> {
+                    selForm = mForm;
+                    selPos = position;
+                    switch (item.getItemId()) {
+                        case R.id.item_edit: {
+                            getData();
+                            return true;
+                        }
+                        case R.id.item_delete: {
+                            openDeleteDialog();
+                            return true;
+                        }
                     }
-                    case R.id.item_delete: {
-                        openDeleteDialog();
-                        return true;
-                    }
-                }
-                return false;
+                    return false;
+                });
+                popupMenu.show();
             });
-            popupMenu.show();
-        });
+        }
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -156,6 +162,9 @@ public class FormsAdapter extends RecyclerView.Adapter<FormsAdapter.FormsHolder>
             }
         }
         return false;
+    }
+    public ArrayList<Form> getList() {
+        return list;
     }
 
     public class FormsHolder extends RecyclerView.ViewHolder {

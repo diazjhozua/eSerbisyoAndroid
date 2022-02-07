@@ -37,15 +37,22 @@ public class Form implements Parcelable {
     private String contactPerson;
     private String contactPersonPhoneNo;
     private String contactPersonRelation;
+    private boolean isModifiable;
 
-    public Form(int id, int certId, String certName, Double certPrice) {
+//    public Form(int id, int certId, String certName, Double certPrice) {
+//        this.id = id;
+//        this.certId = certId;
+//        this.certName = certName;
+//        this.certPrice = certPrice;
+//    }
+
+    public Form(int id, int certId, String certName, Double certPrice, boolean isModifiable) {
         this.id = id;
         this.certId = certId;
         this.certName = certName;
         this.certPrice = certPrice;
+        this.isModifiable = isModifiable;
     }
-
-
 
     public Form(int id, int certId, String certName, Double certPrice, String firstName, String middleName, String lastName, String address, String civilStatus, String birthday, String citizenship, String purpose, String businessName, String birthplace, Double height, Double weight, String profession, String cedulaType, String sex, String tinNo, String icrNo, String phoneNo, String contactPerson, String contactPersonPhoneNo, String contactPersonRelation) {
         this.id = id;
@@ -75,8 +82,7 @@ public class Form implements Parcelable {
         this.contactPersonRelation = contactPersonRelation;
     }
 
-/*    // for indigency and clearance
-    public Form(int id, int certId, String certName, Double certPrice, String firstName, String middleName, String lastName, String address, String civilStatus, String birthday, String citizenship, String purpose) {
+    public Form(int id, int certId, String certName, Double certPrice, String firstName, String middleName, String lastName, String address, String civilStatus, String birthday, String citizenship, String purpose, String businessName, String birthplace, Double height, Double weight, String profession, String cedulaType, String sex, String tinNo, String icrNo, String phoneNo, String contactPerson, String contactPersonPhoneNo, String contactPersonRelation, boolean isModifiable) {
         this.id = id;
         this.certId = certId;
         this.certName = certName;
@@ -89,21 +95,7 @@ public class Form implements Parcelable {
         this.birthday = birthday;
         this.citizenship = citizenship;
         this.purpose = purpose;
-    }
-
-    // for cedula
-    public Form(int id, int certId, String certName, Double certPrice, String firstName, String middleName, String lastName, String address, String civilStatus, String birthday, String citizenship, String birthplace, Double height, Double weight, String profession, String cedulaType, String sex, int tinNo, int icrNo) {
-        this.id = id;
-        this.certId = certId;
-        this.certName = certName;
-        this.certPrice = certPrice;
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.address = address;
-        this.civilStatus = civilStatus;
-        this.birthday = birthday;
-        this.citizenship = citizenship;
+        this.businessName = businessName;
         this.birthplace = birthplace;
         this.height = height;
         this.weight = weight;
@@ -112,40 +104,20 @@ public class Form implements Parcelable {
         this.sex = sex;
         this.tinNo = tinNo;
         this.icrNo = icrNo;
-    }
-
-    // for id
-    public Form(int id, int certId, String certName, Double certPrice, String firstName, String middleName, String lastName, String address, String civilStatus, String birthday, String citizenship, String birthplace, String phoneNo, String contactPerson, String contactPersonPhoneNo, String contactPersonRelation) {
-        this.id = id;
-        this.certId = certId;
-        this.certName = certName;
-        this.certPrice = certPrice;
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.address = address;
-        this.civilStatus = civilStatus;
-        this.birthday = birthday;
-        this.citizenship = citizenship;
-        this.birthplace = birthplace;
         this.phoneNo = phoneNo;
         this.contactPerson = contactPerson;
         this.contactPersonPhoneNo = contactPersonPhoneNo;
         this.contactPersonRelation = contactPersonRelation;
+        this.isModifiable = isModifiable;
     }
 
-    // for business
-    public Form(int id, int certId, String certName, Double certPrice, String firstName, String middleName, String lastName, String address, String businessName) {
-        this.id = id;
-        this.certId = certId;
-        this.certName = certName;
-        this.certPrice = certPrice;
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.address = address;
-        this.businessName = businessName;
-    }*/
+    public boolean isModifiable() {
+        return isModifiable;
+    }
+
+    public void setModifiable(boolean modifiable) {
+        isModifiable = modifiable;
+    }
 
     public int getId() {
         return id;

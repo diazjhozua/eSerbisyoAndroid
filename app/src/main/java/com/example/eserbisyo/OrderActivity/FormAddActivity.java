@@ -155,7 +155,7 @@ public class FormAddActivity extends AppCompatActivity {
     }
 
     private void updateDateLabel() {
-        String myFormat="MM/dd/yy";
+        String myFormat="yyyy/dd/MM";
         SimpleDateFormat dateFormat=new SimpleDateFormat(myFormat, Locale.ROOT);
         inputDateBirthday.setText(dateFormat.format(myCalendar.getTime()));
     }
@@ -187,7 +187,6 @@ public class FormAddActivity extends AppCompatActivity {
                 layoutContactPersonRelation.setVisibility(View.GONE);
                 layoutContactPersonNo.setVisibility(View.GONE);
                 layoutBusinessName.setVisibility(View.GONE);
-
                 break;
             case 4:
                 // for id
@@ -1041,7 +1040,7 @@ public class FormAddActivity extends AppCompatActivity {
         Form mForm = new Form(
                 0, mCertificate.getId(), mCertificate.getName(), mCertificate.getPrice(), firstName, middleName, lastName,
                 address, civilStatus, birthday, citizenship, purpose, businessName, birthplace, height, weight, profession,
-                cedulaType, sex, tinNo, icrNo, contactNo, contactPerson, contactPersonNo, contactPersonRelation
+                cedulaType, sex, tinNo, icrNo, contactNo, contactPerson, contactPersonNo, contactPersonRelation, true
         );
 
         Objects.requireNonNull(CreateOrderActivity.recyclerView.getAdapter()).notifyItemInserted(0);

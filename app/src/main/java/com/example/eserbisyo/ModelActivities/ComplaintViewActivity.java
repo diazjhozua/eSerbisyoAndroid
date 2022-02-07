@@ -65,7 +65,6 @@ public class ComplaintViewActivity extends AppCompatActivity {
                         complaintJSONObject.getString("created_at"), complaintJSONObject.getString("updated_at")
                 );
 
-
                 complainantArrayList = new ArrayList<>();
                 JSONArray complainantJSONArray = new JSONArray(complaintJSONObject.getString("complainants"));
                 if(complainantJSONArray.length() > 0){

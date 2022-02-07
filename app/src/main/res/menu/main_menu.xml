@@ -43,8 +43,14 @@
     <group android:checkableBehavior="single">
         <item
             android:title="@string/account">
-
             <menu>
+
+                <item
+                    android:id="@+id/nav_bike"
+                    android:title="Want extra income?"
+                    android:icon="@drawable/bicycle"
+                    tools:ignore="HardcodedText" />
+
                 <item
                     android:id="@+id/nav_profile"
                     android:title="@string/profile"

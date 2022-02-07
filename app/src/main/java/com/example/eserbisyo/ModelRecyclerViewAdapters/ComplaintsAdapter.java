@@ -32,6 +32,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.eserbisyo.Constants.Api;
 import com.example.eserbisyo.Constants.Extra;
 import com.example.eserbisyo.Constants.Pref;
+import com.example.eserbisyo.HomeActivity;
 import com.example.eserbisyo.HomeFragments.AnnouncementFragment;
 import com.example.eserbisyo.ModelActivities.CommentActivity;
 import com.example.eserbisyo.ModelActivities.ComplaintEditActivity;
@@ -156,19 +157,26 @@ public class ComplaintsAdapter extends RecyclerView.Adapter<ComplaintsAdapter.Co
                         return true;
                     }
                     case R.id.item_edit: {
-                        if (mComplaint.getStatus().equals("Pending") || mComplaint.getStatus().equals("Denied")) {
-                            getEditData();
+                        if (sharedPreferences.getInt(Pref.IS_VERIFIED, 0) != 1) {
+                            Toasty.error(context, "This function is for verified user only", Toast.LENGTH_LONG, true).show();
                         } else {
-                            Toasty.error(context, "You cannot edit this complaint once the complaint status is in Approved or Resolved", Toast.LENGTH_LONG, true).show();
+                            if (mComplaint.getStatus().equals("Pending") || mComplaint.getStatus().equals("Denied")) {
+                                getEditData();
+                            } else {
+                                Toasty.error(context, "You cannot edit this complaint once the complaint status is in Approved or Resolved", Toast.LENGTH_LONG, true).show();
+                            }
                         }
-
                         return true;
                     }
                     case R.id.item_delete: {
-                        if (mComplaint.getStatus().equals("Pending") || mComplaint.getStatus().equals("Denied")) {
-                            openDeleteDialog();
+                        if (sharedPreferences.getInt(Pref.IS_VERIFIED, 0) != 1) {
+                            Toasty.error(context, "This function is for verified user only", Toast.LENGTH_LONG, true).show();
                         } else {
-                            Toasty.error(context, "You cannot delete the complaint once the complaint status is in Approved or Resolved", Toast.LENGTH_LONG, true).show();
+                            if (mComplaint.getStatus().equals("Pending") || mComplaint.getStatus().equals("Denied")) {
+                                openDeleteDialog();
+                            } else {
+                                Toasty.error(context, "You cannot delete the complaint once the complaint status is in Approved or Resolved", Toast.LENGTH_LONG, true).show();
+                            }
                         }
                         return true;
                     }
@@ -287,7 +295,7 @@ public class ComplaintsAdapter extends RecyclerView.Adapter<ComplaintsAdapter.Co
             if (errorObj.has("errors")) {
                 try {
                     JSONObject errors = errorObj.getJSONObject("errors");
-                    ((CommentActivity)context).showErrorMessage(errors);
+                    ((HomeActivity)context).showErrorMessage(errors);
                 } catch (JSONException ignored) {
                 }
             } else if (errorObj.has("message")) {

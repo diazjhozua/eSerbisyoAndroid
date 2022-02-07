@@ -171,36 +171,6 @@
                     android:layout_height="1px"
                     android:background="#ccc" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/txtComplainantCount"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/ubuntu_regular"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
-                    android:paddingBottom="8dp"
-                    android:text="Complainant: 0 (Total)"
-                    android:textColor="@color/black"
-                    android:textSize="13sp" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerViewComplainant"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_120sdp" />
-
-
-<!--                <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                    android:id="@+id/swipeRecyclerViewComplainant"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_120sdp"
-                    android:background="@drawable/round_white_card"
-                    android:padding="@dimen/_5sdp">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerViewComplainant"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
 
                 <LinearLayout
                     android:layout_width="match_parent"

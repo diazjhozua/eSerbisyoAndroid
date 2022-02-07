@@ -35,6 +35,7 @@ import com.example.eserbisyo.Constants.Extra;
 import com.example.eserbisyo.Constants.Pref;
 import com.example.eserbisyo.HomeActivity;
 import com.example.eserbisyo.ModelActivities.MissingItemAddActivity;
+import com.example.eserbisyo.ModelActivities.MissingPersonAddActivity;
 import com.example.eserbisyo.ModelRecyclerViewAdapters.MissingItemsAdapter;
 import com.example.eserbisyo.ModelRecyclerViewAdapters.MissingPersonsAdapter;
 import com.example.eserbisyo.Models.MissingItem;
@@ -115,14 +116,17 @@ public class MissingItemFragment extends Fragment {
 
         getData();
 
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(((HomeActivity)getContext()), MissingItemAddActivity.class);
-                i.putExtra(Extra.IS_MY_REPORT, "NO");
-                startActivity(i);
-            }
-        });
+
+
+        if(sharedPreferences.getInt(Pref.IS_VERIFIED, 0) != 1){
+            Toasty.info(requireContext(), "This function is for verified user only.", Toast.LENGTH_LONG, true).show();
+        } else {
+            Intent i = new Intent(((HomeActivity)getContext()), MissingItemAddActivity.class);
+            i.putExtra(Extra.IS_MY_REPORT, "NO");
+            startActivity(i);
+        }
+
+
 
         refreshLayout.setOnRefreshListener(this::getData);
 

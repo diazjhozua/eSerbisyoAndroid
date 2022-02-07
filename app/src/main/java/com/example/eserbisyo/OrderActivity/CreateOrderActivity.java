@@ -1,5 +1,6 @@
 package com.example.eserbisyo.OrderActivity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.core.app.ActivityCompat;
@@ -31,14 +32,24 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.eserbisyo.Adapters.DDCertificatesAdapter;
 import com.example.eserbisyo.Adapters.DDTypeAdapter;
+import com.example.eserbisyo.Constants.Api;
 import com.example.eserbisyo.Constants.Extra;
 import com.example.eserbisyo.Constants.Pref;
+import com.example.eserbisyo.HomeFragments.ComplaintFragment;
 import com.example.eserbisyo.ModelActivities.ComplaintAddActivity;
 import com.example.eserbisyo.ModelRecyclerViewAdapters.DefendantsAdapter;
 import com.example.eserbisyo.ModelRecyclerViewAdapters.FormsAdapter;
 import com.example.eserbisyo.Models.Certificate;
+import com.example.eserbisyo.Models.Complainant;
+import com.example.eserbisyo.Models.Complaint;
 import com.example.eserbisyo.Models.Defendant;
 import com.example.eserbisyo.Models.Form;
 import com.example.eserbisyo.Models.MissingItem;
@@ -51,9 +62,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
@@ -83,6 +98,9 @@ public class CreateOrderActivity extends AppCompatActivity implements LocationLi
     private LocationManager locationManager;
 
     private Double longitude, latitude;
+
+    public JSONObject errorObj = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,7 +181,7 @@ public class CreateOrderActivity extends AppCompatActivity implements LocationLi
         formArrayList = new ArrayList<>();
         formArrayList.add(new Form(
                 0, 1, "Barangay Indigency", 200.0, "Jhozua", "Manguera", "Diaz",
-                "633 Purok 5", "Single", "09-12-2000", "Filipino", "NBI Clearance", null, null, null, null, null,
+                "633 Purok 5", "Single", "2000-09-12", "Filipino", "NBI Clearance", null, null, null, null, null,
                 null, null, null, null, null, null, null, null
         ));
         formsAdapter = new FormsAdapter(CreateOrderActivity.this, formArrayList);
@@ -225,7 +243,6 @@ public class CreateOrderActivity extends AppCompatActivity implements LocationLi
         } else {
             layoutDelivery.setVisibility(View.GONE);
         }
-
 
         txtCertificateCount.setText("Certificate Requested: " + formsAdapter.getItemCount() + " (Total)");
         totalCertPrice = 0.0;
@@ -441,10 +458,188 @@ public class CreateOrderActivity extends AppCompatActivity implements LocationLi
     }
 
     private void submitData() {
+        progressDialog.setMessage("Submitting order please wait.....");
+        progressDialog.show();
+
+        String name = Objects.requireNonNull(inputTxtName.getText()).toString();
+        String homeAddress = Objects.requireNonNull(inputTxtLocation.getText()).toString();
+        String email = Objects.requireNonNull(inputTxtEmail.getText()).toString();
+        String phoneNo = Objects.requireNonNull(inputTxtPhoneNo.getText()).toString();
+
+        StringRequest request = new StringRequest(Request.Method.POST, Api.ORDERS, response->{
+            try {
+                JSONObject object = new JSONObject(response);
+
+                JSONObject jsonObject = object.getJSONObject("data");
+
+//                Complaint mComplaint = new Complaint(
+//                        complaintJSONObject.getInt("id"), complaintJSONObject.getInt("contact_id"), complaintJSONObject.getString("contact_name"),
+//                        new Type(complaintJSONObject.getInt("type_id"), complaintJSONObject.getString("complaint_type")), complaintJSONObject.getString("custom_type"),
+//                        complaintJSONObject.getString("reason"), complaintJSONObject.getString("action"), complaintJSONObject.getString("email"),
+//                        complaintJSONObject.getString("phone_no"), complaintJSONObject.getString("status"), complaintJSONObject.getString("admin_message"),
+//                        complaintJSONObject.getString("created_at"), complaintJSONObject.getString("updated_at")
+//                );
+
+                /* Meaning AuthMissingItemFragment Calls this activity */
+//                ComplaintFragment.arrayList.add(0,mComplaint);
+//                Objects.requireNonNull(ComplaintFragment.recyclerView.getAdapter()).notifyItemInserted(0);
+//                ComplaintFragment.recyclerView.getAdapter().notifyDataSetChanged();
+                Toasty.success(this, "Your order has been submitted successfully, please wait for the administrator to respond to your order", Toast.LENGTH_LONG, true).show();
+                SelectPickupActivity.finishThis();
+                finish();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            progressDialog.dismiss();
+        },error ->{
+            progressDialog.dismiss();
+            if (errorObj.has("errors")) {
+                try {
+                    JSONObject errors = errorObj.getJSONObject("errors");
+                    showErrorMessage(errors);
+                } catch (JSONException ignored) {
+                }
+            } else if (errorObj.has("message")) {
+                try {
+                    Toasty.error(this, errorObj.getString("message"), Toast.LENGTH_LONG, true).show();
+                } catch (JSONException ignored) {
+                }
+            } else {
+                Toasty.error(this, "Request Timeout", Toast.LENGTH_LONG, true).show();
+            }
+        } ){
+
+            //add token to headers
+            @Override
+            public Map<String, String> getHeaders() {
+                String token = userPref.getString(Pref.TOKEN,"");
+                HashMap<String,String> map = new HashMap<>();
+                map.put("Authorization","Bearer "+token);
+                return map;
+            }
+
+            //add params
+            @Override
+            protected Map<String, String> getParams() {
+                HashMap<String,String> map = new HashMap<>();
+
+                ArrayList<Form> formArrayList = formsAdapter.getList();
+
+                map.put("name", name);
+                map.put("email", email);
+                map.put("phone_no", phoneNo);
+                map.put("pick_up_type", orderType);
+                map.put("location_address", homeAddress);
+
+                if (orderType.equals("Delivery")) {
+                    map.put("latitude", String.valueOf(latitude));
+                    map.put("longitude", String.valueOf(longitude));
+                }
+
+                for(int i=0;i<formArrayList.size();i++){
+                    map.put("certificate_forms["+i+"][certificate_id]", String.valueOf(formArrayList.get(i).getCertId()));
+                    map.put("certificate_forms["+i+"][first_name]", formArrayList.get(i).getFirstName());
+                    map.put("certificate_forms["+i+"][middle_name]", formArrayList.get(i).getMiddleName());
+                    map.put("certificate_forms["+i+"][last_name]", formArrayList.get(i).getLastName());
+                    map.put("certificate_forms["+i+"][address]", formArrayList.get(i).getAddress());
+
+                    // if indigency, cedula, clearance, id
+                    if (formArrayList.get(i).getCertId() >= 1 && formArrayList.get(i).getCertId() <= 4) {
+                        // civil status, bday, citizenship,
+                        map.put("certificate_forms["+i+"][civil_status]", formArrayList.get(i).getCivilStatus());
+                        map.put("certificate_forms["+i+"][birthday]", formArrayList.get(i).getBirthday());
+                        map.put("certificate_forms["+i+"][citizenship]", formArrayList.get(i).getCitizenship());
+                    }
+
+                    // if indigency, clearance
+                    if (formArrayList.get(i).getCertId() == 1 || formArrayList.get(i).getCertId() == 3) {
+                        // purpose
+                        map.put("certificate_forms["+i+"][purpose]", formArrayList.get(i).getPurpose());
+                    }
+                    // if cedula, id
+                    if (formArrayList.get(i).getCertId() == 2 || formArrayList.get(i).getCertId() == 4) {
+                        //birthplace
+                        map.put("certificate_forms["+i+"][birthplace]", formArrayList.get(i).getBirthplace());
+                    }
+
+                    // if cedula
+                    if (formArrayList.get(i).getCertId() == 2) {
+                        //profession, height, weight, sex, cedulaType,tin, icr
+                        map.put("certificate_forms["+i+"][profession]", formArrayList.get(i).getProfession());
+                        map.put("certificate_forms["+i+"][height]", String.valueOf(formArrayList.get(i).getHeight()));
+                        map.put("certificate_forms["+i+"][weight]", String.valueOf(formArrayList.get(i).getWeight()));
+                        map.put("certificate_forms["+i+"][sex]", formArrayList.get(i).getSex());
+                        map.put("certificate_forms["+i+"][cedula_type]", formArrayList.get(i).getCedulaType());
+                        map.put("certificate_forms["+i+"][tin_no]", formArrayList.get(i).getTinNo());
+                        map.put("certificate_forms["+i+"][icr_no]", formArrayList.get(i).getIcrNo());
+                    }
+
+                    // if id
+                    if (formArrayList.get(i).getCertId() == 2) {
+                        // contact no, contact person, relation contact person no
+                        map.put("certificate_forms["+i+"][contact_no]", formArrayList.get(i).getSex());
+                        map.put("certificate_forms["+i+"][contact_person]", formArrayList.get(i).getCedulaType());
+                        map.put("certificate_forms["+i+"][contact_person_no]", formArrayList.get(i).getTinNo());
+                        map.put("certificate_forms["+i+"][contact_person_relation]", formArrayList.get(i).getIcrNo());
+                    }
+
+                    // if business
+                    if (formArrayList.get(i).getCertId() == 5) {
+                        // business
+                        map.put("certificate_forms["+i+"][business_name]", formArrayList.get(i).getBusinessName());
+                    }
+                }
+
+                return map;
+            }
+
+            @Override
+            protected VolleyError parseNetworkError(VolleyError volleyError) {
+                String json;
+
+                if (volleyError.networkResponse != null && volleyError.networkResponse.data != null) {
+                    try {
+                        json = new String(volleyError.networkResponse.data,
+                                HttpHeaderParser.parseCharset(volleyError.networkResponse.headers));
+
+                        errorObj = new JSONObject(json);
+                    } catch (UnsupportedEncodingException | JSONException e) {
+                        return new VolleyError(e.getMessage());
+                    }
+                    return new VolleyError(json);
+                }
+                return volleyError;
+            }
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(CreateOrderActivity.this);
+        queue.add(request);
+    }
+
+    public void showErrorMessage (Object message) {
+        for(Iterator<String> iter = ((JSONObject) message).keys(); iter.hasNext();) {
+            String key = iter.next();
+            try {
+                Object value = ((JSONObject) message).get(key);
+                Toasty.error(this, value.toString().replaceAll("\\p{P}", ""), Toast.LENGTH_LONG, true).show();
+            } catch (JSONException ignored) {}
+        }
+    }
+
+    @Override
+    public void onProviderEnabled(@NonNull String provider) {
 
     }
 
+    @Override
+    public void onProviderDisabled(@NonNull String provider) {
 
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
 
     public void cancelEdit(View view) {
         finish();

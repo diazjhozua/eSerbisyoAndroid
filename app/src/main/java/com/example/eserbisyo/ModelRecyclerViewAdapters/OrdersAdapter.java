@@ -1,24 +1,51 @@
 package com.example.eserbisyo.ModelRecyclerViewAdapters;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.eserbisyo.Constants.Api;
+import com.example.eserbisyo.Constants.Extra;
+import com.example.eserbisyo.Constants.Pref;
+import com.example.eserbisyo.HomeActivity;
+import com.example.eserbisyo.ModelActivities.CommentActivity;
+import com.example.eserbisyo.ModelActivities.ComplaintViewActivity;
 import com.example.eserbisyo.Models.Complaint;
 import com.example.eserbisyo.Models.Order;
 import com.example.eserbisyo.Models.Ordinance;
+import com.example.eserbisyo.OrderActivity.OrderViewActivity;
 import com.example.eserbisyo.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
+import es.dmoral.toasty.Toasty;
 
 public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersHolder> {
 
@@ -26,11 +53,18 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersHold
     private final ArrayList<Order> list;
     private final ArrayList<Order> listAll;
 
+    private int id, selectedPosition;
+
+    private JSONObject errorObj = null;
+    private final SharedPreferences sharedPreferences;
+    private ProgressDialog progressDialog;
+
 
     public OrdersAdapter(Context context, ArrayList<Order> list) {
         this.context = context;
         this.list = list;
         this.listAll = new ArrayList<>(list);
+        sharedPreferences = context.getApplicationContext().getSharedPreferences(Pref.USER_PREFS,Context.MODE_PRIVATE);
     }
 
     @NonNull
@@ -41,7 +75,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersHold
     }
     @SuppressLint({"SetTextI18n", "NonConstantResourceId"})
     @Override
-    public void onBindViewHolder(@NonNull OrdersAdapter.OrdersHolder holder, int position) {
+    public void onBindViewHolder(@NonNull OrdersAdapter.OrdersHolder holder, @SuppressLint("RecyclerView") int position) {
         Order mOrder = list.get(position);
 
         holder.txtID.setText("Order # " + mOrder.getId());
@@ -49,13 +83,39 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersHold
         holder.txtOrderType.setText("Order type: " + mOrder.getOrderType());
         holder.txtOrderStatus.setText("Order status: " + mOrder.getOrderStatus());
 
-        holder.txtReceivedAt.setText(((mOrder.getOrderStatus().equals("Received")) ? "Received at: " : "Receiving at: " )+
-                mOrder.getReceivedAt());
+        holder.txtReceiveDate.setText("Received Date: " + ((mOrder.getReceivedAt().equals("null")) ? "Not yet set" : mOrder.getReceivedAt()));
+        holder.txtPickupDate.setText("Pickup Date: " + ((mOrder.getPickupAt().equals("null")) ?  "Not yet set" : mOrder.getPickupAt()));
 
-        holder.txtTotalPrice.setText("Total Price:  P " + mOrder.getTotalPrice());
+        if (mOrder.getApplicationStatus().equals("Denied")) {
+            holder.txtOverallStatus.setText("DENIED");
+            holder.txtOverallStatus.setBackgroundColor(context.getResources().getColor(R.color.firebrick));
+        } else if (mOrder.getApplicationStatus().equals("Approved")) {
+            if (mOrder.getOrderStatus().equals("DNR")) {
+                holder.txtOverallStatus.setText("You did not receive this certificate (DNR)");
+                holder.txtOverallStatus.setBackgroundColor(context.getResources().getColor(R.color.firebrick));
+            } else if (mOrder.getOrderStatus().equals("Received")) {
+                holder.txtOverallStatus.setText("You have receive this document (Received Date: " + mOrder.getReceivedAt() + ")");
+                holder.txtOverallStatus.setBackgroundColor(context.getResources().getColor(R.color.teal_700));
+            } else if (mOrder.getOrderType().equals("Pickup")) {
+                holder.txtOverallStatus.setText("APPROVED \n (RECEIVED THE ITEM AT THE BARANGAY AFTER OR ON THE SPECIFIED DATE:  " + mOrder.getPickupAt() + ")");
+                holder.txtOverallStatus.setBackgroundColor(context.getResources().getColor(R.color.teal_700));
+            } else if (mOrder.getOrderType().equals("Delivery")) {
+                if (mOrder.getmBiker() == null || mOrder.getOrderStatus().equals("Waiting")) {
+                    holder.txtOverallStatus.setText("APPROVED \n (WAITING FOR ANY BIKER TO PICKUP YOUR ORDER). (YOU WILL RECEIVE THE ITEM AFTER OR ON THE SPECIFIED DATE: " + mOrder.getPickupAt() + ")" );
+                    holder.txtOverallStatus.setBackgroundColor(context.getResources().getColor(R.color.teal_700));
+                } else if (mOrder.getOrderStatus().equals("Accepted")){
+                    holder.txtOverallStatus.setText("ORDER ACCEPTED TO DELIVER BY THE BIKER (YOU WILL RECEIVE THE ITEM AFTER OR ON THE SPECIFIED DATE: " + mOrder.getPickupAt() + ")" );
+                } else if (mOrder.getOrderStatus().equals("On-Going")) {
+                    holder.txtOverallStatus.setText("BIKER IS DELIVERING YOUR ORDER (YOU WILL RECEIVE THE ITEM AFTER OR ON THE SPECIFIED DATE: "+ mOrder.getPickupAt() + ")" );
+                    holder.txtOverallStatus.setBackgroundColor(context.getResources().getColor(R.color.infoColor));
+                }
+            }
+        }
+
+        holder.txtTotalPrice.setText("Total Price:  ₱ " + mOrder.getTotalPrice());
 
         if (mOrder.getOrderType().equals("Delivery")) {
-            holder.txtTotalPrice.setText("Delivery Fee:  P " + mOrder.getDeliveryFee());
+            holder.txtDeliveryFee.setText("Delivery Fee:  ₱ " + mOrder.getDeliveryFee());
         } else {
             holder.txtDeliveryFee.setVisibility(View.GONE);
         }
@@ -80,6 +140,88 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersHold
         holder.txtApplicationStatus.setText(mOrder.getApplicationStatus());
         holder.txtAdminMessage.setText("Admin Message: " + mOrder.getAdminMessage());
         holder.txtUpdatedAt.setText("Responded At: " + mOrder.getUpdatedAt());
+
+        holder.card.setOnClickListener(view -> {
+            id = mOrder.getId();
+            selectedPosition = position;
+            getData();
+        });
+    }
+
+    private void getData() {
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setCancelable(false);
+
+        progressDialog.setMessage("Getting the data.....");
+        progressDialog.show();
+
+        StringRequest request = new StringRequest(Request.Method.GET, Api.ORDERS + id, response -> {
+            try {
+                progressDialog.dismiss();
+
+                JSONObject object = new JSONObject(response);
+                JSONObject jsonObject = object.getJSONObject("data");
+                Intent intent = new Intent(context, OrderViewActivity.class);
+                intent.putExtra(Extra.JSON_OBJECT, jsonObject.toString());
+                intent.putExtra(Extra.MODEL_POSITION, selectedPosition);
+                context.startActivity(intent);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            progressDialog.dismiss();
+
+        },error -> {
+            error.printStackTrace();
+            progressDialog.dismiss();
+
+            if (errorObj.has("errors")) {
+                try {
+                    JSONObject errors = errorObj.getJSONObject("errors");
+                    ((HomeActivity)context).showErrorMessage(errors);
+                } catch (JSONException ignored) {
+                }
+            } else if (errorObj.has("message")) {
+                try {
+                    Toasty.error(context, errorObj.getString("message"), Toast.LENGTH_LONG, true).show();
+                } catch (JSONException ignored) {
+                }
+            } else {
+                Toasty.error(context, "Request Timeout", Toast.LENGTH_SHORT, true).show();
+            }
+        }){
+
+            // provide token in header
+            @Override
+            public Map<String, String> getHeaders() {
+                String token = sharedPreferences.getString(Pref.TOKEN,"");
+                HashMap<String,String> map = new HashMap<>();
+                map.put("Authorization","Bearer "+token);
+                return map;
+            }
+
+            @Override
+            protected VolleyError parseNetworkError(VolleyError volleyError) {
+                String json;
+
+                if (volleyError.networkResponse != null && volleyError.networkResponse.data != null) {
+                    try {
+                        json = new String(volleyError.networkResponse.data,
+                                HttpHeaderParser.parseCharset(volleyError.networkResponse.headers));
+
+                        errorObj = new JSONObject(json);
+                    } catch (UnsupportedEncodingException | JSONException e) {
+                        return new VolleyError(e.getMessage());
+                    }
+
+                    return new VolleyError(json);
+                }
+                return volleyError;
+            }
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(Objects.requireNonNull(context));
+        queue.add(request);
     }
 
     /* SEARCH FUNCTION */
@@ -129,7 +271,9 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersHold
     public class OrdersHolder extends RecyclerView.ViewHolder {
         private final CardView card;
         private final TextView txtID, txtCreatedAt, txtOrderType, txtOrderStatus,
-                txtReceivedAt, txtTotalPrice, txtDeliveryFee, txtApplicationStatus, txtAdminMessage, txtUpdatedAt;
+                txtPickupDate, txtReceiveDate, txtTotalPrice, txtDeliveryFee, txtApplicationStatus, txtAdminMessage, txtUpdatedAt;
+
+        private final TextView txtOverallStatus;
 
         public OrdersHolder(@NonNull View itemView) {
             super(itemView);
@@ -139,12 +283,15 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersHold
             txtCreatedAt = itemView.findViewById(R.id.txtCreatedAt);
             txtOrderType = itemView.findViewById(R.id.txtOrderType);
             txtOrderStatus = itemView.findViewById(R.id.txtOrderStatus);
-            txtReceivedAt = itemView.findViewById(R.id.txtReceivedDate);
+            txtPickupDate = itemView.findViewById(R.id.txtPickupDate);
+            txtReceiveDate = itemView.findViewById(R.id.txtReceivedDate);
             txtTotalPrice = itemView.findViewById(R.id.txtPrice);
             txtDeliveryFee = itemView.findViewById(R.id.txtDeliveryFee);
             txtApplicationStatus = itemView.findViewById(R.id.txtApplicationStatus);
             txtAdminMessage = itemView.findViewById(R.id.txtAdminMessage);
             txtUpdatedAt = itemView.findViewById(R.id.txtUpdatedAt);
+
+            txtOverallStatus = itemView.findViewById(R.id.txtOverallStatus);
 
         }
     }

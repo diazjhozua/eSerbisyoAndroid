@@ -106,7 +106,7 @@ public class MissingPersonsAdapter extends RecyclerView.Adapter<MissingPersonsAd
         holder.txtLastSeen.setText("Last Seen: " + missingPersonObj.getLastSeen());
         holder.txtCommentCount.setText("View all "+ missingPersonObj.getCommentsCount() + ((missingPersonObj.getCommentsCount() > 1 ) ? " comments" : " comment"));
 
-        if (sharedPreferences.getInt(Pref.ID, 0) != missingPersonObj.getUserId()) {
+        if (sharedPreferences.getInt(Pref.ID, 0) != missingPersonObj.getUserId() || sharedPreferences.getInt(Pref.IS_VERIFIED, 0) != 1) {
             holder.imgBtnOption.setVisibility(View.GONE);
             holder.linLayAdmin.setVisibility(View.GONE);
         } else {

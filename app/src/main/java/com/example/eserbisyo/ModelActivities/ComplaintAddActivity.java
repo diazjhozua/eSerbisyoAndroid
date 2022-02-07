@@ -494,6 +494,7 @@ public class ComplaintAddActivity extends AppCompatActivity {
     }
 
     private void getCreateData() {
+
         progressDialog.setMessage("Loading assets.....");
         progressDialog.show();
         typeArrayList = new ArrayList<>();
@@ -703,10 +704,12 @@ public class ComplaintAddActivity extends AppCompatActivity {
                 );
 
                 /* Meaning AuthMissingItemFragment Calls this activity */
-                ComplaintFragment.arrayList.add(0,mComplaint);
-                Objects.requireNonNull(ComplaintFragment.recyclerView.getAdapter()).notifyItemInserted(0);
-                ComplaintFragment.recyclerView.getAdapter().notifyDataSetChanged();
-                Toasty.success(this, "Your complaint has been submitted successfully, please wait for the administrator to respond to your complaint", Toast.LENGTH_LONG, true).show();
+                try {
+                    ComplaintFragment.arrayList.add(0,mComplaint);
+                    Objects.requireNonNull(ComplaintFragment.recyclerView.getAdapter()).notifyItemInserted(0);
+                    ComplaintFragment.recyclerView.getAdapter().notifyDataSetChanged();
+                    Toasty.success(this, "Your complaint has been submitted successfully, please wait for the administrator to respond to your complaint", Toast.LENGTH_LONG, true).show();
+                } catch (Exception ignored) { }
 
                 finish();
             } catch (JSONException e) {

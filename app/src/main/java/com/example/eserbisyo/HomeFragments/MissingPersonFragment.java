@@ -44,6 +44,7 @@ import com.example.eserbisyo.Models.Ordinance;
 import com.example.eserbisyo.Models.Requirement;
 import com.example.eserbisyo.Models.Type;
 import com.example.eserbisyo.Models.UserRequirement;
+import com.example.eserbisyo.OrderActivity.SelectPickupActivity;
 import com.example.eserbisyo.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -119,12 +120,17 @@ public class MissingPersonFragment extends Fragment {
 
         getData();
 
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+
+        btnAdd.setOnClickListener(view -> {
+            if(sharedPreferences.getInt(Pref.IS_VERIFIED, 0) != 1){
+                Toasty.info(requireContext(), "This function is for verified user only.", Toast.LENGTH_LONG, true).show();
+            } else {
                 startActivity(new Intent(((HomeActivity)getContext()), MissingPersonAddActivity.class));
             }
         });
+
+
+
 
         refreshLayout.setOnRefreshListener(this::getData);
 
