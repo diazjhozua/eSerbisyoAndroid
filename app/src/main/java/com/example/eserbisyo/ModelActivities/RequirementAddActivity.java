@@ -143,8 +143,6 @@ public class RequirementAddActivity extends AppCompatActivity {
         /* LOAD TYPES IN SPINNER */
         populateSpinner();
 
-
-
     }
 
     private void initListeners() {
@@ -156,7 +154,6 @@ public class RequirementAddActivity extends AppCompatActivity {
         });
 
         txtCapturePhoto.setOnClickListener(v->{
-
             if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
                 ActivityCompat.requestPermissions(this,new String[] {Manifest.permission.CAMERA}, CAMERA_PERM_CODE);
             }else {
@@ -296,7 +293,6 @@ public class RequirementAddActivity extends AppCompatActivity {
         StringRequest request = new StringRequest(Request.Method.POST, Api.USER_REQUIREMENTS, response->{
 
             try {
-
                 JSONObject object = new JSONObject(response);
 
                 JSONObject userRequirementObject = object.getJSONObject("data");

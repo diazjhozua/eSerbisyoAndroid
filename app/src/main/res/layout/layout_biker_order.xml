@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_height="wrap_content"
+    android:id="@+id/cardOrder"
+    tools:ignore="HardcodedText"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txtOverallStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/primaryColor"
+            android:fontFamily="@font/ubuntu_bold"
+            android:paddingLeft="8dp"
+            android:paddingTop="@dimen/_5sdp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp"
+            android:text="NOT YET DELIVERED. GO TO THE BARANGAY TO PICKUP THE ORDER"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+<!--
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/infoColor"
+            android:fontFamily="@font/ubuntu_bold"
+            android:paddingLeft="8dp"
+            android:paddingTop="@dimen/_5sdp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp"
+            android:text="DELIVERED BUT NOT YET PROCESSED"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:paddingTop="@dimen/_5sdp"
+            android:background="@color/teal_700"
+            android:textAlignment="center"
+            android:fontFamily="@font/ubuntu_bold"
+            android:textColor="@color/white"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp"
+            android:text="ORDER TRANSACTION COMPLETE"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:paddingTop="@dimen/_5sdp"
+            android:background="@color/firebrick"
+            android:textAlignment="center"
+            android:fontFamily="@font/ubuntu_bold"
+            android:textColor="@color/white"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp"
+            android:text="THE RESIDENT DID NOT RECEIVE THE DOCUMENT"
+            />-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            tools:ignore="DisableBaselineAlignment">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+
+                android:orientation="vertical"
+                tools:ignore="UselessParent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:id="@+id/txtID"
+                    android:textColor="@color/primaryColor"
+                    android:textStyle="bold"
+                    android:text="Order # 32"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="11sp"
+                    android:id="@+id/txtCreatedAt"
+                    android:textColor="@color/colorLightGrey"
+                    android:text="Jun 13"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:id="@+id/txtDeliveryDate"
+            android:textColor="@color/black"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp"
+            android:text="Delivery Date: 12-02-2015"/>
+
+
+        <TextView
+            android:id="@+id/txtPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp"
+            android:text="Total Price: P 50.00"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:id="@+id/txtDeliveryFee"
+            android:textColor="@color/black"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp"
+            android:text="Delivery Fee: P 60.00"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#ccc"/>
+
+        <TextView
+            android:id="@+id/txtDeliveredAt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:paddingBottom="8dp"
+            android:text="Delivered at: Jun 30, 2021"
+            android:textColor="@color/colorGrey"
+            android:textSize="14sp"
+            tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+        <Button
+            android:id="@+id/btnDeliver"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:backgroundTint="@color/primaryColor"
+            android:layout_height="wrap_content"
+            android:text="Deliver"
+            android:textColor="@color/white"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10px"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:background="#ccc"
+            tools:ignore="PxUsage" />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

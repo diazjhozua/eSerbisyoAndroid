@@ -14,23 +14,47 @@ public class Order {
     private Double totalPrice;
     private Double deliveryFee;
     private String applicationStatus;
+    private String paymentStatus;
+    private Boolean isBooked;
+    private String returnedStatus;
     private User mBiker;
     private String adminMessage;
     private String updatedAt;
 
-//    public Order(int id, String createdAt, String orderType, String orderStatus, String receivedAt, Double totalPrice, Double deliveryFee, String applicationStatus, User mBiker, String adminMessage, String updatedAt) {
-//        this.id = id;
-//        this.createdAt = createdAt;
-//        this.orderType = orderType;
-//        this.orderStatus = orderStatus;
-//        this.receivedAt = receivedAt;
-//        this.totalPrice = totalPrice;
-//        this.deliveryFee = deliveryFee;
-//        this.applicationStatus = applicationStatus;
-//        this.mBiker = mBiker;
-//        this.adminMessage = adminMessage;
-//        this.updatedAt = updatedAt;
-//    }
+
+
+    /*Constructor for biker transaction and available order fragments*/
+    public Order(int id, String createdAt, String orderStatus, String pickupAt, String receivedAt, Double totalPrice, Double deliveryFee, String paymentStatus, Boolean isBooked, String returnedStatus) {
+        this.id = id;
+        this.createdAt = createdAt;
+        this.orderStatus = orderStatus;
+        this.pickupAt = pickupAt;
+        this.receivedAt = receivedAt;
+        this.totalPrice = totalPrice;
+        this.deliveryFee = deliveryFee;
+        this.paymentStatus = paymentStatus;
+        this.isBooked = isBooked;
+        this.returnedStatus = returnedStatus;
+    }
+
+    /*Constructor for biker order activity */
+    public Order(int id, String name, String email, String phoneNo, String locationAddress, String orderType, String orderStatus, String pickupAt, String receivedAt, Double totalPrice, Double deliveryFee, String paymentStatus, Boolean isBooked, String returnedStatus) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phoneNo = phoneNo;
+        this.locationAddress = locationAddress;
+        this.orderType = orderType;
+        this.orderStatus = orderStatus;
+        this.pickupAt = pickupAt;
+        this.receivedAt = receivedAt;
+        this.totalPrice = totalPrice;
+        this.deliveryFee = deliveryFee;
+        this.paymentStatus = paymentStatus;
+        this.isBooked = isBooked;
+        this.returnedStatus = returnedStatus;
+    }
+
 
     public Order(int id, String createdAt, String orderType, String orderStatus, String pickupAt, String receivedAt, Double totalPrice, Double deliveryFee, String applicationStatus, User mBiker, String adminMessage, String updatedAt) {
         this.id = id;
@@ -85,6 +109,30 @@ public class Order {
 //        this.updatedAt = updatedAt;
 //    }
 
+
+    public String getReturnedStatus() {
+        return returnedStatus;
+    }
+
+    public void setReturnedStatus(String returnedStatus) {
+        this.returnedStatus = returnedStatus;
+    }
+
+    public String getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(String paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
+
+    public Boolean getBooked() {
+        return isBooked;
+    }
+
+    public void setBooked(Boolean booked) {
+        isBooked = booked;
+    }
 
     public String getPickupAt() {
         return pickupAt;

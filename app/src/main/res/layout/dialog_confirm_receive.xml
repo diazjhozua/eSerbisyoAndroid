@@ -25,9 +25,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/ubuntu_bold"
-            android:text="DELETE"
+            android:text="CONFIRM RECEIVE"
             android:textColor="@color/white"
-            android:textSize="@dimen/_15ssp" />
+            android:textSize="@dimen/_15ssp"
+            tools:ignore="HardcodedText" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -40,9 +41,64 @@
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/_10sdp"
         android:fontFamily="@font/ubuntu_medium"
-        android:text="This action cannot be undone"
+        android:text="Capture the picture of the resident while holding the specified document. Make sure the order receipt has been signed by the resident before leaving the area"
         android:textColor="@color/white"
-        android:textSize="@dimen/_10ssp" />
+        android:textSize="@dimen/_10ssp"
+        tools:ignore="HardcodedText" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtExamplePicture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:fontFamily="@font/ubuntu_regular"
+        android:gravity="center_horizontal"
+        android:text="Example picture"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+    <ImageView
+        android:id="@+id/imgCredential"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_100sdp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/sanple_receive_picture"
+        tools:ignore="ContentDescription" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtSelectPhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:fontFamily="@font/ubuntu_regular"
+            android:gravity="center_horizontal"
+            android:padding="@dimen/_3sdp"
+            android:text="@string/select_photo"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtCapturePhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:fontFamily="@font/ubuntu_regular"
+            android:gravity="center_horizontal"
+            android:padding="@dimen/_3sdp"
+            android:text="@string/capture"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.LinearLayoutCompat
 
@@ -65,12 +121,12 @@
             tools:ignore="UnusedAttribute" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnDelete"
+            android:id="@+id/btnConfirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/firebrick"
             android:fontFamily="@font/ubuntu_bold"
-            android:text="Delete"
+            android:text="Confirm"
             android:textColor="@color/white" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 

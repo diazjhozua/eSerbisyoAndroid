@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView tools:context=".Biker.BikerHomeFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:padding="@dimen/_10sdp"
+        android:layout_width="match_parent"
+        tools:ignore="HardcodedText, ContentDescription"
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        tools:context=".Biker.BikerHomeFragment">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:fontFamily="@font/ubuntu_bold"
+            android:textSize="@dimen/_18ssp"
+            android:text="Welcome back biker!"
+            />
+
+        <!-- TOTAL EARNINGS -->
+        <LinearLayout
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/round_green_card"
+            android:layout_width="match_parent"
+            android:padding="@dimen/_10sdp"
+            android:gravity="center"
+            android:layout_height="120sp"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="@dimen/_50sdp"
+                android:src="@drawable/philippine_peso"
+                android:layout_height="@dimen/_50sdp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_height="wrap_content"
+
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/ubuntu_medium"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_15ssp"
+                    android:text="Total Earnings"/>
+
+                <TextView
+                    android:id="@+id/txtTotalEarnings"
+                    android:layout_width="match_parent"
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="P 13,000.00"/>
+
+            </LinearLayout>
+        </LinearLayout>
+        <!-- END OF TOTAL EARNINGS -->
+
+        <!-- COMPLETED ORDER TRANSACTION-->
+        <LinearLayout
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/round_green_card"
+            android:layout_width="match_parent"
+            android:padding="@dimen/_10sdp"
+            android:gravity="center"
+            android:layout_height="120sp"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="@dimen/_50sdp"
+                android:src="@drawable/completed_task"
+                android:layout_height="@dimen/_50sdp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_height="wrap_content"
+
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/ubuntu_medium"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_15ssp"
+                    android:text="Completed Order Transaction"/>
+
+                <TextView
+                    android:id="@+id/txtTotalCompletedTransaction"
+                    android:layout_width="match_parent"
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="13 total of transaction"/>
+
+            </LinearLayout>
+        </LinearLayout>
+        <!-- END OF  COMPLETED ORDER TRANSACTION-->
+
+        <!-- UNPROCESSED DELIVERY -->
+        <LinearLayout
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/round_warning_card"
+            android:layout_width="match_parent"
+            android:padding="@dimen/_10sdp"
+            android:gravity="center"
+            android:layout_height="120sp"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="@dimen/_50sdp"
+                android:src="@drawable/expired"
+                android:layout_height="@dimen/_50sdp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/ubuntu_medium"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_15ssp"
+                    android:text="Unprocessed Delivery"/>
+
+                <TextView
+                    android:id="@+id/txtTotalUnprocessedDelivery"
+                    android:layout_width="match_parent"
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="13 Total Transaction"/>
+
+            </LinearLayout>
+        </LinearLayout>
+        <!-- END OF UNPROCESSED DELIVERY -->
+
+
+        <!-- RETURNABLE ITEMS -->
+        <LinearLayout
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/round_card"
+            android:layout_width="match_parent"
+            android:padding="@dimen/_10sdp"
+            android:gravity="center"
+            android:layout_height="120sp"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="@dimen/_50sdp"
+                android:src="@drawable/exchange"
+                android:layout_height="@dimen/_50sdp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/ubuntu_medium"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_15ssp"
+                    android:text="Returnable Items"/>
+
+                <TextView
+                    android:id="@+id/txtTotalReturnableItem"
+                    android:layout_width="match_parent"
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="13 Total Transaction"/>
+
+            </LinearLayout>
+        </LinearLayout>
+        <!-- END OF RETURNABLE ITEMS -->
+
+        <!-- PENDING DELIVERY -->
+        <LinearLayout
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/round_red_card"
+            android:layout_width="match_parent"
+            android:padding="@dimen/_10sdp"
+            android:gravity="center"
+            android:layout_height="120sp"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="@dimen/_50sdp"
+                android:src="@drawable/cyclist"
+                android:layout_height="@dimen/_50sdp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/ubuntu_medium"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_15ssp"
+                    android:text="Pending Delivery"/>
+
+                <TextView
+                    android:id="@+id/txtTotalPendingDelivery"
+                    android:layout_width="match_parent"
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="13 Total Transaction"/>
+            </LinearLayout>
+        </LinearLayout>
+        <!-- END OF PENDING DELIVERY -->
+
+        <Button
+            android:id="@+id/btnViewTransaction"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:fontFamily="@font/ubuntu_regular"
+            android:backgroundTint="@color/primaryColor"
+            android:layout_height="@dimen/_40sdp"
+            android:textColor="@color/white"
+            android:text="View All Transaction"
+            />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.core.widget.NestedScrollView>

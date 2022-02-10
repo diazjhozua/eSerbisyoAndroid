@@ -199,7 +199,7 @@ public class LoginFragment extends Fragment {
 
                     editor.apply();
 
-                    Toasty.success(requireContext(), message, Toast.LENGTH_SHORT, true).show();
+                    Toasty.success(requireContext(), message, Toast.LENGTH_LONG, true).show();
 
                     startActivity(new Intent(((AuthActivity)getContext()), HomeActivity.class));
                 }

@@ -9,6 +9,8 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -35,6 +37,9 @@ import com.example.eserbisyo.AccountActivities.ChangeEmailActivity;
 import com.example.eserbisyo.AccountActivities.ChangePasswordActivity;
 import com.example.eserbisyo.AccountActivities.ProfileActivity;
 import com.example.eserbisyo.AccountActivities.UserVerificationActivity;
+import com.example.eserbisyo.Biker.BikerViewRegistrationActivity;
+import com.example.eserbisyo.Biker.BikerHomeFragment;
+import com.example.eserbisyo.Biker.OnBoardBikerActivity;
 import com.example.eserbisyo.Constants.Api;
 import com.example.eserbisyo.Constants.Extra;
 import com.example.eserbisyo.Constants.Pref;
@@ -67,9 +72,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private SharedPreferences userPref;
     private Dialog dialog;
     private ProgressDialog progressDialog;
-
     private JSONObject errorObj = null;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +125,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             Picasso.get().load(R.drawable.ic_baseline_radio_button_unchecked_24).fit().error(R.drawable.ic_baseline_check_circle_24).into(ivVerifiedStatus);
         }
 
+
         Toolbar toolbar = findViewById(R.id.toolbar);
 
         /* Toolbar*/
@@ -138,7 +142,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frameHomeContainer, new MainFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
+        }
 
+        if (userPref.getInt(Pref.USER_ROLE_ID, 9) == 8) {
+            Menu menu = navigationView.getMenu();
+            MenuItem nav_bike = menu.findItem(R.id.nav_bike);
+            nav_bike.setTitle("Biker Panel");
         }
     }
 
@@ -166,8 +175,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             if(userPref.getInt(Pref.IS_VERIFIED, 0) != 1){
                 Toasty.info(this, "This function is for verified user only.", Toast.LENGTH_LONG, true).show();
             } else {
-
-//                Toasty.info(this, "This function is for verified user only.", Toast.LENGTH_LONG, true).show();
+                // check if the person is barangay staff admin
+                if (userPref.getInt(Pref.USER_ROLE_ID, 9) < 8) {
+                    Toasty.info(this, "You cannot use this application since you are part of the barangay cupang administrator/staff.", Toast.LENGTH_LONG, true).show();
+                } else if (userPref.getInt(Pref.USER_ROLE_ID, 9) != 8) {
+                    getLatestVerification();
+                } else {
+                    switchFragment(new BikerHomeFragment());
+                }
             }
         } else if (id == R.id.nav_my_missing_person) {
             switchFragment(new AuthMissingPersonFragment());
@@ -181,6 +196,63 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void getLatestVerification() {
+        progressDialog.setMessage("Checking existing latest auth biker registration.....");
+        progressDialog.show();
+
+        StringRequest request = new StringRequest(Request.Method.GET, Api.BIKERS_LATEST_VERIFICATION, response->{
+            try {
+                JSONObject object = new JSONObject(response);
+
+                JSONObject jsonObject = object.getJSONObject("data");
+                Log.d("bikerRegistration", jsonObject.toString(4));
+
+                Intent intent = new Intent(HomeActivity.this, BikerViewRegistrationActivity.class);
+                intent.putExtra(Extra.JSON_OBJECT, jsonObject.toString());
+                startActivity(intent);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            progressDialog.dismiss();
+        },error ->{
+            progressDialog.dismiss();
+
+            startActivity(new Intent(this, OnBoardBikerActivity.class));
+        } ){
+
+            //add token to headers
+            @Override
+            public Map<String, String> getHeaders() {
+                String token = userPref.getString(Pref.TOKEN,"");
+                HashMap<String,String> map = new HashMap<>();
+                map.put("Authorization","Bearer "+token);
+                return map;
+            }
+
+            @Override
+            protected VolleyError parseNetworkError(VolleyError volleyError) {
+                String json;
+
+                if (volleyError.networkResponse != null && volleyError.networkResponse.data != null) {
+                    try {
+                        json = new String(volleyError.networkResponse.data,
+                                HttpHeaderParser.parseCharset(volleyError.networkResponse.headers));
+
+                        errorObj = new JSONObject(json);
+                    } catch (UnsupportedEncodingException | JSONException e) {
+                        return new VolleyError(e.getMessage());
+                    }
+                    return new VolleyError(json);
+                }
+                return volleyError;
+            }
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(HomeActivity.this);
+        queue.add(request);
     }
 
     public void setHomeNavCheck() {

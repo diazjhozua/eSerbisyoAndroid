@@ -128,11 +128,35 @@
         If your submitted report status was "Denied", please see the admin message and re-edit the specific missing item report.
     </string>
 
+    <string name="biker_transaction">These are the list of your current transaction and it is sorted by the latest to oldest data. Please refrain from
+        booking an order when there is a pending delivery. If you want to have the list of pending delivery, please click add the button.
+    </string>
+
+    <string name="biker_avail">These are the available order that needs to deliver,
+        Please choose any of the order and take note that you cannot cancel the delivery once you accept the order.
+    </string>
+
     <string name="missing_item_desc">These are the list of approved missing item report.
         Please contact the user name who posted the said report if you have the information that may help him/her finding the report.
         You can see the contact information of the use by clicking the name or by writing a comment.</string>
     <string name="order_type_desc">Take note that the certificates available depends on which order type you have chosen.
         There are certain types of certificate only available for pickup.
+    </string>
+    
+    <string name="biker_terms1">
+        The Barangay Cupang app allows bikers to deliver documents to the residents of Barangay Cupang.
+        It is required that the riders provide the best service possible. Once a resident\'s booking has been accepted by the admins, bikers are not permitted to cancel it until the documents are delivered on time.
+
+    </string>
+
+    <string name="biker_terms2">
+        Bikers must abide by the barangay official\'s rules and management, and they must not deviate from their responsibilities. Bikers should treat the residents with respect and follow the delivery location\'s instructions.
+        The change of the stated payment is a violation and will be sanctioned if proven guilty of the said violation will be given. Bikers should not have any criminal history.
+    </string>
+
+    <string name="biker_terms3">
+        If residents are at fault bikers should immediately report to the barangay to be investigated. \n In addition, riders must not tamper the package in any way. By agreeing this you will agree with the protocols involved.
+        Barangay Cupang will not be in-charged when accidents happen during the delivery.
     </string>
 
 

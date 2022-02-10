@@ -190,6 +190,7 @@ public class RegisterFragment extends Fragment {
                 editor.putString(Pref.EMAIL, user.getString("email"));
                 editor.putString(Pref.TOKEN, object.getString("access_token"));
                 editor.putString(Pref.PASSWORD, Objects.requireNonNull(txtPassword.getText()).toString().trim());
+                editor.putInt(Pref.USER_ROLE_ID, user.getInt("user_role_id"));
                 editor.apply();
 
                 Toasty.success(requireContext(), message, Toast.LENGTH_SHORT, true).show();
