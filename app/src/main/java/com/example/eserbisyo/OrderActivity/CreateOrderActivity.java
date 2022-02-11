@@ -182,7 +182,7 @@ public class CreateOrderActivity extends AppCompatActivity implements LocationLi
         formArrayList.add(new Form(
                 0, 1, "Barangay Indigency", 200.0, "Jhozua", "Manguera", "Diaz",
                 "633 Purok 5", "Single", "2000-09-12", "Filipino", "NBI Clearance", null, null, null, null, null,
-                null, null, null, null, null, null, null, null
+                null, null, null, null, null, null, null, null, true
         ));
         formsAdapter = new FormsAdapter(CreateOrderActivity.this, formArrayList);
         recyclerView.setAdapter(formsAdapter);

@@ -124,10 +124,10 @@ public class ComplaintViewActivity extends AppCompatActivity {
         rvComplainant = findViewById(R.id.recyclerViewComplainant);
         rvDefendant = findViewById(R.id.recyclerViewDefendant);
 
-        rvDefendant.setHasFixedSize(true);
+        rvDefendant.setHasFixedSize(false);
         rvDefendant.setLayoutManager(new LinearLayoutManager(ComplaintViewActivity.this));
 
-        rvComplainant.setHasFixedSize(true);
+        rvComplainant.setHasFixedSize(false);
         rvComplainant.setLayoutManager(new LinearLayoutManager(ComplaintViewActivity.this));
 
         progressDialog = new ProgressDialog(this);

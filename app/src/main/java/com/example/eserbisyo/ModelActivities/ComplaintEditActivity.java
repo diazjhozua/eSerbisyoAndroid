@@ -39,6 +39,7 @@ import com.example.eserbisyo.Adapters.DDTypeAdapter;
 import com.example.eserbisyo.Constants.Api;
 import com.example.eserbisyo.Constants.Extra;
 import com.example.eserbisyo.Constants.Pref;
+import com.example.eserbisyo.HomeFragments.AuthMissingPersonFragment;
 import com.example.eserbisyo.HomeFragments.ComplaintFragment;
 import com.example.eserbisyo.ModelRecyclerViewAdapters.ComplainantsAdapter;
 import com.example.eserbisyo.ModelRecyclerViewAdapters.DefendantsAdapter;
@@ -112,6 +113,10 @@ public class ComplaintEditActivity extends AppCompatActivity {
     private TextInputEditText inputCompDiaName;
     private Button btnCompDiaCancel, btnCompDiaSubmit;
 
+    private int selectedPosition;
+
+
+
     private Complaint mComplaint;
     private Bitmap signatureBitmap;
 
@@ -124,7 +129,7 @@ public class ComplaintEditActivity extends AppCompatActivity {
         if (extras != null) {
             try {
                 JSONObject complaintJSONObject= new JSONObject(extras.getString(Extra.JSON_OBJECT));
-
+                selectedPosition = extras.getInt(Extra.MODEL_POSITION, 0);
 
                 mComplaint = new Complaint(
                         complaintJSONObject.getInt("id"), complaintJSONObject.getInt("contact_id"), complaintJSONObject.getString("contact_name"),
@@ -855,11 +860,10 @@ public class ComplaintEditActivity extends AppCompatActivity {
                         complaintJSONObject.getString("created_at"), complaintJSONObject.getString("updated_at")
                 );
 
-                /* Meaning AuthMissingItemFragment Calls this activity */
-                ComplaintFragment.arrayList.add(0,mComplaint);
-                Objects.requireNonNull(ComplaintFragment.recyclerView.getAdapter()).notifyItemInserted(0);
+                ComplaintFragment.arrayList.set(selectedPosition, mComplaint);
+                ComplaintFragment.recyclerView.getAdapter().notifyItemChanged(selectedPosition);
                 ComplaintFragment.recyclerView.getAdapter().notifyDataSetChanged();
-                Toasty.success(this, "Your complaint has been updated successfully, please wait for the administrator to respond to your complaint", Toast.LENGTH_LONG, true).show();
+                Toasty.success(this, "Your complaint has been updated successfully, please wait for the administrator to respond to your complaint", Toast.LENGTH_SHORT, true).show();
 
                 finish();
             } catch (JSONException e) {

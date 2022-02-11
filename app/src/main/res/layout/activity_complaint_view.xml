@@ -194,8 +194,32 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerViewDefendant"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_120sdp" />
+                    android:layout_height="wrap_content" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity=""
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtComplainantCount"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ubuntu_regular"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:paddingBottom="8dp"
+                        android:text="Complainant: 0 (Total)"
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewComplainant"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 <!--                <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                     android:id="@+id/swipeRecyclerViewDefendant"
                     android:layout_width="match_parent"
@@ -208,8 +232,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
-
-
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

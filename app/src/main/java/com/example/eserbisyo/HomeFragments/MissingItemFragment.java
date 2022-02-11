@@ -117,16 +117,15 @@ public class MissingItemFragment extends Fragment {
         getData();
 
 
-
-        if(sharedPreferences.getInt(Pref.IS_VERIFIED, 0) != 1){
-            Toasty.info(requireContext(), "This function is for verified user only.", Toast.LENGTH_LONG, true).show();
-        } else {
-            Intent i = new Intent(((HomeActivity)getContext()), MissingItemAddActivity.class);
-            i.putExtra(Extra.IS_MY_REPORT, "NO");
-            startActivity(i);
-        }
-
-
+        btnAdd.setOnClickListener(view -> {
+            if(sharedPreferences.getInt(Pref.IS_VERIFIED, 0) != 1){
+                Toasty.info(requireContext(), "This function is for verified user only.", Toast.LENGTH_LONG, true).show();
+            } else {
+                Intent i = new Intent(((HomeActivity)getContext()), MissingItemAddActivity.class);
+                i.putExtra(Extra.IS_MY_REPORT, "NO");
+                startActivity(i);
+            }
+        });
 
         refreshLayout.setOnRefreshListener(this::getData);
 

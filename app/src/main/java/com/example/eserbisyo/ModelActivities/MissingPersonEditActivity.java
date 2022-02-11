@@ -824,7 +824,7 @@ public class MissingPersonEditActivity extends AppCompatActivity {
                     AuthMissingPersonFragment.arrayList.set(selectedPosition, missingPersonObj);
                     AuthMissingPersonFragment.recyclerView.getAdapter().notifyItemChanged(selectedPosition);
                     AuthMissingPersonFragment.recyclerView.getAdapter().notifyDataSetChanged();
-                    Toast.makeText(this, "The report has been updated successfully, Please wait for the administrator to verify the report", Toast.LENGTH_SHORT).show();
+                    Toasty.success(this, "The report has been updated successfully, Please wait for the administrator to verify the report", Toast.LENGTH_LONG, true).show();
 
                 } catch (Exception exception) {}
 
@@ -832,7 +832,7 @@ public class MissingPersonEditActivity extends AppCompatActivity {
                     MissingPersonFragment.arrayList.set(selectedPosition, missingPersonObj);
                     MissingPersonFragment.recyclerView.getAdapter().notifyItemChanged(selectedPosition);
                     MissingPersonFragment.recyclerView.getAdapter().notifyDataSetChanged();
-                    Toast.makeText(this, "The report has been updated successfully, Please wait for the administrator to verify the report", Toast.LENGTH_SHORT).show();
+                    Toasty.success(this, "The report has been updated successfully, Please wait for the administrator to verify the report", Toast.LENGTH_LONG, true).show();
                 } catch (Exception exception) {}
 
                 finish();
