@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -183,6 +184,8 @@ public class LoginFragment extends Fragment {
 
                 //make shared preference user
                 if (user.isNull("first_name")) {
+                    editor.putString(Pref.TOKEN, object.getString("access_token"));
+                    editor.apply();
                     startActivity(new Intent(((AuthActivity)getContext()), UserInfoActivity.class));
                 } else {
 
@@ -191,6 +194,7 @@ public class LoginFragment extends Fragment {
                     editor.putString(Pref.FIRST_NAME, user.getString("first_name"));
                     editor.putString(Pref.MIDDLE_NAME, user.getString("middle_name"));
                     editor.putString(Pref.LAST_NAME, user.getString("last_name"));
+                    editor.putString(Pref.ADDRESS, user.getString("address"));
                     editor.putString(Pref.PICTURE, user.getString("file_path"));
                     editor.putString(Pref.TOKEN, object.getString("access_token"));
                     editor.putString(Pref.STATUS, user.getString("status"));

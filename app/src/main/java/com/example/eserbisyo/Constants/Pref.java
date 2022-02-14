@@ -8,6 +8,7 @@ public class Pref {
     public final static String FIRST_NAME = "firstName";
     public final static String MIDDLE_NAME = "middleName";
     public final static String LAST_NAME = "lastName";
+    public final static String ADDRESS = "address";
     public final static String PICTURE = "picture";
     public final static String EMAIL = "email";
     public final static String PASSWORD = "password";

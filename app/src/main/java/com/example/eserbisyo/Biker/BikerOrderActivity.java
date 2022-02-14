@@ -90,7 +90,6 @@ public class BikerOrderActivity extends AppCompatActivity {
 
     private boolean isReported = false;
 
-    private Double longitude, latitude;
 
     /*Confirmation Dialog*/
     private Dialog confirmDialog;
@@ -173,9 +172,6 @@ public class BikerOrderActivity extends AppCompatActivity {
                         jsonObject.getDouble("delivery_fee"), jsonObject.getString("delivery_payment_status"), true,
                         jsonObject.getString("is_returned")
                 );
-
-                longitude = jsonObject.getDouble("user_long");
-                latitude = jsonObject.getDouble("user_lat");
 
                 JSONArray formJSONArray = new JSONArray(jsonObject.getString("certificate_forms"));
                 formArrayList = new ArrayList<>();
@@ -732,7 +728,7 @@ public class BikerOrderActivity extends AppCompatActivity {
             btnMarkedAsReceive.setVisibility(View.VISIBLE);
             btnMarkedAsDNR.setVisibility(View.VISIBLE);
 
-            Uri gmmIntentUri = Uri.parse("google.navigation:q="+ latitude +","+ longitude);
+            Uri gmmIntentUri = Uri.parse("google.navigation:q="+ mOrder.getLocationAddress());
             Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
             mapIntent.setPackage("com.google.android.apps.maps");
 

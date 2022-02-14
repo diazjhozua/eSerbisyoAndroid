@@ -177,14 +177,14 @@ public class ComplaintAddActivity extends AppCompatActivity {
         complainantsAdapter = new ComplainantsAdapter(ComplaintAddActivity.this, complainantArrayList);
         rvComplainant.setAdapter(complainantsAdapter);
 
-        defendantArrayList.add(new Defendant(1, 1, true, true, "Princess Angela Landicho".toString().trim()));
+//        defendantArrayList.add(new Defendant(1, 1, true, true, "Princess Angela Landicho".toString().trim()));
         defendantsAdapter = new DefendantsAdapter(ComplaintAddActivity.this, defendantArrayList);
         rvDefendant.setAdapter(defendantsAdapter);
 
-        inputTxtReason.setText("Gusto po sana magreklamo kasi ang kapit bahay po namin ay ang iingay. Nag report na po ako kaso mas lalong lumala");
-        inputTxtAction.setText("Gusto ko po sana mabigyan ng hustisya");
-        inputTxtEmail.setText("jhozua@gmail.com");
-        inputTxtPhone.setText("09196988952");
+//        inputTxtReason.setText("Gusto po sana magreklamo kasi ang kapit bahay po namin ay ang iingay. Nag report na po ako kaso mas lalong lumala");
+//        inputTxtAction.setText("Gusto ko po sana mabigyan ng hustisya");
+//        inputTxtEmail.setText("jhozua@gmail.com");
+//        inputTxtPhone.setText("09196988952");
 
         initListeners();
 

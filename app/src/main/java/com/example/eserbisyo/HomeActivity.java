@@ -74,6 +74,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private ProgressDialog progressDialog;
     private JSONObject errorObj = null;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +89,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         View headerView = navigationView.getHeaderView(0);
 
         TextView txtUsername = headerView.findViewById(R.id.txtUserName);
+        TextView txtId = headerView.findViewById(R.id.txtUserID);
         TextView txtVerifiedStatus = headerView.findViewById(R.id.txtVerifiedStatus);
         ImageView ivVerifiedStatus = headerView.findViewById(R.id.ivVerifiedStatus);
         CircleImageView ivUser = headerView.findViewById(R.id.ivUser);
@@ -106,6 +108,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         String fullName = firstName + " " + lastName;
 
         Picasso.get().load(Api.STORAGE + userPicture).fit().error(R.drawable.cupang).into(ivUser);
+        txtId.setText("ID #" + userPref.getInt(Pref.ID, 0));
         txtUsername.setText(fullName);
         txtVerifiedStatus.setText(verifiedStatus);
 

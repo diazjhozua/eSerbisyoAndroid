@@ -275,6 +275,7 @@ public class UserInfoActivity extends AppCompatActivity {
                 editor.putString(Pref.FIRST_NAME, user.getString("first_name"));
                 editor.putString(Pref.MIDDLE_NAME, user.getString("middle_name"));
                 editor.putString(Pref.LAST_NAME, user.getString("last_name"));
+                editor.putString(Pref.ADDRESS, user.getString("address"));
                 editor.putString(Pref.PICTURE, user.getString("file_path"));
                 editor.putString(Pref.STATUS, user.getString("status"));
                 editor.putInt(Pref.IS_VERIFIED, user.getInt("is_verified"));

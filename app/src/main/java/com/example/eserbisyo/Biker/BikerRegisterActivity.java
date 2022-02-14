@@ -66,8 +66,8 @@ import es.dmoral.toasty.Toasty;
 
 public class BikerRegisterActivity extends AppCompatActivity {
     public static final int CAMERA_PERM_CODE = 101;
-    private TextInputLayout layoutType, layoutSize, layoutColor, layoutReason;
-    private TextInputEditText inputType, inputSize, inputColor, inputReason;
+    private TextInputLayout layoutType, layoutSize, layoutColor, layoutReason, layoutPhone;
+    private TextInputEditText inputType, inputSize, inputColor, inputReason, inputPhone;
     private TextView txtSelectPhoto, txtCapturePhoto, txtExamplePicture, txtTerms;
     private AppCompatCheckBox chkTerms;
     private ImageView ivCredential;
@@ -134,11 +134,13 @@ public class BikerRegisterActivity extends AppCompatActivity {
         layoutSize = findViewById(R.id.txtLayoutBikeSize);
         layoutColor = findViewById(R.id.txtLayoutBikeColor);
         layoutReason = findViewById(R.id.txtLayoutReason);
+        layoutPhone = findViewById(R.id.txtLayoutPhone);
 
         inputType = findViewById(R.id.inputTxtBikeType);
         inputSize = findViewById(R.id.inputTxtBikeSize);
         inputColor = findViewById(R.id.inputTxtBikeColor);
         inputReason = findViewById(R.id.inputTxtReason);
+        inputPhone = findViewById(R.id.inputTxtPhone);
 
         txtExamplePicture = findViewById(R.id.txtExamplePicture);
         txtSelectPhoto = findViewById(R.id.txtSelectPhoto);
@@ -255,6 +257,27 @@ public class BikerRegisterActivity extends AppCompatActivity {
             }
         });
 
+        inputPhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!Objects.requireNonNull(inputPhone.getText()).toString().isEmpty() && Objects.requireNonNull(inputPhone.getText()).toString().length() == 11){
+                    layoutPhone.setErrorEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
+
         inputReason.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -349,6 +372,15 @@ public class BikerRegisterActivity extends AppCompatActivity {
             return false;
         }
 
+        /* Phone Validation */
+        if (Objects.requireNonNull(inputPhone.getText()).toString().length() != 11){
+            layoutPhone.setErrorEnabled(true);
+            layoutPhone.setError("Invalid phone number. Must start at 0919*******");
+            Toasty.error(this, "Invalid phone number. Must start at 0919*******", Toast.LENGTH_LONG, true).show();
+            return false;
+        }
+
+
         if (Objects.requireNonNull(inputReason.getText()).toString().length() > 250){
             layoutReason.setErrorEnabled(true);
             layoutReason.setError("Bike Reason:  Required no more than 250 characters");
@@ -373,6 +405,7 @@ public class BikerRegisterActivity extends AppCompatActivity {
         String size = Objects.requireNonNull(inputSize.getText()).toString().trim();
         String color = Objects.requireNonNull(inputColor.getText()).toString().trim();
         String reason = Objects.requireNonNull(inputReason.getText()).toString().trim();
+        String phoneNo = Objects.requireNonNull(inputPhone.getText()).toString().trim();
 
         StringRequest request = new StringRequest(Request.Method.POST, Api.BIKERS_POST_VERIFICATION, response->{
             try {
@@ -430,6 +463,7 @@ public class BikerRegisterActivity extends AppCompatActivity {
                 map.put("bike_size", size);
                 map.put("bike_color", color);
                 map.put("reason", reason);
+                map.put("phone_no", phoneNo);
                 map.put("picture",bitmapToString(bitmap));
                 return map;
             }

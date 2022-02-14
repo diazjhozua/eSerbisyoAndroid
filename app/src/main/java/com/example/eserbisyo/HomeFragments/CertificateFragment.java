@@ -104,7 +104,14 @@ public class CertificateFragment extends Fragment {
         sharedPreferences = requireContext().getSharedPreferences(Pref.USER_PREFS, Context.MODE_PRIVATE);
 
         FloatingActionButton btnAdd = view.findViewById(R.id.btnAdd);
-        btnAdd.setOnClickListener(v -> startActivity(new Intent(((HomeActivity)getContext()), SelectPickupActivity.class)));
+
+        btnAdd.setOnClickListener(view -> {
+            if(sharedPreferences.getInt(Pref.IS_VERIFIED, 0) != 1){
+                Toasty.info(requireContext(), "This function is for verified user only.", Toast.LENGTH_LONG, true).show();
+            } else {
+                new Intent(((HomeActivity)getContext()), SelectPickupActivity.class);
+            }
+        });
 
         /*For loading when the user submits the genre form*/
         ProgressDialog progressDialog = new ProgressDialog(getContext());

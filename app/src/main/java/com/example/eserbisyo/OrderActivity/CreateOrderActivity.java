@@ -1,36 +1,27 @@
 package com.example.eserbisyo.OrderActivity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.LinearLayoutCompat;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -39,21 +30,12 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.eserbisyo.Adapters.DDCertificatesAdapter;
-import com.example.eserbisyo.Adapters.DDTypeAdapter;
 import com.example.eserbisyo.Constants.Api;
 import com.example.eserbisyo.Constants.Extra;
 import com.example.eserbisyo.Constants.Pref;
-import com.example.eserbisyo.HomeFragments.ComplaintFragment;
-import com.example.eserbisyo.ModelActivities.ComplaintAddActivity;
-import com.example.eserbisyo.ModelRecyclerViewAdapters.DefendantsAdapter;
 import com.example.eserbisyo.ModelRecyclerViewAdapters.FormsAdapter;
 import com.example.eserbisyo.Models.Certificate;
-import com.example.eserbisyo.Models.Complainant;
-import com.example.eserbisyo.Models.Complaint;
-import com.example.eserbisyo.Models.Defendant;
 import com.example.eserbisyo.Models.Form;
-import com.example.eserbisyo.Models.MissingItem;
-import com.example.eserbisyo.Models.Type;
 import com.example.eserbisyo.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -66,18 +48,16 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
-public class CreateOrderActivity extends AppCompatActivity implements LocationListener {
+public class CreateOrderActivity extends AppCompatActivity {
     private TextInputLayout layoutName, layoutLocation, layoutEmail, layoutPhoneNo;
     private TextInputEditText inputTxtName, inputTxtLocation, inputTxtEmail, inputTxtPhoneNo;
-    private TextView txtOrderType, txtMarkLocation, txtLocationSet, txtAddCertificate;
-    private LinearLayoutCompat layoutDelivery;
+    private TextView txtOrderType, txtAddCertificate;
     public static RecyclerView recyclerView;
 
     private Button btnSubmit;
@@ -95,9 +75,7 @@ public class CreateOrderActivity extends AppCompatActivity implements LocationLi
     public static TextView txtCertificateCount, txtTotalCertPrice, txtDeliveryFee, txtTotalFee;
     public static Double totalCertPrice, deliveryFee, totalFee;
 
-    private LocationManager locationManager;
 
-    private Double longitude, latitude;
 
     public JSONObject errorObj = null;
 
@@ -131,14 +109,6 @@ public class CreateOrderActivity extends AppCompatActivity implements LocationLi
             }
         }
 
-        //Runtime permissions
-        if (ContextCompat.checkSelfPermission(CreateOrderActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(CreateOrderActivity.this, new String[]{
-                    Manifest.permission.ACCESS_FINE_LOCATION
-            }, 100);
-        }
-
         init();
 
     }
@@ -157,8 +127,6 @@ public class CreateOrderActivity extends AppCompatActivity implements LocationLi
         inputTxtPhoneNo = findViewById(R.id.inputTxtPhone);
 
         txtOrderType = findViewById(R.id.txtOrderType);
-        txtMarkLocation = findViewById(R.id.txtMarkLocation);
-        txtLocationSet = findViewById(R.id.txtLocationSet);
         txtAddCertificate = findViewById(R.id.txtAddCertificate);
 
         txtCertificateCount = findViewById(R.id.txtCertificateCount);
@@ -166,7 +134,6 @@ public class CreateOrderActivity extends AppCompatActivity implements LocationLi
         txtDeliveryFee = findViewById(R.id.txtDeliveryFee);
         txtTotalFee = findViewById(R.id.txtTotalFee);
 
-        layoutDelivery = findViewById(R.id.layoutDelivery);
         recyclerView = findViewById(R.id.recyclerView);
         btnSubmit = findViewById(R.id.btnSubmit);
 
@@ -179,11 +146,11 @@ public class CreateOrderActivity extends AppCompatActivity implements LocationLi
         recyclerView.setLayoutManager(new LinearLayoutManager(CreateOrderActivity.this));
 
         formArrayList = new ArrayList<>();
-        formArrayList.add(new Form(
-                0, 1, "Barangay Indigency", 200.0, "Jhozua", "Manguera", "Diaz",
-                "633 Purok 5", "Single", "2000-09-12", "Filipino", "NBI Clearance", null, null, null, null, null,
-                null, null, null, null, null, null, null, null, true
-        ));
+//        formArrayList.add(new Form(
+//                0, 1, "Barangay Indigency", 200.0, "Jhozua", "Manguera", "Diaz",
+//                "633 Purok 5", "Single", "2000-09-12", "Filipino", "NBI Clearance", null, null, null, null, null,
+//                null, null, null, null, null, null, null, null, true
+//        ));
         formsAdapter = new FormsAdapter(CreateOrderActivity.this, formArrayList);
         recyclerView.setAdapter(formsAdapter);
         userPref = getApplicationContext().getSharedPreferences(Pref.USER_PREFS, Context.MODE_PRIVATE);
@@ -192,57 +159,9 @@ public class CreateOrderActivity extends AppCompatActivity implements LocationLi
 
     }
 
-    @Override
-    public void onLocationChanged(Location location) {
-        progressDialog.hide();
-        Toasty.success(this, "Location has been set", Toasty.LENGTH_LONG, true).show();
-        longitude = location.getLongitude();
-        latitude = location.getLatitude();
-
-        txtMarkLocation.setVisibility(View.GONE);
-        txtLocationSet.setVisibility(View.VISIBLE);
-
-
-        try {
-            Geocoder geocoder = new Geocoder(CreateOrderActivity.this, Locale.getDefault());
-            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-            String address = addresses.get(0).getAddressLine(0);
-
-//            textView_location.setText(address);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
 
     @SuppressLint("SetTextI18n")
     private void setData() {
-        if (orderType.equals("Delivery")) {
-            txtMarkLocation.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //create method
-                    progressDialog.setMessage("Getting current location.....");
-                    progressDialog.show();
-
-                    getLocation();
-                }
-            });
-
-            txtLocationSet.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //create method
-                    progressDialog.setMessage("Getting current location.....");
-                    progressDialog.show();
-
-                    getLocation();
-                }
-            });
-        } else {
-            layoutDelivery.setVisibility(View.GONE);
-        }
 
         txtCertificateCount.setText("Certificate Requested: " + formsAdapter.getItemCount() + " (Total)");
         totalCertPrice = 0.0;
@@ -260,31 +179,13 @@ public class CreateOrderActivity extends AppCompatActivity implements LocationLi
 
         txtOrderType.setText("ORDER TYPE: " + orderType.toUpperCase(Locale.ROOT));
         inputTxtName.setText(userPref.getString(Pref.FIRST_NAME, "") + " " + userPref.getString(Pref.MIDDLE_NAME, "") + " " + userPref.getString(Pref.LAST_NAME, ""));
+        inputTxtLocation.setText(userPref.getString(Pref.ADDRESS, ""));
         inputTxtEmail.setText(userPref.getString(Pref.EMAIL, ""));
 
         DDCertificatesAdapter ddCertificatesAdapter = new DDCertificatesAdapter(this, certificateArrayList);
         spnType.setAdapter(ddCertificatesAdapter);
 
-        if (!orderType.equals("Delivery")) {
-            layoutDelivery.setVisibility(View.GONE);
-        } else {
-            txtLocationSet.setVisibility(View.GONE);
-        }
-
         initListener();
-    }
-
-    @SuppressLint("MissingPermission")
-    private void getLocation() {
-
-        try {
-            locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,5000,5,CreateOrderActivity.this);
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
     }
 
     private void initListener() {
@@ -400,6 +301,10 @@ public class CreateOrderActivity extends AppCompatActivity implements LocationLi
 
     private boolean validate() {
 
+//        String address = inputTxtLocation.getText().toString().trim();
+//        GeoLocation geoLocation = new GeoLocation();
+//        geoLocation.getAddress(address, getApplicationContext(), new GeoHandler());
+
         if (Objects.requireNonNull(inputTxtName.getText()).toString().length() < 3){
             layoutName.setErrorEnabled(true);
             layoutName.setError("Required at least 3 characters");
@@ -428,16 +333,6 @@ public class CreateOrderActivity extends AppCompatActivity implements LocationLi
             return false;
         }
 
-        if (orderType.equals("Delivery")) {
-            if (longitude == null || latitude == null) {
-                Toasty.error(this, "Please set the location", Toasty.LENGTH_LONG, true).show();
-            }
-        }
-
-        if (formsAdapter.getItemCount() <= 0) {
-            Toasty.error(this, "FORM: Please add a minimum of 1 request of certificate to proceed", Toasty.LENGTH_LONG, true).show();
-        }
-
         /* Email Validation  */
         if (!Patterns.EMAIL_ADDRESS.matcher(Objects.requireNonNull(inputTxtEmail.getText()).toString()).matches() || Objects.requireNonNull(inputTxtEmail.getText()).toString().isEmpty()){
             layoutEmail.setErrorEnabled(true);
@@ -457,6 +352,23 @@ public class CreateOrderActivity extends AppCompatActivity implements LocationLi
         return true;
     }
 
+//    private class GeoHandler extends Handler {
+//        @Override
+//        public void handleMessage(Message msg) {
+//            String address;
+//            switch (msg.what) {
+//                case 1:
+//                    Bundle bundle = msg.getData();
+//                    address = bundle.getString("address");
+//                    break;
+//                default:
+//                    address=null;
+//            }
+//            Toasty.info(CreateOrderActivity.this, address, Toasty.LENGTH_LONG, true).show();
+//
+//        }
+//    }
+
     private void submitData() {
         progressDialog.setMessage("Submitting order please wait.....");
         progressDialog.show();
@@ -472,18 +384,6 @@ public class CreateOrderActivity extends AppCompatActivity implements LocationLi
 
                 JSONObject jsonObject = object.getJSONObject("data");
 
-//                Complaint mComplaint = new Complaint(
-//                        complaintJSONObject.getInt("id"), complaintJSONObject.getInt("contact_id"), complaintJSONObject.getString("contact_name"),
-//                        new Type(complaintJSONObject.getInt("type_id"), complaintJSONObject.getString("complaint_type")), complaintJSONObject.getString("custom_type"),
-//                        complaintJSONObject.getString("reason"), complaintJSONObject.getString("action"), complaintJSONObject.getString("email"),
-//                        complaintJSONObject.getString("phone_no"), complaintJSONObject.getString("status"), complaintJSONObject.getString("admin_message"),
-//                        complaintJSONObject.getString("created_at"), complaintJSONObject.getString("updated_at")
-//                );
-
-                /* Meaning AuthMissingItemFragment Calls this activity */
-//                ComplaintFragment.arrayList.add(0,mComplaint);
-//                Objects.requireNonNull(ComplaintFragment.recyclerView.getAdapter()).notifyItemInserted(0);
-//                ComplaintFragment.recyclerView.getAdapter().notifyDataSetChanged();
                 Toasty.success(this, "Your order has been submitted successfully, please wait for the administrator to respond to your order", Toast.LENGTH_LONG, true).show();
                 SelectPickupActivity.finishThis();
                 finish();
@@ -530,11 +430,6 @@ public class CreateOrderActivity extends AppCompatActivity implements LocationLi
                 map.put("phone_no", phoneNo);
                 map.put("pick_up_type", orderType);
                 map.put("location_address", homeAddress);
-
-                if (orderType.equals("Delivery")) {
-                    map.put("latitude", String.valueOf(latitude));
-                    map.put("longitude", String.valueOf(longitude));
-                }
 
                 for(int i=0;i<formArrayList.size();i++){
                     map.put("certificate_forms["+i+"][certificate_id]", String.valueOf(formArrayList.get(i).getCertId()));
@@ -626,22 +521,10 @@ public class CreateOrderActivity extends AppCompatActivity implements LocationLi
         }
     }
 
-    @Override
-    public void onProviderEnabled(@NonNull String provider) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(@NonNull String provider) {
-
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-    }
 
     public void cancelEdit(View view) {
         finish();
     }
+
+
 }

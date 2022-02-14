@@ -122,51 +122,6 @@
                         android:textSize="@dimen/_12ssp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/layoutDelivery"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/txtMarkLocation"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_marginEnd="@dimen/_10sdp"
-                        android:layout_marginBottom="@dimen/_10sdp"
-                        android:background="@color/firebrick"
-                        android:fontFamily="@font/ubuntu_regular"
-                        android:gravity="right"
-                        android:padding="@dimen/_5sdp"
-                        android:text="Click to set location"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="12sp"
-                        tools:ignore="HardcodedText,RtlCompat" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/txtLocationSet"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_marginEnd="@dimen/_10sdp"
-                        android:layout_marginBottom="@dimen/_10sdp"
-                        android:background="@drawable/round_green_card"
-                        android:fontFamily="@font/ubuntu_regular"
-                        android:gravity="right"
-                        android:padding="@dimen/_5sdp"
-                        android:text="Location has been set. Click this to reset the location"
-
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="12sp"
-                        tools:ignore="RtlCompat,RtlHardcoded" />
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -28,7 +28,7 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:paddingBottom="8dp"
-            android:text=""/>
+            android:text="WAITING FOR APPROVAL"/>
 
 
         <LinearLayout

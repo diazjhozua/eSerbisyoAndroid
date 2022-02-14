@@ -21,7 +21,7 @@ tools:ignore="HardcodedText">
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
@@ -108,11 +108,11 @@ tools:ignore="HardcodedText">
                 <TextView
                     android:id="@+id/txtId"
                     android:layout_width="wrap_content"
-                    android:textSize="@dimen/_15ssp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/ubuntu_regular"
                     android:text="Order #23"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15ssp" />
 
                 <TextView
                     android:id="@+id/txtContactName"
@@ -258,12 +258,12 @@ tools:ignore="HardcodedText">
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnStartRiding"
-                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
-                android:padding="@dimen/_5sdp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/round_card"
                 android:fontFamily="@font/ubuntu_bold"
+                android:padding="@dimen/_5sdp"
                 android:text="Start Riding"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
@@ -271,36 +271,35 @@ tools:ignore="HardcodedText">
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnMarkedAsReceive"
-                android:visibility="gone"
-                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
-                android:padding="@dimen/_5sdp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/round_green_card"
                 android:fontFamily="@font/ubuntu_bold"
+                android:padding="@dimen/_5sdp"
                 android:text="Marked as received"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_10ssp" />
+                android:textSize="@dimen/_10ssp"
+                android:visibility="gone" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnMarkedAsDNR"
-                android:visibility="gone"
-                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
-                android:padding="@dimen/_5sdp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/round_red_card"
                 android:fontFamily="@font/ubuntu_bold"
+                android:padding="@dimen/_5sdp"
                 android:text="Marked as DNR (Did not receive)"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_10ssp" />
+                android:textSize="@dimen/_10ssp"
+                android:visibility="gone" />
 
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnReport"
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -309,7 +308,8 @@ tools:ignore="HardcodedText">
                 android:text="Report"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_10ssp" />
+                android:textSize="@dimen/_10ssp"
+                android:visibility="gone" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
 

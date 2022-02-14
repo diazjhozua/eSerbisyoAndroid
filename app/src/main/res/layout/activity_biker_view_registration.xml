@@ -104,6 +104,14 @@
                     android:padding="@dimen/_10sdp">
 
                     <TextView
+                        android:id="@+id/txtPhoneNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/ubuntu_regular"
+                        android:text="Phone No: 09196988952"
+                        android:textColor="@color/black" />
+
+                    <TextView
                         android:id="@+id/txtBikeType"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

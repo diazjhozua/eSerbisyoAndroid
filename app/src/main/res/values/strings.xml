@@ -44,11 +44,14 @@
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="edit">Edit</string>
-    <string name="new_request_message">If you want to access the full functionality of this android application, fill-up the forms the get verified. You will receive sms and email notification once your requests has been responded by the administrator</string>
+    <string name="new_request_message">If you want to access the full functionality of this android application, fill-up the forms the get verified. You will receive an email notification once your requests has been responded by the administrator</string>
     <string name="pending_request_message">Your current requests is still pending. Please wait for the admin to respond to your requests</string>
 
     <string name="denied_request_message">Your request has been denied by the administrator, please see the admin message to know the reason why your request
         has been denied. You may submit another requests</string>
+
+    <string name="approved_request_message">Your request has been approved by the administrator, re-open the application to refresh access the verified functionality</string>
+
     <string name="feedback_desc">These are the list of your submitted feedbacks. You can only submit one feedback a day.
         Rest assured that if you submit a feedback that is marked as anonymous, your details will not be shown in the admin dashboard.
     </string>

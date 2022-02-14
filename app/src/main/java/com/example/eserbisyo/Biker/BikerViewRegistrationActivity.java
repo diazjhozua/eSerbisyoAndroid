@@ -20,11 +20,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class BikerViewRegistrationActivity extends AppCompatActivity {
-    private TextView txtOverallStatus, txtBikeType, txtBikeSize, txtBikeColor, txtReason, txtStatus, txtAdminMessage, txtRespondedAt;
+    private TextView txtOverallStatus, txtBikeType, txtBikeSize, txtBikeColor, txtReason, txtStatus, txtAdminMessage, txtRespondedAt, txtPhoneNo;
     private ImageView ivCredentialPicture;
     private Button btnResubmit;
 
-    private String status, type, size, color, reason, imgPath, adminMessage, respondedAt;
+    private String status, type, size, color, reason, imgPath, adminMessage, respondedAt, phoneNo;
 
 
     @Override
@@ -38,6 +38,7 @@ public class BikerViewRegistrationActivity extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(extras.getString(Extra.JSON_OBJECT));
 
                 status = jsonObject.getString("status");
+                phoneNo = jsonObject.getString("phone_no");
                 type = jsonObject.getString("bike_type");
                 size = jsonObject.getString("bike_size");
                 color = jsonObject.getString("bike_color");
@@ -55,6 +56,7 @@ public class BikerViewRegistrationActivity extends AppCompatActivity {
 
     private void init() {
         txtOverallStatus = findViewById(R.id.txtOverallStatus);
+        txtPhoneNo = findViewById(R.id.txtPhoneNo);
         txtBikeType = findViewById(R.id.txtBikeType);
         txtBikeSize = findViewById(R.id.txtBikeSize);
         txtBikeColor = findViewById(R.id.txtBikeColor);
@@ -86,6 +88,7 @@ public class BikerViewRegistrationActivity extends AppCompatActivity {
             txtStatus.setTextColor(getResources().getColor(R.color.teal_700));
         }
 
+        txtPhoneNo.setText("Phone No: " + phoneNo);
         txtBikeType.setText("Bike Type: " + type);
         txtBikeSize.setText("Bike Size: " + size);
         txtBikeColor.setText("Bike Color: " + color);

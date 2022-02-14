@@ -142,13 +142,16 @@ public class UserVerificationActivity extends AppCompatActivity {
                     txtCurrentRequest.setText(R.string.pending_request_message);
                     layoutStatus.setVisibility(View.GONE);
                     layoutAdminMessage.setVisibility(View.GONE);
-                } else {
+                } else if (userVerification.getString("status").equals("Denied")) {
                     txtCurrentRequest.setText(R.string.denied_request_message);
                     btnResubmit.setVisibility(View.VISIBLE);
                     inputTxtStatus.setText(userVerification.getString("status"));
                     inputTxtAdminMessage.setText(userVerification.getString("admin_message"));
+                } else {
+                    txtCurrentRequest.setText(R.string.approved_request_message);
+                    inputTxtStatus.setText(userVerification.getString("status"));
+                    inputTxtAdminMessage.setText(userVerification.getString("admin_message"));
                 }
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -197,6 +200,7 @@ public class UserVerificationActivity extends AppCompatActivity {
         StringRequest request = new StringRequest(Request.Method.POST, Api.SUBMIT_VERIFICATION_REQUEST, response->{
 
             Toasty.success(this, "Verification request has been submitted. Please wait for the administrator to respond to your request", Toast.LENGTH_LONG, true).show();
+            btnSubmit.setVisibility(View.GONE);
             loadingDialog.dismiss();
 
         },error ->{
