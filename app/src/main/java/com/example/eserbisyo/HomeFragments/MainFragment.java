@@ -14,6 +14,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.eserbisyo.Constants.Pref;
 import com.example.eserbisyo.HomeActivity;
+import com.example.eserbisyo.HomeFragments.Analytics.ComplaintAnalyticsFragment;
+import com.example.eserbisyo.HomeFragments.Analytics.FeedbackAnalyticsFragment;
+import com.example.eserbisyo.HomeFragments.Analytics.ReportAnalyticsFragment;
 import com.example.eserbisyo.OrderActivity.SelectPickupActivity;
 import com.example.eserbisyo.R;
 
@@ -57,9 +60,9 @@ public class MainFragment extends Fragment {
 
         cardAnnouncement.setOnClickListener(v-> ((HomeActivity) requireActivity()).switchFragment(new AnnouncementFragment()));
 
-        cardReport.setOnClickListener(v-> ((HomeActivity) requireActivity()).switchFragment(new ReportFragment()));
+        cardReport.setOnClickListener(v-> ((HomeActivity) requireActivity()).switchFragment(new ReportAnalyticsFragment()));
 
-        cardFeedback.setOnClickListener(v-> ((HomeActivity) requireActivity()).switchFragment(new FeedbackFragment()));
+        cardFeedback.setOnClickListener(v-> ((HomeActivity) requireActivity()).switchFragment(new FeedbackAnalyticsFragment()));
 
         cardCertificate.setOnClickListener(v-> ((HomeActivity) requireActivity()).switchFragment(new CertificateFragment()));
 
@@ -75,7 +78,7 @@ public class MainFragment extends Fragment {
 
         cardMissingItem.setOnClickListener(v-> ((HomeActivity) requireActivity()).switchFragment(new MissingItemFragment()));
 
-        cardComplaint.setOnClickListener(v-> ((HomeActivity) requireActivity()).switchFragment(new ComplaintFragment()));
+        cardComplaint.setOnClickListener(v-> ((HomeActivity) requireActivity()).switchFragment(new ComplaintAnalyticsFragment()));
 
         cardOrder.setOnClickListener(v->{
             if(checkVerified(isVerified)){

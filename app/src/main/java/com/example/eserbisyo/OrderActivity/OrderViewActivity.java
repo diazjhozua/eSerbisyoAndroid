@@ -112,7 +112,6 @@ public class OrderViewActivity extends AppCompatActivity {
                     );
                 }
 
-
                 mOrder = new Order(
                         jsonObject.getInt("id"), jsonObject.getString("name"), jsonObject.getString("email"), jsonObject.getString("phone_no"),
                         jsonObject.getString("location_address"), jsonObject.getString("created_at"), jsonObject.getString("pick_up_type"),

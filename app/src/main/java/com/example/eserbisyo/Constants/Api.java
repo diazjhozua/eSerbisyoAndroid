@@ -14,9 +14,11 @@ public class Api {
     public static final String SUBMIT_VERIFICATION_REQUEST = HOME+"/submitVerificationRequest/";
 
     public static final String FEEDBACKS = HOME+"/feedbacks/";
+    public static final String FEEDBACKS_ANALYTICS = HOME+"/feedbacks/getAnalytics";
     public static final String FEEDBACKS_CREATE = HOME+"/feedbacks/create";
 
     public static final String REPORTS = HOME+"/reports/";
+    public static final String REPORTS_ANALYTICS = HOME+"/reports/getAnalytics";
     public static final String REPORTS_CREATE = HOME+"/reports/create";
 
     public static final String USER_REQUIREMENTS = HOME+"/userRequirements/";
@@ -46,6 +48,7 @@ public class Api {
     public static final String MISSING_ITEMS_COMMENTS = MISSING_ITEMS+"comment/";
 
     public static final String COMPLAINTS = HOME+"/complaints/";
+    public static final String COMPLAINTS_ANALYTICS = HOME+"/complaints/getAnalytics";
     public static final String DEFENDANTS = HOME+"/defendants/";
     public static final String COMPLAINANTS = HOME+"/complainants/";
 
@@ -64,6 +67,7 @@ public class Api {
     public static final String BIKER_START_RIDING = HOME+"/bikers/startRiding/";
     public static final String BIKER_RECEIVE_ORDER = HOME+"/bikers/confirmReceiveOrder/";
     public static final String BIKER_DNR_ORDER = HOME+"/bikers/confirmDNROrder/";
+
 
     // end
     public static final String VIEW_FILE = URL+"view/" ;

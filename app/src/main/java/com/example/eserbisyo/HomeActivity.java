@@ -45,6 +45,7 @@ import com.example.eserbisyo.Constants.Extra;
 import com.example.eserbisyo.Constants.Pref;
 import com.example.eserbisyo.HomeFragments.AuthMissingItemFragment;
 import com.example.eserbisyo.HomeFragments.AuthMissingPersonFragment;
+import com.example.eserbisyo.HomeFragments.ComplaintFragment;
 import com.example.eserbisyo.HomeFragments.FeedbackFragment;
 import com.example.eserbisyo.HomeFragments.MainFragment;
 import com.example.eserbisyo.HomeFragments.OrderFragment;
@@ -163,6 +164,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             switchFragment(new MainFragment());
         } else if (id == R.id.nav_feedback) {
             switchFragment(new FeedbackFragment());
+        } else if (id == R.id.nav_complaint) {
+            navigationView.setCheckedItem(R.id.nav_complaint);
+            switchFragment(new ComplaintFragment());
         } else if (id == R.id.nav_order) {
             navigationView.setCheckedItem(R.id.nav_order);
             switchFragment(new OrderFragment());

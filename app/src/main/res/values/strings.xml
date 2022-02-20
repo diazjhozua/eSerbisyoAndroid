@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">eSerbisyo</string>
+    <string name="app_name">e-Serbisyo</string>
     <string name="appTitle">Barangay Cupang \n e-Serbisyo</string>
     <string name="appDesc">Barangay Cupang Information Dessimination and \n Certificate Issuance System</string>
     <!-- TODO: Remove or change this placeholder text -->
@@ -115,8 +115,8 @@
     <string name="announcements">Announcements</string>
     <string name="officials">Officials</string>
     <string name="report">Report</string>
-    <string name="my_missing_item_report">My Missing Item Report</string>
-    <string name="my_missing_person_report">My Missing Person Report</string>
+    <string name="my_missing_item_report">Missing Item Report</string>
+    <string name="my_missing_person_report">Missing Person Report</string>
     <string name="missing_person_desc">These are the list of approved missing person report.
         Please contact the user name who posted the said report if you have the information that may help him/her finding the report.
         You can see the contact information of the use by clicking the name or by writing a comment.</string>
@@ -145,7 +145,7 @@
     <string name="order_type_desc">Take note that the certificates available depends on which order type you have chosen.
         There are certain types of certificate only available for pickup.
     </string>
-    
+
     <string name="biker_terms1">
         The Barangay Cupang app allows bikers to deliver documents to the residents of Barangay Cupang.
         It is required that the riders provide the best service possible. Once a resident\'s booking has been accepted by the admins, bikers are not permitted to cancel it until the documents are delivered on time.
@@ -174,5 +174,22 @@
 
     <string name="order_type_desc4">Please make sure that you have the required requirements when proceeding. Go to the certificates section to see the required requirements.
     </string>
+
+    <string name="feedbacks_info">
+        Feedback is important to the barangay officials to determine if their services meet the needs of the residents. You can submit one feedback per day. Barangay officials
+        would love it if you submit feedback regardless of whether it is positive, neutral, or negative feedback.
+    </string>
+
+    <string name="reports_info">
+        Reports are used when a verified resident of barangay Cupang sees an illegal activities happening inside the barangay Cupang. With this your submitted reports, the officials
+        can respond to any illegal activities, accidents, and other calamities. You can submit three reports per day. There is an optional send as anonymous if you think that report
+        you submitted can endanger your life.
+    </string>
+
+    <string name="complaints_info">
+        Complaint/Blotter can now be filed using this application. If you think someone is violating your rights, send a complaint indicating the complainant and the defendant. The administrator
+        can receive complaints in realtime in their system.
+    </string>
+
 
 </resources>

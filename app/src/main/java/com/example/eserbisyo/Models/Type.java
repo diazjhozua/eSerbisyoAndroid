@@ -4,6 +4,7 @@ package com.example.eserbisyo.Models;
 public class Type {
     private int id;
     private String name;
+    private String count;
 
     public Type(int id, String name) {
         this.id = id;
@@ -11,6 +12,23 @@ public class Type {
     }
 
     public Type() {
+    }
+
+    public Type(int id, String name, String count) {
+        this.id = id;
+        this.name = name;
+        this.count = count;
+    }
+
+
+
+
+    public String getCount() {
+        return count;
+    }
+
+    public void setCount(String count) {
+        this.count = count;
     }
 
     public int getId() {

@@ -8,3 +8,5 @@
 //}
 rootProject.name = "eSerbisyo"
 include ':app'
+
+//include ':eSerbisyo'

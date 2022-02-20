@@ -62,6 +62,16 @@
                     android:textColor="@color/colorLightGrey"
                     android:text="Jun 13"/>
             </LinearLayout>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_marginRight="8dp"
+                android:src="@drawable/ic_option"
+                android:background="@android:color/transparent"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/btnOption"
+                android:layout_height="wrap_content"/>
+
         </LinearLayout>
 
         <TextView

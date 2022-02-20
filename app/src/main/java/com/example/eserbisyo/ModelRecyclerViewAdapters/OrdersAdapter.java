@@ -1,19 +1,26 @@
 package com.example.eserbisyo.ModelRecyclerViewAdapters;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Filter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.view.ContextThemeWrapper;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -59,6 +66,10 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersHold
     private final SharedPreferences sharedPreferences;
     private ProgressDialog progressDialog;
 
+    private Dialog deleteDialog;
+    private Button cancel;
+    private TextView dialogTitle;
+
 
     public OrdersAdapter(Context context, ArrayList<Order> list) {
         this.context = context;
@@ -85,6 +96,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersHold
 
         holder.txtReceiveDate.setText("Received Date: " + ((mOrder.getReceivedAt().equals("null")) ? "Not yet set" : mOrder.getReceivedAt()));
         holder.txtPickupDate.setText("Pickup Date: " + ((mOrder.getPickupAt().equals("null")) ?  "Not yet set" : mOrder.getPickupAt()));
+
 
         if (mOrder.getApplicationStatus().equals("Denied")) {
             holder.txtOverallStatus.setText("DENIED");
@@ -137,6 +149,28 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersHold
                 break;
         }
 
+        if (!mOrder.getApplicationStatus().equals("Pending")) {
+            holder.imgBtnOption.setVisibility(View.GONE);
+        }
+        holder.imgBtnOption.setOnClickListener(v -> {
+            Context wrapper = new ContextThemeWrapper(context, R.style.popupMenuStyle);
+            PopupMenu popupMenu = new PopupMenu(wrapper, holder.imgBtnOption);
+            popupMenu.inflate(R.menu.model_menu3);
+
+            popupMenu.setOnMenuItemClickListener(item -> {
+                id = mOrder.getId();
+                selectedPosition = position;
+                switch (item.getItemId()) {
+                    case R.id.item_delete: {
+                        openDeleteDialog();
+                        return true;
+                    }
+                }
+                return false;
+            });
+            popupMenu.show();
+        });
+
         holder.txtApplicationStatus.setText(mOrder.getApplicationStatus());
         holder.txtAdminMessage.setText("Admin Message: " + mOrder.getAdminMessage());
         holder.txtUpdatedAt.setText("Responded At: " + mOrder.getUpdatedAt());
@@ -147,6 +181,98 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersHold
             getData();
         });
     }
+
+    private void openDeleteDialog() {
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setCancelable(false);
+
+        deleteDialog = new Dialog(context);
+        deleteDialog.setContentView(R.layout.dialog_confirmation);
+        deleteDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        deleteDialog.setCancelable(true);
+
+        dialogTitle = deleteDialog.findViewById(R.id.txtDialogConfirmationTitle);
+        Button delete = deleteDialog.findViewById(R.id.btnDelete);
+        cancel = deleteDialog.findViewById(R.id.btnCancel);
+
+        dialogTitle.setText("DELETE ORDER");
+
+        cancel.setOnClickListener(v -> deleteDialog.dismiss());
+
+        delete.setOnClickListener(v -> {
+            progressDialog.setMessage("Deleting order.....");
+            progressDialog.show();
+            deleteData();
+        });
+
+        deleteDialog.show();
+    }
+
+    private void deleteData() {
+        StringRequest request = new StringRequest(Request.Method.DELETE, Api.ORDERS + id, response -> {
+
+            list.remove(selectedPosition);
+            notifyItemRemoved(selectedPosition);
+            notifyDataSetChanged();
+            listAll.clear();
+            listAll.addAll(list);
+
+            progressDialog.dismiss();
+            deleteDialog.dismiss();
+            Toasty.success(context, "Order Deleted", Toast.LENGTH_LONG, true).show();
+
+        },error -> {
+            error.printStackTrace();
+            progressDialog.dismiss();
+
+            if (errorObj.has("errors")) {
+                try {
+                    JSONObject errors = errorObj.getJSONObject("errors");
+                    ((CommentActivity)context).showErrorMessage(errors);
+                } catch (JSONException ignored) {
+                }
+            } else if (errorObj.has("message")) {
+                try {
+                    Toasty.error(context, errorObj.getString("message"), Toast.LENGTH_LONG, true).show();
+                } catch (JSONException ignored) {
+                }
+            } else {
+                Toasty.error(context, "Request Timeout", Toast.LENGTH_SHORT, true).show();
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() {
+                String token = sharedPreferences.getString(Pref.TOKEN,"");
+                HashMap<String,String> map = new HashMap<>();
+                map.put("Authorization","Bearer "+token);
+                return map;
+            }
+
+            @Override
+            protected VolleyError parseNetworkError(VolleyError volleyError) {
+                String json;
+
+                if (volleyError.networkResponse != null && volleyError.networkResponse.data != null) {
+                    try {
+                        json = new String(volleyError.networkResponse.data,
+                                HttpHeaderParser.parseCharset(volleyError.networkResponse.headers));
+
+                        errorObj = new JSONObject(json);
+                    } catch (UnsupportedEncodingException | JSONException e) {
+                        return new VolleyError(e.getMessage());
+                    }
+
+                    return new VolleyError(json);
+                }
+                return volleyError;
+            }
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(context);
+        queue.add(request);
+    }
+
+
 
     private void getData() {
         progressDialog = new ProgressDialog(context);
@@ -273,6 +399,8 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersHold
         private final TextView txtID, txtCreatedAt, txtOrderType, txtOrderStatus,
                 txtPickupDate, txtReceiveDate, txtTotalPrice, txtDeliveryFee, txtApplicationStatus, txtAdminMessage, txtUpdatedAt;
 
+        private final ImageButton imgBtnOption;
+
         private final TextView txtOverallStatus;
 
         public OrdersHolder(@NonNull View itemView) {
@@ -280,6 +408,9 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersHold
             card = itemView.findViewById(R.id.cardOrder);
 
             txtID = itemView.findViewById(R.id.txtID);
+
+            imgBtnOption = itemView.findViewById(R.id.btnOption);
+
             txtCreatedAt = itemView.findViewById(R.id.txtCreatedAt);
             txtOrderType = itemView.findViewById(R.id.txtOrderType);
             txtOrderStatus = itemView.findViewById(R.id.txtOrderStatus);
