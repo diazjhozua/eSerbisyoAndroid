@@ -10,6 +10,7 @@ import android.widget.Filter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatRatingBar;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.eserbisyo.Constants.Api;
@@ -49,7 +50,8 @@ public class FeedbacksAdapter extends RecyclerView.Adapter<FeedbacksAdapter.Feed
         } else {
             holder.txtType.setText("Type: " + feedback.getType().getName());
         }
-        holder.txtPolarity.setText(feedback.getPolarity());
+        holder.ratingBar.setRating(feedback.getRating());
+        holder.txtPolarity.setText("Rating: " + feedback.getRating() + "/5");
         holder.txtMessage.setText("Context: " + feedback.getMessage());
         holder.txtCreatedAt.setText(feedback.getCreatedAt());
         holder.txtStatus.setText(feedback.getStatus());
@@ -121,6 +123,7 @@ public class FeedbacksAdapter extends RecyclerView.Adapter<FeedbacksAdapter.Feed
 
     public static class FeedbacksHolder extends RecyclerView.ViewHolder {
         private final TextView txtFeedbackID, txtSubmittedAs, txtType, txtPolarity, txtMessage, txtStatus, txtAdminMessage, txtCreatedAt, txtRespondedAt;
+        private final AppCompatRatingBar ratingBar;
 
         public FeedbacksHolder(@NonNull View itemView) {
             super(itemView);
@@ -133,6 +136,8 @@ public class FeedbacksAdapter extends RecyclerView.Adapter<FeedbacksAdapter.Feed
             txtAdminMessage = itemView.findViewById(R.id.txtAdminMessage);
             txtCreatedAt = itemView.findViewById(R.id.txtCreatedAt);
             txtRespondedAt = itemView.findViewById(R.id.txtUpdatedAt);
+
+            ratingBar = itemView.findViewById(R.id.ratingBar);
         }
     }
 

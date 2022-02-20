@@ -155,7 +155,7 @@ public class FeedbackFragment extends Fragment {
 
                     Feedback feedback = new Feedback(
                             feedbackObject.getInt("id"), feedbackObject.getString("submitted_by"), new Type(feedbackObject.getInt("type_id"), feedbackObject.getString("type")),
-                            feedbackObject.getString("custom_type"), feedbackObject.getString("polarity"), feedbackObject.getString("message") , feedbackObject.getString("admin_respond"),
+                            feedbackObject.getString("custom_type"), feedbackObject.getInt("rating"), feedbackObject.getString("message") , feedbackObject.getString("admin_respond"),
                             feedbackObject.getString("status"), feedbackObject.getString("created_at"), feedbackObject.getString("updated_at"));
 
                     arrayList.add(feedback);

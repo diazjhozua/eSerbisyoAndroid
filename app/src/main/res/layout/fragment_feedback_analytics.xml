@@ -33,16 +33,134 @@
             android:fontFamily="@font/ubuntu_medium"
             android:justificationMode="inter_word"
             android:textColor="@color/black"
-            android:text="FEEDBACKS OVERVIEW (THIS YEAR)"
+            android:text="FEEDBACKS RATINGS SUMMARY"
+            android:layout_marginBottom="@dimen/_5sdp"
+            tools:targetApi="o"/>
+
+        <!--This month rating -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:lineSpacingExtra="@dimen/_2sdp"
+            android:fontFamily="@font/ubuntu_regular"
+            android:justificationMode="inter_word"
+            android:textColor="@color/black"
+            android:text="THIS MONTH"
             android:layout_marginBottom="@dimen/_5sdp"
             tools:targetApi="o" />
 
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/ratingBarThisMonth"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:progressTint="@color/primaryColor"
+            android:numStars="5"
+            android:clickable="false"
+            android:isIndicator="true"
+            android:rating="3"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_9ssp"
+            android:id="@+id/txtRatingThisMonth"
+            android:textColor="@color/black"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp"
+            android:text="Rating: 3/5"/>
+        <!--This month end of rating -->
+
+        <!--This year rating -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:lineSpacingExtra="@dimen/_2sdp"
+            android:fontFamily="@font/ubuntu_regular"
+            android:justificationMode="inter_word"
+            android:textColor="@color/black"
+            android:text="THIS YEAR"
+            android:layout_marginBottom="@dimen/_5sdp"
+            tools:targetApi="o" />
+
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/ratingBarThisYear"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:progressTint="@color/primaryColor"
+            android:numStars="5"
+            android:clickable="false"
+            android:isIndicator="true"
+            android:rating="3"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_9ssp"
+            android:id="@+id/txtRatingThisYear"
+            android:textColor="@color/black"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp"
+            android:text="Rating: 3/5"/>
+        <!--This year end of rating -->
+
+
+        <!--Overall rating -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:lineSpacingExtra="@dimen/_2sdp"
+            android:fontFamily="@font/ubuntu_regular"
+            android:justificationMode="inter_word"
+            android:textColor="@color/black"
+            android:text="OVERALL"
+            android:layout_marginBottom="@dimen/_5sdp"
+            tools:targetApi="o" />
+
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/ratingBarOverall"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:progressTint="@color/primaryColor"
+            android:numStars="5"
+            android:clickable="false"
+            android:isIndicator="true"
+            android:rating="3"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_9ssp"
+            android:id="@+id/txtRatingOverall"
+            android:textColor="@color/black"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp"
+            android:text="Rating: 3/5"/>
+        <!--This year end of rating -->
+
         <!-- Pie Chart -->
-        <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/pieChart"
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barChart"
+            android:layout_marginTop="@dimen/_5sdp"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_240sdp"/>
-
         <TextView
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/_10sdp"

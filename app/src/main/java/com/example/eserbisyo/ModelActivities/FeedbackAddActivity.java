@@ -68,7 +68,7 @@ public class FeedbackAddActivity extends AppCompatActivity {
     private JSONObject errorObj = null;
 
     private final String[] polarity = new String[]{
-            "Positive", "Neutral", "Negative"
+            "1", "2", "3", "4", "5"
     };
 
     @Override
@@ -212,7 +212,7 @@ public class FeedbackAddActivity extends AppCompatActivity {
 
         if (autoCompleteTxtPolarity.getText().toString().isEmpty()){
             layoutPolarity.setErrorEnabled(true);
-            layoutPolarity.setError("Message content is required");
+            layoutPolarity.setError("Rating is required");
             return false;
         }
 
@@ -231,7 +231,7 @@ public class FeedbackAddActivity extends AppCompatActivity {
 
         int typeID = selectedTypeId;
         String customType = Objects.requireNonNull(inputTxtCustomType.getText()).toString().trim();
-        String polarity = autoCompleteTxtPolarity.getText().toString().trim();
+        String rating = autoCompleteTxtPolarity.getText().toString().trim();
         String message = Objects.requireNonNull(inputTxtMessage.getText()).toString().trim();
         int isAnonymous = (isAnonymousChecked) ? 1 : 0;
         StringRequest request = new StringRequest(Request.Method.POST, Api.FEEDBACKS, response->{
@@ -244,7 +244,7 @@ public class FeedbackAddActivity extends AppCompatActivity {
 
                 Feedback feedback = new Feedback(
                         feedbackObject.getInt("id"), feedbackObject.getString("submitted_by"), new Type(feedbackObject.getInt("type_id"), feedbackObject.getString("type")),
-                        feedbackObject.getString("custom_type"), feedbackObject.getString("polarity"), feedbackObject.getString("message") , feedbackObject.getString("admin_respond"),
+                        feedbackObject.getString("custom_type"), feedbackObject.getInt("rating"), feedbackObject.getString("message") , feedbackObject.getString("admin_respond"),
                         feedbackObject.getString("status"), feedbackObject.getString("created_at"), feedbackObject.getString("updated_at"));
 
                 FeedbackFragment.arrayList.add(0,feedback);
@@ -296,7 +296,7 @@ public class FeedbackAddActivity extends AppCompatActivity {
                 } else {
                     map.put("type_id", String.valueOf(typeID));
                 }
-                map.put("polarity",polarity);
+                map.put("rating",rating);
                 map.put("message", message);
                 map.put("is_anonymous", String.valueOf(isAnonymous));
 

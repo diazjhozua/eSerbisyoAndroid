@@ -5,7 +5,7 @@ public class Feedback {
     private String submittedAs;
     private Type type;
     private String customType;
-    private String polarity;
+    private int rating;
     private String message;
     private String adminRespond;
     private String status;
@@ -15,12 +15,12 @@ public class Feedback {
     public Feedback() {
     }
 
-    public Feedback(int id, String submittedAs, Type type, String customType, String polarity, String message, String adminRespond, String status, String createdAt, String respondedAt) {
+    public Feedback(int id, String submittedAs, Type type, String customType, int rating, String message, String adminRespond, String status, String createdAt, String respondedAt) {
         this.id = id;
         this.submittedAs = submittedAs;
         this.type = type;
         this.customType = customType;
-        this.polarity = polarity;
+        this.rating = rating;
         this.submittedAs = submittedAs;
         this.message = message;
         this.submittedAs = submittedAs;
@@ -65,12 +65,12 @@ public class Feedback {
         this.customType = customType;
     }
 
-    public String getPolarity(){
-        return polarity;
+    public int getRating(){
+        return rating;
     }
 
-    public void setPolarity(String polarity) {
-        this.polarity = polarity;
+    public void setRating(int polarity) {
+        this.rating = rating;
     }
 
     public String getMessage(){

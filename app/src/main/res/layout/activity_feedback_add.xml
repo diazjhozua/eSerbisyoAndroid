@@ -121,15 +121,22 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rating (1 being the lowest and 5 the highest rate)"
+                android:textColor="@color/white"
+                tools:ignore="HardcodedText" />
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/txtLayoutPolarity"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/_10sdp"
-                android:hint="@string/message_content"
+                android:hint="Rating"
                 android:textColorHint="@color/white"
-                app:counterTextColor="@color/white">
+                app:counterTextColor="@color/white"
+                tools:ignore="HardcodedText">
 
                 <AutoCompleteTextView
                     android:id="@+id/autoCompletePolarity"

@@ -48,6 +48,32 @@
 
         </LinearLayout>
 
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:scaleX="0.5"
+            android:scaleY="0.5"
+            android:layout_gravity="center"
+            android:layout_height="@dimen/_30sdp"
+            android:progressTint="@color/primaryColor"
+            android:numStars="5"
+            android:clickable="false"
+            android:isIndicator="true"
+            android:rating="3"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_9ssp"
+            android:id="@+id/txtPolarity"
+            android:textColor="@color/black"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp"
+            android:text="Rating: 3/5"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -72,16 +98,8 @@
             android:paddingBottom="8dp"
             android:text="Feedback type: Neighborhood Problem"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:id="@+id/txtPolarity"
-            android:textColor="@color/black"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:paddingBottom="8dp"
-            android:text="Message Content: Neighborhood Problem"/>
+
+
 
         <TextView
             android:id="@+id/txtMessage"
