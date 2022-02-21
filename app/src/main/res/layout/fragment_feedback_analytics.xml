@@ -156,11 +156,11 @@
         <!--This year end of rating -->
 
         <!-- Pie Chart -->
-        <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/barChart"
-            android:layout_marginTop="@dimen/_5sdp"
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/pieChart"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_240sdp"/>
+            android:layout_height="@dimen/_350sdp"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/_10sdp"
@@ -170,7 +170,7 @@
             android:fontFamily="@font/ubuntu_medium"
             android:justificationMode="inter_word"
             android:textColor="@color/black"
-            android:text="TRENDING FEEDBACK TYPES SUBMITTED"
+            android:text="TOP 5 FEEDBACKS SUBMITTED"
             android:layout_marginBottom="@dimen/_5sdp"
             tools:targetApi="o"
             />

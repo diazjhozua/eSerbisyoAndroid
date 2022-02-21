@@ -5,6 +5,7 @@ public class Type {
     private int id;
     private String name;
     private String count;
+    private double rating;
 
     public Type(int id, String name) {
         this.id = id;
@@ -21,7 +22,20 @@ public class Type {
     }
 
 
+    public Type(int id, String name, String count, double rating) {
+        this.id = id;
+        this.name = name;
+        this.count = count;
+        this.rating = rating;
+    }
 
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
 
     public String getCount() {
         return count;

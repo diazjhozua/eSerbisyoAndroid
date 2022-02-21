@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:padding="@dimen/_5sdp"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/txtName"
+            android:textSize="@dimen/_13ssp"
+            android:fontFamily="@font/ubuntu_medium"
+            android:textColor="@color/black"
+            android:text="Report Type"
+            android:layout_height="match_parent"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/txtCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:fontFamily="@font/ubuntu_regular"
+            android:text="10"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12ssp"
+            tools:ignore="HardcodedText,RtlHardcoded" />
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatRatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:scaleX="0.5"
+        android:scaleY="0.5"
+        android:layout_gravity="center"
+        android:layout_height="@dimen/_30sdp"
+        android:progressTint="@color/primaryColor"
+        android:numStars="5"
+        android:clickable="false"
+        android:isIndicator="true"
+        android:rating="3"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_9ssp"
+        android:id="@+id/txtRating"
+        android:textColor="@color/black"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="8dp"
+        android:text="Rating: 3/5"
+        tools:ignore="HardcodedText" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#ccc"/>
+
+
+</LinearLayout>

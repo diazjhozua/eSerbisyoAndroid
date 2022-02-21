@@ -27,6 +27,7 @@ public class TypesAdapter extends RecyclerView.Adapter<TypesAdapter.TypesHolder>
         this.list = list;
         this.listAll = new ArrayList<>(list);
     }
+
     @NonNull
     @Override
     public TypesAdapter.TypesHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
