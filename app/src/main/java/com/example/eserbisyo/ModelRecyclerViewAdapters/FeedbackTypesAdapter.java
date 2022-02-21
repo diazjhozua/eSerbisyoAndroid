@@ -1,7 +1,6 @@
 package com.example.eserbisyo.ModelRecyclerViewAdapters;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,21 +19,17 @@ import java.util.ArrayList;
 
 public class FeedbackTypesAdapter extends RecyclerView.Adapter<FeedbackTypesAdapter.FeedbackTypesHolder> {
     private static final DecimalFormat df = new DecimalFormat("0.00");
-    private final Context context;
     private final ArrayList<Type> list;
-    private final ArrayList<Type> listAll;
 
-    public FeedbackTypesAdapter(Context context, ArrayList<Type> list) {
-        this.context = context;
+    public FeedbackTypesAdapter(ArrayList<Type> list) {
         this.list = list;
-        this.listAll = new ArrayList<>(list);
     }
 
     @NonNull
     @Override
     public FeedbackTypesAdapter.FeedbackTypesHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_feedback_type, parent, false);
-        return new FeedbackTypesAdapter.FeedbackTypesHolder(view);
+        return new FeedbackTypesHolder(view);
     }
     @SuppressLint("SetTextI18n")
     @Override
@@ -52,7 +47,7 @@ public class FeedbackTypesAdapter extends RecyclerView.Adapter<FeedbackTypesAdap
         return list.size();
     }
 
-    public class FeedbackTypesHolder extends RecyclerView.ViewHolder {
+    public static class FeedbackTypesHolder extends RecyclerView.ViewHolder {
         private final TextView txtName, txtCount, txtRating;
         private final AppCompatRatingBar ratingBar;
 

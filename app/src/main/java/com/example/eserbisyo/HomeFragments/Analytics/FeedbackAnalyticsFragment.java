@@ -1,18 +1,11 @@
 package com.example.eserbisyo.HomeFragments.Analytics;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatRatingBar;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 import android.util.Log;
@@ -22,6 +15,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatRatingBar;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -36,13 +36,11 @@ import com.example.eserbisyo.HomeActivity;
 import com.example.eserbisyo.HomeFragments.MainFragment;
 import com.example.eserbisyo.HomeFragments.ReportFragment;
 import com.example.eserbisyo.ModelRecyclerViewAdapters.FeedbackTypesAdapter;
-import com.example.eserbisyo.ModelRecyclerViewAdapters.TypesAdapter;
 import com.example.eserbisyo.Models.Type;
 import com.example.eserbisyo.R;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -54,7 +52,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -66,7 +63,6 @@ public class FeedbackAnalyticsFragment extends Fragment {
     private View view;
     private PieChart pieChart;
     private RecyclerView rvTrending;
-    private Button btnView;
     private JSONObject errorObj = null;
     private SharedPreferences sharedPreferences;
     private ProgressDialog progressDialog;
@@ -117,7 +113,7 @@ public class FeedbackAnalyticsFragment extends Fragment {
 
         pieChart = view.findViewById(R.id.pieChart);
         rvTrending = view.findViewById(R.id.rvTrending);
-        btnView = view.findViewById(R.id.btnView);
+        Button btnView = view.findViewById(R.id.btnView);
         sharedPreferences = requireContext().getSharedPreferences(Pref.USER_PREFS, Context.MODE_PRIVATE);
 
         rvTrending.setHasFixedSize(false);
@@ -183,7 +179,7 @@ public class FeedbackAnalyticsFragment extends Fragment {
         s.setSpan(new RelativeSizeSpan(1.2f), 0, s.length(), 0);
         return s;
     }
-
+    @SuppressLint("SetTextI18n")
     private void getData() {
         arrayTypeList = new ArrayList<>();
 
@@ -236,7 +232,7 @@ public class FeedbackAnalyticsFragment extends Fragment {
 
                 }
 
-                feedbackTypesAdapter = new FeedbackTypesAdapter(requireContext(), arrayTypeList);
+                feedbackTypesAdapter = new FeedbackTypesAdapter(arrayTypeList);
                 rvTrending.setAdapter(feedbackTypesAdapter);
 
                 setPieChartData();

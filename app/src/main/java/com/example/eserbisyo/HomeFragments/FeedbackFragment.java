@@ -32,7 +32,6 @@ import com.example.eserbisyo.Constants.Api;
 import com.example.eserbisyo.Constants.Pref;
 import com.example.eserbisyo.HomeActivity;
 import com.example.eserbisyo.ModelActivities.FeedbackAddActivity;
-import com.example.eserbisyo.ModelActivities.MissingPersonAddActivity;
 import com.example.eserbisyo.ModelRecyclerViewAdapters.FeedbacksAdapter;
 import com.example.eserbisyo.Models.Feedback;
 import com.example.eserbisyo.Models.Type;
@@ -112,7 +111,7 @@ public class FeedbackFragment extends Fragment {
             if(sharedPreferences.getInt(Pref.IS_VERIFIED, 0) != 1){
                 Toasty.info(requireContext(), "This function is for verified user only.", Toast.LENGTH_LONG, true).show();
             } else {
-                startActivity(new Intent(((HomeActivity)getContext()), FeedbackAddActivity.class));
+                startActivity(new Intent(getContext(), FeedbackAddActivity.class));
             }
         });
 
