@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
@@ -117,7 +118,8 @@ public class MainActivity extends AppCompatActivity {
                     editor.putString(Pref.PICTURE, user.getString("file_path"));
                     editor.putString(Pref.TOKEN, object.getString("access_token"));
                     editor.putString(Pref.STATUS, user.getString("status"));
-                    editor.putInt(Pref.IS_VERIFIED, user.getInt("is_verified"));
+                    editor.putBoolean(Pref.IS_VERIFIED, user.getBoolean("is_verified"));
+
 
                     editor.apply();
 
@@ -179,6 +181,8 @@ public class MainActivity extends AppCompatActivity {
                 return volleyError;
             }
         };
+
+        request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         //add this request to request queue
         RequestQueue queue = Volley.newRequestQueue(this);

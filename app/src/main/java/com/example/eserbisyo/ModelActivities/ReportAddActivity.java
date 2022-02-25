@@ -1,10 +1,12 @@
 package com.example.eserbisyo.ModelActivities;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -30,7 +32,10 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
@@ -63,12 +68,12 @@ import java.util.Objects;
 import es.dmoral.toasty.Toasty;
 
 public class ReportAddActivity extends AppCompatActivity {
-
+    public static final int CAMERA_PERM_CODE = 101;
     private TextInputLayout layoutCustomType, layoutUrgencyClass, layoutLandmark, layoutLocation, layoutMessage;
     private TextInputEditText inputTxtCustomType, inputTxtLandmark, inputTxtLocation, inputTxtMessage;
     private AutoCompleteTextView autoCompleteUrgencyClass;
     private AppCompatCheckBox chkCustomType, chkAnonymous;
-    private TextView txtSelectPhoto;
+    private TextView txtSelectPhoto, txtCapturePhoto;
     private ImageView ivReportPicture;
 
     private Button btnSubmit;
@@ -111,7 +116,25 @@ public class ReportAddActivity extends AppCompatActivity {
                 }
             });
 
+    // Getting of images from the gallery
+    ActivityResultLauncher<Intent> getCaptureResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        assert data != null;
 
+                        bitmap = (Bitmap) data.getExtras().get("data");
+                        //                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+
+                        //set the image into imageview
+                        ivReportPicture.setImageBitmap(bitmap);
+
+                    }
+                }
+            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,6 +157,7 @@ public class ReportAddActivity extends AppCompatActivity {
         inputTxtMessage = findViewById(R.id.inputTxtMessage);
 
         txtSelectPhoto = findViewById(R.id.txtSelectPhoto);
+        txtCapturePhoto = findViewById(R.id.txtCapturePhoto);
         ivReportPicture = findViewById(R.id.ivReportPicture);
 
         autoCompleteUrgencyClass = findViewById(R.id.autoCompleteUrgencyClass);
@@ -177,6 +201,18 @@ public class ReportAddActivity extends AppCompatActivity {
             Intent i = new Intent(Intent.ACTION_PICK);
             i.setType("image/*");
             getImageResultLauncher.launch(i);
+        });
+
+        txtCapturePhoto.setOnClickListener(v->{
+            if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(this,new String[] {Manifest.permission.CAMERA}, CAMERA_PERM_CODE);
+            }else {
+                Intent camera_intent
+                        = new Intent(MediaStore
+                        .ACTION_IMAGE_CAPTURE);
+
+                getCaptureResultLauncher.launch(camera_intent);
+            }
         });
 
         // Listener for btnSubmit
@@ -564,6 +600,8 @@ public class ReportAddActivity extends AppCompatActivity {
             }
 
         };
+
+        request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         RequestQueue queue = Volley.newRequestQueue(ReportAddActivity.this);
         queue.add(request);

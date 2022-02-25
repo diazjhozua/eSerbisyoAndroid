@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
@@ -252,6 +253,8 @@ public class RegisterFragment extends Fragment {
                 return volleyError;
             }
         };
+
+        request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         //add this request to request queue
         RequestQueue queue = Volley.newRequestQueue(requireContext());

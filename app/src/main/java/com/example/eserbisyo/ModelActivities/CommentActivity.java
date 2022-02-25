@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
@@ -90,13 +91,13 @@ public class CommentActivity extends AppCompatActivity {
     private void getApiURL() {
         switch (modelName) {
             case "ANNOUNCEMENT":
-                apiURL = Api.ANNOUNCEMENTS_COMMENTS + modelId;
+                apiURL = Api.ANNOUNCEMENTS_COMMENTS + "/" + modelId;
                 break;
             case "MISSING_PERSON":
-                apiURL = Api.MISSING_PERSONS_COMMENTS + modelId;
+                apiURL = Api.MISSING_PERSONS_COMMENTS + "/" + modelId;
                 break;
             case "MISSING_ITEM":
-                apiURL = Api.MISSING_ITEMS_COMMENTS + modelId;
+                apiURL = Api.MISSING_ITEMS_COMMENTS + "/" + modelId;
                 break;
         }
         getComments();
@@ -176,6 +177,8 @@ public class CommentActivity extends AppCompatActivity {
                 }
             };
 
+            request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
             RequestQueue queue = Volley.newRequestQueue(this);
             queue.add(request);
         }
@@ -213,31 +216,29 @@ public class CommentActivity extends AppCompatActivity {
                                 (!commentObject.isNull("file_path")) ? commentObject.getString("file_path") : ""), commentObject.getString("created_at")
                         );
 
-
-                        switch (modelName) {
-                            case "ANNOUNCEMENT":
-//                                apiURL = Api.ANNOUNCEMENTS_COMMENTS + modelId;
-                                Announcement announcement = AnnouncementFragment.arrayList.get(modelPosition);
-                                announcement.setCommentsCount(announcement.getCommentsCount() + 1);
-                                AnnouncementFragment.arrayList.set(modelPosition,announcement);
-                                Objects.requireNonNull(AnnouncementFragment.recyclerView.getAdapter()).notifyDataSetChanged();
-                                break;
-                            case "MISSING_PERSON":
-//                                apiURL = Api.MISSING_PERSONS_COMMENTS + modelId;
-                                MissingPerson missingPersonObj = MissingPersonFragment.arrayList.get(modelPosition);
-                                missingPersonObj.setCommentsCount(missingPersonObj.getCommentsCount() + 1);
-                                MissingPersonFragment.arrayList.set(modelPosition,missingPersonObj);
-                                Objects.requireNonNull(MissingPersonFragment.recyclerView.getAdapter()).notifyDataSetChanged();
-
-                                break;
-                            case "MISSING_ITEM":
-//                                apiURL = Api.MISSING_ITEMS_COMMENTS + modelId;
-                                MissingItem missingItemObj = MissingItemFragment.arrayList.get(modelPosition);
-                                missingItemObj.setCommentsCount(missingItemObj.getCommentsCount() + 1);
-                                MissingItemFragment.arrayList.set(modelPosition,missingItemObj);
-                                Objects.requireNonNull(MissingItemFragment.recyclerView.getAdapter()).notifyDataSetChanged();
-                                break;
-                        }
+//                        switch (modelName) {
+//                            case "ANNOUNCEMENT":
+////                                apiURL = Api.ANNOUNCEMENTS_COMMENTS + modelId;
+//                                Announcement announcement = AnnouncementFragment.arrayList.get(modelPosition);
+//                                announcement.setCommentsCount(announcement.getCommentsCount() + 1);
+//                                AnnouncementFragment.arrayList.set(modelPosition,announcement);
+//                                Objects.requireNonNull(AnnouncementFragment.recyclerView.getAdapter()).notifyDataSetChanged();
+//                                break;
+//                            case "MISSING_PERSON":
+////                                apiURL = Api.MISSING_PERSONS_COMMENTS + modelId;
+//                                MissingPerson missingPersonObj = MissingPersonFragment.arrayList.get(modelPosition);
+//                                missingPersonObj.setCommentsCount(missingPersonObj.getCommentsCount() + 1);
+//                                MissingPersonFragment.arrayList.set(modelPosition,missingPersonObj);
+//                                Objects.requireNonNull(MissingPersonFragment.recyclerView.getAdapter()).notifyDataSetChanged();
+//                                break;
+//                            case "MISSING_ITEM":
+////                                apiURL = Api.MISSING_ITEMS_COMMENTS + modelId;
+//                                MissingItem missingItemObj = MissingItemFragment.arrayList.get(modelPosition);
+//                                missingItemObj.setCommentsCount(missingItemObj.getCommentsCount() + 1);
+//                                MissingItemFragment.arrayList.set(modelPosition,missingItemObj);
+//                                Objects.requireNonNull(MissingItemFragment.recyclerView.getAdapter()).notifyDataSetChanged();
+//                                break;
+//                        }
                         commentArrayList.add(comment);
                         Objects.requireNonNull(recyclerView.getAdapter()).notifyDataSetChanged();
                         txtAddComment.setText("");
@@ -304,6 +305,9 @@ public class CommentActivity extends AppCompatActivity {
                     return volleyError;
                 }
             };
+
+            request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
             RequestQueue queue = Volley.newRequestQueue(CommentActivity.this);
             queue.add(request);
         }

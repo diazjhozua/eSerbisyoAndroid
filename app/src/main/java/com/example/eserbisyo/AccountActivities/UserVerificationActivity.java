@@ -1,10 +1,12 @@
 package com.example.eserbisyo.AccountActivities;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,7 +23,10 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
@@ -49,8 +54,8 @@ import java.util.Map;
 import es.dmoral.toasty.Toasty;
 
 public class UserVerificationActivity extends AppCompatActivity {
-
-    private TextView txtCurrentRequest, txtCredentialGuide, txtSelectPhoto, txtSubmittedCredential;
+    public static final int CAMERA_PERM_CODE = 101;
+    private TextView txtCurrentRequest, txtCredentialGuide, txtSelectPhoto, txtCapturePhoto, txtSubmittedCredential;
     private Button btnSubmit, btnResubmit;
     private ImageView imgCredential;
 
@@ -88,6 +93,25 @@ public class UserVerificationActivity extends AppCompatActivity {
                 }
             });
 
+    // Getting of images from the gallery
+    ActivityResultLauncher<Intent> getCaptureResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        assert data != null;
+
+                        bitmap = (Bitmap) data.getExtras().get("data");
+                        //                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+
+                        //set the image into imageview
+                        imgCredential.setImageBitmap(bitmap);
+
+                    }
+                }
+            });
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,6 +135,7 @@ public class UserVerificationActivity extends AppCompatActivity {
         txtCredentialGuide = findViewById(R.id.txtCredentialGuide);
         txtSubmittedCredential = findViewById(R.id.txtSubmittedCredential);
         txtSelectPhoto = findViewById(R.id.txtSelectPhoto);
+        txtCapturePhoto = findViewById(R.id.txtCapturePhoto);
 
         btnSubmit = findViewById(R.id.btnSubmit);
         btnResubmit = findViewById(R.id.btnResubmit);
@@ -130,6 +155,7 @@ public class UserVerificationActivity extends AppCompatActivity {
         if (isEmpty) {
             txtCurrentRequest.setText(R.string.new_request_message);
             txtSelectPhoto.setVisibility(View.VISIBLE);
+            txtCapturePhoto.setVisibility(View.VISIBLE);
             txtCredentialGuide.setVisibility(View.VISIBLE);
             btnSubmit.setVisibility(View.VISIBLE);
             layoutStatus.setVisibility(View.GONE);
@@ -137,7 +163,7 @@ public class UserVerificationActivity extends AppCompatActivity {
         } else {
             try {
                 txtSubmittedCredential.setVisibility(View.VISIBLE);
-                Picasso.get().load(Api.STORAGE + userVerification.getString("credential_file_path")).fit().error(R.drawable.cupang).into(imgCredential);
+                Picasso.get().load(userVerification.getString("credential_file_path")).fit().error(R.drawable.cupang).into(imgCredential);
                 if (userVerification.getString("status").equals("Pending")) {
                     txtCurrentRequest.setText(R.string.pending_request_message);
                     layoutStatus.setVisibility(View.GONE);
@@ -168,6 +194,18 @@ public class UserVerificationActivity extends AppCompatActivity {
             Intent i = new Intent(Intent.ACTION_PICK);
             i.setType("image/*");
             getImageResultLauncher.launch(i);
+        });
+
+        txtCapturePhoto.setOnClickListener(v->{
+            if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(this,new String[] {Manifest.permission.CAMERA}, CAMERA_PERM_CODE);
+            }else {
+                Intent camera_intent
+                        = new Intent(MediaStore
+                        .ACTION_IMAGE_CAPTURE);
+
+                getCaptureResultLauncher.launch(camera_intent);
+            }
         });
 
         btnResubmit.setOnClickListener(v->{
@@ -201,6 +239,8 @@ public class UserVerificationActivity extends AppCompatActivity {
 
             Toasty.success(this, "Verification request has been submitted. Please wait for the administrator to respond to your request", Toast.LENGTH_LONG, true).show();
             btnSubmit.setVisibility(View.GONE);
+            txtSelectPhoto.setVisibility(View.GONE);
+            txtCapturePhoto.setVisibility(View.GONE);
             loadingDialog.dismiss();
 
         },error ->{
@@ -258,6 +298,8 @@ public class UserVerificationActivity extends AppCompatActivity {
             }
 
         };
+
+        request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         RequestQueue queue = Volley.newRequestQueue(UserVerificationActivity.this);
         queue.add(request);

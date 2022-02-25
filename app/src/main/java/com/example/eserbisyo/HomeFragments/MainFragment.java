@@ -56,7 +56,7 @@ public class MainFragment extends Fragment {
         CardView cardOrder = view.findViewById(R.id.cardOrder);
 
         SharedPreferences userPref = requireContext().getSharedPreferences(Pref.USER_PREFS, Context.MODE_PRIVATE);
-        int isVerified =  userPref.getInt(Pref.IS_VERIFIED, 0);
+        boolean isVerified =  userPref.getBoolean(Pref.IS_VERIFIED, false);
 
         cardAnnouncement.setOnClickListener(v-> ((HomeActivity) requireActivity()).switchFragment(new AnnouncementFragment()));
 
@@ -81,19 +81,10 @@ public class MainFragment extends Fragment {
         cardComplaint.setOnClickListener(v-> ((HomeActivity) requireActivity()).switchFragment(new ComplaintAnalyticsFragment()));
 
         cardOrder.setOnClickListener(v->{
-            if(checkVerified(isVerified)){
+            if(isVerified){
                 startActivity(new Intent(requireContext(), SelectPickupActivity.class));
             }
         });
-    }
-
-    private boolean checkVerified (int isVerified) {
-        if(isVerified != 1){
-            Toasty.info(requireContext(), "This function is for verified user only.", Toast.LENGTH_LONG, true).show();
-            return false;
-        } else {
-            return true;
-        }
     }
 
 

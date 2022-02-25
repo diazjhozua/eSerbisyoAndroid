@@ -23,6 +23,7 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
@@ -157,7 +158,7 @@ public class ComplaintsAdapter extends RecyclerView.Adapter<ComplaintsAdapter.Co
                         return true;
                     }
                     case R.id.item_edit: {
-                        if (sharedPreferences.getInt(Pref.IS_VERIFIED, 0) != 1) {
+                        if (!sharedPreferences.getBoolean(Pref.IS_VERIFIED, false)) {
                             Toasty.error(context, "This function is for verified user only", Toast.LENGTH_LONG, true).show();
                         } else {
                             if (mComplaint.getStatus().equals("Pending") || mComplaint.getStatus().equals("Denied")) {
@@ -169,7 +170,7 @@ public class ComplaintsAdapter extends RecyclerView.Adapter<ComplaintsAdapter.Co
                         return true;
                     }
                     case R.id.item_delete: {
-                        if (sharedPreferences.getInt(Pref.IS_VERIFIED, 0) != 1) {
+                        if (!sharedPreferences.getBoolean(Pref.IS_VERIFIED, false)) {
                             Toasty.error(context, "This function is for verified user only", Toast.LENGTH_LONG, true).show();
                         } else {
                             if (mComplaint.getStatus().equals("Pending") || mComplaint.getStatus().equals("Denied")) {
@@ -194,7 +195,7 @@ public class ComplaintsAdapter extends RecyclerView.Adapter<ComplaintsAdapter.Co
         progressDialog.setMessage("Getting the data.....");
         progressDialog.show();
 
-        StringRequest request = new StringRequest(Request.Method.GET, Api.COMPLAINTS + id + Api.EDIT, response -> {
+        StringRequest request = new StringRequest(Request.Method.GET, Api.COMPLAINTS + "/" + id + Api.EDIT, response -> {
             try {
                 progressDialog.dismiss();
 
@@ -261,6 +262,7 @@ public class ComplaintsAdapter extends RecyclerView.Adapter<ComplaintsAdapter.Co
             }
         };
 
+        request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue queue = Volley.newRequestQueue(Objects.requireNonNull(context));
         queue.add(request);
     }
@@ -272,7 +274,7 @@ public class ComplaintsAdapter extends RecyclerView.Adapter<ComplaintsAdapter.Co
         progressDialog.setMessage("Getting the data.....");
         progressDialog.show();
 
-        StringRequest request = new StringRequest(Request.Method.GET, Api.COMPLAINTS + id, response -> {
+        StringRequest request = new StringRequest(Request.Method.GET, Api.COMPLAINTS + "/" + id, response -> {
             try {
                 progressDialog.dismiss();
 
@@ -337,6 +339,7 @@ public class ComplaintsAdapter extends RecyclerView.Adapter<ComplaintsAdapter.Co
             }
         };
 
+        request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue queue = Volley.newRequestQueue(Objects.requireNonNull(context));
         queue.add(request);
     }
@@ -369,7 +372,7 @@ public class ComplaintsAdapter extends RecyclerView.Adapter<ComplaintsAdapter.Co
     }
 
     private void deleteData() {
-        StringRequest request = new StringRequest(Request.Method.DELETE, Api.COMPLAINTS + id, response -> {
+        StringRequest request = new StringRequest(Request.Method.DELETE, Api.COMPLAINTS + "/" + id, response -> {
             list.remove(selectedPosition);
             notifyItemRemoved(selectedPosition);
             notifyDataSetChanged();
@@ -427,6 +430,7 @@ public class ComplaintsAdapter extends RecyclerView.Adapter<ComplaintsAdapter.Co
             }
         };
 
+        request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue queue = Volley.newRequestQueue(context);
         queue.add(request);
     }

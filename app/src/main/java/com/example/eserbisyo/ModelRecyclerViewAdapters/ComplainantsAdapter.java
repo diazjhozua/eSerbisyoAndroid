@@ -26,6 +26,7 @@ import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
@@ -112,7 +113,7 @@ public class ComplainantsAdapter extends RecyclerView.Adapter<ComplainantsAdapte
         if (mComplainant.isCreating()) {
            holder.ivSignature.setImageBitmap(mComplainant.getBitmapSignature());
         } else {
-            Picasso.get().load(Api.STORAGE + mComplainant.getFilePath()).fit().error(R.drawable.no_picture).into(holder.ivSignature);
+            Picasso.get().load(mComplainant.getFilePath()).fit().error(R.drawable.no_picture).into(holder.ivSignature);
         }
 
         holder.txtName.setText(mComplainant.getName());
@@ -194,7 +195,7 @@ public class ComplainantsAdapter extends RecyclerView.Adapter<ComplainantsAdapte
         progressDialog.setMessage("Deleting the data.....");
         progressDialog.show();
 
-        StringRequest request = new StringRequest(Request.Method.DELETE, Api.COMPLAINANTS + selComplainant.getId(), response -> {
+        StringRequest request = new StringRequest(Request.Method.DELETE, Api.COMPLAINANTS +"/"+ selComplainant.getId(), response -> {
 
             list.remove(selectedPosition);
             notifyItemRemoved(selectedPosition);
@@ -252,6 +253,7 @@ public class ComplainantsAdapter extends RecyclerView.Adapter<ComplainantsAdapte
             }
         };
 
+        request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue queue = Volley.newRequestQueue(context);
         queue.add(request);
     }
@@ -263,7 +265,7 @@ public class ComplainantsAdapter extends RecyclerView.Adapter<ComplainantsAdapte
         progressDialog.setMessage("Getting the data.....");
         progressDialog.show();
 
-        StringRequest request = new StringRequest(Request.Method.GET, Api.COMPLAINANTS + selComplainant.getId() + Api.EDIT, response -> {
+        StringRequest request = new StringRequest(Request.Method.GET, Api.COMPLAINANTS + "/" + selComplainant.getId() + Api.EDIT, response -> {
             try {
                 JSONObject object = new JSONObject(response);
                 JSONObject complainantObject = object.getJSONObject("data");
@@ -331,6 +333,7 @@ public class ComplainantsAdapter extends RecyclerView.Adapter<ComplainantsAdapte
             }
         };
 
+        request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue queue = Volley.newRequestQueue(Objects.requireNonNull(context));
         queue.add(request);
     }
@@ -366,7 +369,7 @@ public class ComplainantsAdapter extends RecyclerView.Adapter<ComplainantsAdapte
         } else {
             txtSignatureLabel.setText("Signature (Long Pressed to re-write the signature)");
             inputCompDiaName.setText(name);
-            Picasso.get().load(Api.STORAGE + filePath).fit().error(R.drawable.no_picture).into(ivSignature);
+            Picasso.get().load(filePath).fit().error(R.drawable.no_picture).into(ivSignature);
 
             spCompSignature.setVisibility(View.GONE);
             ivSignature.setVisibility(View.VISIBLE);
@@ -439,7 +442,7 @@ public class ComplainantsAdapter extends RecyclerView.Adapter<ComplainantsAdapte
         progressDialog.setMessage("Updating the data.....");
         progressDialog.show();
 
-        StringRequest request = new StringRequest(Request.Method.PUT, Api.COMPLAINANTS + selComplainant.getId(), response -> {
+        StringRequest request = new StringRequest(Request.Method.PUT, Api.COMPLAINANTS + "/" +selComplainant.getId(), response -> {
             try {
                 JSONObject object = new JSONObject(response);
                 JSONObject complainantJSONObject = object.getJSONObject("data");
@@ -528,6 +531,7 @@ public class ComplainantsAdapter extends RecyclerView.Adapter<ComplainantsAdapte
             }
         };
 
+        request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue queue = Volley.newRequestQueue(Objects.requireNonNull(context));
         queue.add(request);
     }

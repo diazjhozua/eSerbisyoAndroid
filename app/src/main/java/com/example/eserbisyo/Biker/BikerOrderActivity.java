@@ -35,6 +35,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
@@ -423,7 +424,7 @@ public class BikerOrderActivity extends AppCompatActivity {
         progressDialog.show();
 
         String body = Objects.requireNonNull(inputTxtMessage.getText()).toString().trim();
-        StringRequest request = new StringRequest(Request.Method.POST, Api.ORDER_SUBMIT_REPORT + mOrder.getId(), response->{
+        StringRequest request = new StringRequest(Request.Method.POST, Api.ORDER_SUBMIT_REPORT + "/" + mOrder.getId(), response->{
             try {
                 JSONObject object = new JSONObject(response);
 
@@ -568,7 +569,7 @@ public class BikerOrderActivity extends AppCompatActivity {
         progressDialog.setMessage("Marking as receive please wait.....");
         progressDialog.show();
 
-        StringRequest request = new StringRequest(Request.Method.PUT, Api.BIKER_DNR_ORDER + mOrder.getId(), response -> {
+        StringRequest request = new StringRequest(Request.Method.PUT, Api.BIKER_DNR_ORDER + "/" + mOrder.getId(), response -> {
             progressDialog.dismiss();
             confirmDialog.dismiss();
 
@@ -630,6 +631,7 @@ public class BikerOrderActivity extends AppCompatActivity {
             }
         };
 
+        request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue queue = Volley.newRequestQueue(BikerOrderActivity.this);
         queue.add(request);
 
@@ -640,7 +642,7 @@ public class BikerOrderActivity extends AppCompatActivity {
         progressDialog.setMessage("Marking as receive please wait.....");
         progressDialog.show();
 
-        StringRequest request = new StringRequest(Request.Method.PUT, Api.BIKER_RECEIVE_ORDER + mOrder.getId(), response -> {
+        StringRequest request = new StringRequest(Request.Method.PUT, Api.BIKER_RECEIVE_ORDER + "/" + mOrder.getId(), response -> {
             progressDialog.dismiss();
             receiveDialog.dismiss();
 
@@ -710,6 +712,7 @@ public class BikerOrderActivity extends AppCompatActivity {
             }
         };
 
+        request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue queue = Volley.newRequestQueue(BikerOrderActivity.this);
         queue.add(request);
     }
@@ -719,7 +722,7 @@ public class BikerOrderActivity extends AppCompatActivity {
         progressDialog.setMessage("Booking the order please wait.....");
         progressDialog.show();
 
-        StringRequest request = new StringRequest(Request.Method.PUT, Api.BIKER_START_RIDING + mOrder.getId(), response -> {
+        StringRequest request = new StringRequest(Request.Method.PUT, Api.BIKER_START_RIDING + "/" + mOrder.getId(), response -> {
             progressDialog.dismiss();
             confirmDialog.dismiss();
             Toasty.success(this, "User notified about your progress in delivery", Toast.LENGTH_LONG, true).show();
@@ -781,6 +784,7 @@ public class BikerOrderActivity extends AppCompatActivity {
             }
         };
 
+        request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue queue = Volley.newRequestQueue(BikerOrderActivity.this);
         queue.add(request);
     }

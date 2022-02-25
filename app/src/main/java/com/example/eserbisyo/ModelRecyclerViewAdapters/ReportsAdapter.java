@@ -142,7 +142,7 @@ public class ReportsAdapter extends RecyclerView.Adapter<ReportsAdapter.ReportsH
         progressDialog.setMessage("Getting the report data.....");
         progressDialog.show();
 
-        StringRequest request = new StringRequest(Request.Method.GET, Api.REPORTS + id, response->{
+        StringRequest request = new StringRequest(Request.Method.GET, Api.REPORTS + "/" + id, response->{
 
             try {
                 JSONObject object = new JSONObject(response);
@@ -247,14 +247,14 @@ public class ReportsAdapter extends RecyclerView.Adapter<ReportsAdapter.ReportsH
         txtRptDlgRespondedAt = dialog.findViewById(R.id.txtRptDlgRespondedAt);
         txtRptDlgRespondedAtLabel = dialog.findViewById(R.id.txtRptDlgRespondedAtLabel);
 
-        Picasso.get().load(Api.STORAGE + reportProfile.getFilePath()).fit().error(R.drawable.no_picture).into(ivPicture);
+        Picasso.get().load(reportProfile.getFilePath()).fit().error(R.drawable.no_picture).into(ivPicture);
 
         txtReportId.setText(context.getString(R.string.report_no) + reportProfile.getId());
         txtSubmittedBy.setText(reportProfile.getSubmittedAs());
 
         ivPicture.setOnClickListener(v -> {
             Intent intent= new Intent(context, ViewImageActivity.class);
-            intent.putExtra("image_url", Api.STORAGE + reportProfile.getFilePath());
+            intent.putExtra("image_url", reportProfile.getFilePath());
             context.startActivity(intent);
         });
 

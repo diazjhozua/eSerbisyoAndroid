@@ -144,18 +144,15 @@ public class AnnouncementFragment extends Fragment {
                     if(pictureJSONArray.length() > 0){
                         for (int j = 0; j < pictureJSONArray.length(); j++) {
                             JSONObject pictureObject = pictureJSONArray.getJSONObject(j);
-                            pictureArrayList.add(new SlideModel(Api.STORAGE + pictureObject.getString("file_path"),  null));
+                            pictureArrayList.add(new SlideModel(pictureObject.getString("file_path"),  null));
                         }
                     }
-
 
                     Announcement announcement = new Announcement(
                             announcementObject.getInt("id"), new Type(announcementObject.getInt("type_id"), announcementObject.getString("announcement_type")),
                             announcementObject.getString("custom_type"), announcementObject.getBoolean("selfLike"), announcementObject.getString("title") , announcementObject.getString("description"),
                             pictureArrayList, announcementObject.getString("created_at"), announcementObject.getInt("likes_count"), announcementObject.getInt("comments_count")
                     );
-
-
 
 
                     arrayList.add(announcement);

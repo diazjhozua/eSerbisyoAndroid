@@ -31,6 +31,7 @@ import com.example.eserbisyo.AuthActivity;
 import com.example.eserbisyo.Constants.Api;
 import com.example.eserbisyo.Constants.Pref;
 import com.example.eserbisyo.HomeActivity;
+import com.example.eserbisyo.HomeFragments.ComplaintFragment;
 import com.example.eserbisyo.HomeFragments.MainFragment;
 import com.example.eserbisyo.HomeFragments.ReportFragment;
 import com.example.eserbisyo.ModelRecyclerViewAdapters.TypesAdapter;
@@ -118,8 +119,8 @@ public class ComplaintAnalyticsFragment extends Fragment {
         progressDialog.setCancelable(false);
 
         btnView.setOnClickListener(view -> {
-            ((HomeActivity) requireActivity()).switchFragment(new ReportFragment());
-            ((HomeActivity) requireActivity()).setReportNavCheck();
+            ((HomeActivity) requireActivity()).switchFragment(new ComplaintFragment());
+            ((HomeActivity) requireActivity()).setComplaintNavCheck();
         });
         setPieChartSettings();
         getData();

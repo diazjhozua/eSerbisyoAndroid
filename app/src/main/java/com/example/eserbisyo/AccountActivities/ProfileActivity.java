@@ -1,10 +1,12 @@
 package com.example.eserbisyo.AccountActivities;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,7 +26,10 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
@@ -53,13 +58,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import es.dmoral.toasty.Toasty;
 
 public class ProfileActivity extends AppCompatActivity {
-
+    public static final int CAMERA_PERM_CODE = 101;
     private TextInputLayout layoutFirstName;
     private TextInputLayout layoutLastName;
     private TextInputLayout layoutPurok;
     private TextInputLayout layoutAddress;
     private TextInputEditText inputTxtFirstName, inputTxtMiddleName, inputTxtLastName, inputTxtAddress;
-    private TextView txtSelectPhoto;
+    private TextView txtSelectPhoto ,txtCapturePhoto;
     private AutoCompleteTextView autoCompleteTxtPurok;
     private Button btnSave, btnEdit;
     private CircleImageView circleImageView;
@@ -97,6 +102,26 @@ public class ProfileActivity extends AppCompatActivity {
                 }
             });
 
+    // Getting of images from the gallery
+    ActivityResultLauncher<Intent> getCaptureResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        assert data != null;
+
+                        bitmap = (Bitmap) data.getExtras().get("data");
+                        //                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+
+                        //set the image into imageview
+                        circleImageView.setImageBitmap(bitmap);
+
+                    }
+                }
+            });
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,6 +143,7 @@ public class ProfileActivity extends AppCompatActivity {
         inputTxtAddress = findViewById(R.id.inputTxtAddress);
 
         txtSelectPhoto = findViewById(R.id.txtSelectPhoto);
+        txtCapturePhoto  = findViewById(R.id.txtCapturePhoto);
 
         circleImageView = findViewById(R.id.imgUserInfo);
 
@@ -147,6 +173,18 @@ public class ProfileActivity extends AppCompatActivity {
             Intent i = new Intent(Intent.ACTION_PICK);
             i.setType("image/*");
             getImageResultLauncher.launch(i);
+        });
+
+        txtCapturePhoto.setOnClickListener(v->{
+            if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(this,new String[] {Manifest.permission.CAMERA}, CAMERA_PERM_CODE);
+            }else {
+                Intent camera_intent
+                        = new Intent(MediaStore
+                        .ACTION_IMAGE_CAPTURE);
+
+                getCaptureResultLauncher.launch(camera_intent);
+            }
         });
 
         btnSave.setOnClickListener(v->{
@@ -242,6 +280,7 @@ public class ProfileActivity extends AppCompatActivity {
     private void changeInputAccess(Boolean isEditing) {
         if (isEditing) {
             txtSelectPhoto.setVisibility(View.VISIBLE);
+            txtCapturePhoto.setVisibility(View.VISIBLE);
             btnSave.setVisibility(View.VISIBLE);
 
             btnEdit.setBackgroundColor(getResources().getColor(R.color.firebrick));
@@ -293,7 +332,7 @@ public class ProfileActivity extends AppCompatActivity {
                 inputTxtAddress.setText(user.getString("address"));
                 autoCompleteTxtPurok.setText(puroks[user.getInt("purok_id") - 1]);
 
-                Picasso.get().load(Api.STORAGE + user.getString("file_path")).fit().error(R.drawable.cupang).into(circleImageView);
+                Picasso.get().load(user.getString("file_path")).fit().error(R.drawable.cupang).into(circleImageView);
 
                 editor.apply();
 
@@ -350,6 +389,8 @@ public class ProfileActivity extends AppCompatActivity {
             }
 
         };
+
+        request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         RequestQueue queue = Volley.newRequestQueue(ProfileActivity.this);
         queue.add(request);
@@ -416,7 +457,7 @@ public class ProfileActivity extends AppCompatActivity {
                 inputTxtLastName.setText(user.getString("last_name"));
                 inputTxtAddress.setText(user.getString("address"));
                 autoCompleteTxtPurok.setText(puroks[user.getInt("purok_id") - 1]);
-                Picasso.get().load(Api.STORAGE + user.getString("file_path")).fit().error(R.drawable.cupang).into(circleImageView);
+                Picasso.get().load(user.getString("file_path")).fit().error(R.drawable.cupang).into(circleImageView);
 
                 txtSelectPhoto.setVisibility(View.GONE);
                 btnSave.setVisibility(View.GONE);
@@ -499,6 +540,8 @@ public class ProfileActivity extends AppCompatActivity {
             }
 
         };
+
+        request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         RequestQueue queue = Volley.newRequestQueue(ProfileActivity.this);
         queue.add(request);

@@ -185,7 +185,7 @@ public class DefendantsAdapter extends RecyclerView.Adapter<DefendantsAdapter.De
         progressDialog.setMessage("Deleting the data.....");
         progressDialog.show();
 
-        StringRequest request = new StringRequest(Request.Method.DELETE, Api.DEFENDANTS + selDefendant.getId(), response -> {
+        StringRequest request = new StringRequest(Request.Method.DELETE, Api.DEFENDANTS + "/" + selDefendant.getId(), response -> {
 
             list.remove(selectedPosition);
             notifyItemRemoved(selectedPosition);
@@ -254,7 +254,7 @@ public class DefendantsAdapter extends RecyclerView.Adapter<DefendantsAdapter.De
         progressDialog.setMessage("Getting the data.....");
         progressDialog.show();
 
-        StringRequest request = new StringRequest(Request.Method.GET, Api.DEFENDANTS + selDefendant.getId() + Api.EDIT, response -> {
+        StringRequest request = new StringRequest(Request.Method.GET, Api.DEFENDANTS + "/" + selDefendant.getId() + Api.EDIT, response -> {
             try {
                 JSONObject object = new JSONObject(response);
                 JSONObject commentObject = object.getJSONObject("data");
@@ -405,7 +405,7 @@ public class DefendantsAdapter extends RecyclerView.Adapter<DefendantsAdapter.De
         progressDialog.setMessage("Updating the data.....");
         progressDialog.show();
 
-        StringRequest request = new StringRequest(Request.Method.PUT, Api.DEFENDANTS + selDefendant.getId(), response -> {
+        StringRequest request = new StringRequest(Request.Method.PUT, Api.DEFENDANTS + "/" + selDefendant.getId(), response -> {
             try {
                 JSONObject object = new JSONObject(response);
                 JSONObject defendantJSONObject = object.getJSONObject("data");

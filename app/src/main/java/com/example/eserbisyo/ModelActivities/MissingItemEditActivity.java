@@ -225,8 +225,8 @@ public class MissingItemEditActivity extends AppCompatActivity {
         inputEmail.setText(mMissingItem.getEmail());
         inputPhone.setText(mMissingItem.getPhoneNo());
 
-        Picasso.get().load(Api.STORAGE + mMissingItem.getPicturePath()).fit().error(R.drawable.user).into(cirIvMissingPicture);
-        Picasso.get().load(Api.STORAGE + mMissingItem.getCredentialPath()).fit().error(R.drawable.user).into(ivCredentialPicture);
+        Picasso.get().load(mMissingItem.getPicturePath()).fit().error(R.drawable.user).into(cirIvMissingPicture);
+        Picasso.get().load(mMissingItem.getCredentialPath()).fit().error(R.drawable.user).into(ivCredentialPicture);
 
         itemName = mMissingItem.getItemName();
         lastSeen = mMissingItem.getLastSeen();
@@ -508,7 +508,6 @@ public class MissingItemEditActivity extends AppCompatActivity {
                         missingItemJSONObject.getString("file_path"), missingItemJSONObject.getString("credential_name"), missingItemJSONObject.getString("credential_path"),
                         missingItemJSONObject.getInt("comments_count"), missingItemJSONObject.getString("status"), missingItemJSONObject.getString("admin_message"),  missingItemJSONObject.getString("created_at"),
                         missingItemJSONObject.getString("updated_at"));
-
 
                 try {
 

@@ -108,7 +108,7 @@ public class FeedbackFragment extends Fragment {
         getFeedbacks();
 
         btnAdd.setOnClickListener(view -> {
-            if(sharedPreferences.getInt(Pref.IS_VERIFIED, 0) != 1){
+            if(!sharedPreferences.getBoolean(Pref.IS_VERIFIED, false)){
                 Toasty.info(requireContext(), "This function is for verified user only.", Toast.LENGTH_LONG, true).show();
             } else {
                 startActivity(new Intent(getContext(), FeedbackAddActivity.class));

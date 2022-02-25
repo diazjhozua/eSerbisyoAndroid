@@ -146,18 +146,32 @@
         There are certain types of certificate only available for pickup.
     </string>
 
-    <string name="biker_terms1">
-        The Barangay Cupang app allows bikers to deliver documents to the residents of Barangay Cupang.
-        It is required that the riders provide the best service possible. Once a resident\'s booking has been accepted by the admins, bikers are not permitted to cancel it until the documents are delivered on time.
+    <string name="biker_terms">
+        The e-Serbisyo Application allows any verified user to register as a part-time biker in the barangay Cupang. By registering, you are agreing with the terms and condition
+        of being a delivery biker:
+    </string>
 
+    <string name="biker_terms1">
+        1. Bikers must abide by the barangay official\'s rules and management, and they must not deviate from their responsibilities.
     </string>
 
     <string name="biker_terms2">
-        Bikers must abide by the barangay official\'s rules and management, and they must not deviate from their responsibilities. Bikers should treat the residents with respect and follow the delivery location\'s instructions.
-        The change of the stated payment is a violation and will be sanctioned if proven guilty of the said violation will be given. Bikers should not have any criminal history.
+        2. Bikers should treat the residents with respect and follow the delivery location\'s instructions.
     </string>
 
     <string name="biker_terms3">
+        3. Bikers are not allow to sue Barangay Cupang if accidents happen during the delivery.
+    </string>
+
+    <string name="biker_terms4">
+        4. Bikers when they delivered the specific order to the resident, you are obliged to return the fee for the actual order.
+    </string>
+
+    <string name="biker_terms5">
+        5. When the resident did not received his/her order, you are obliged to return the document to the barangay office. (No compensation)
+    </string>
+
+    <string name="biker_terms3asd">
         If residents are at fault bikers should immediately report to the barangay to be investigated. \n In addition, riders must not tamper the package in any way. By agreeing this you will agree with the protocols involved.
         Barangay Cupang will not be in-charged when accidents happen during the delivery.
     </string>

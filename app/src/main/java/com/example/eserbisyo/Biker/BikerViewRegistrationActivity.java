@@ -66,7 +66,6 @@ public class BikerViewRegistrationActivity extends AppCompatActivity {
         txtRespondedAt = findViewById(R.id.txtUpdatedAt);
         ivCredentialPicture = findViewById(R.id.ivCredentialPicture);
         btnResubmit = findViewById(R.id.btnResubmit);
-
         setData();
     }
 
@@ -76,7 +75,6 @@ public class BikerViewRegistrationActivity extends AppCompatActivity {
             txtAdminMessage.setVisibility(View.GONE);
             txtRespondedAt.setVisibility(View.GONE);
             txtStatus.setTextColor(getResources().getColor(R.color.primaryColor));
-
         } else if (status.equals("Denied")) {
             txtOverallStatus.setText("DENIED");
             txtOverallStatus.setBackgroundColor(getResources().getColor(R.color.firebrick));
@@ -96,7 +94,7 @@ public class BikerViewRegistrationActivity extends AppCompatActivity {
         txtStatus.setText(status);
         txtAdminMessage.setText("Admin Message: " + adminMessage);
         txtRespondedAt.setText(respondedAt);
-        Picasso.get().load(Api.STORAGE + imgPath).fit().error(R.drawable.no_picture).into(ivCredentialPicture);
+        Picasso.get().load(imgPath).fit().error(R.drawable.no_picture).into(ivCredentialPicture);
 
         initListener();
     }
@@ -109,7 +107,7 @@ public class BikerViewRegistrationActivity extends AppCompatActivity {
 
         ivCredentialPicture.setOnClickListener(view -> {
             Intent intent= new Intent(BikerViewRegistrationActivity.this, ViewImageActivity.class);
-            intent.putExtra("image_url", Api.STORAGE + imgPath);
+            intent.putExtra("image_url", imgPath);
             startActivity(intent);
         });
     }

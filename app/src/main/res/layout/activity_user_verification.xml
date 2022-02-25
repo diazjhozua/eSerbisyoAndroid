@@ -103,17 +103,42 @@
                     android:layout_marginBottom="10dp"
                     android:src="@color/colorLightGrey" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/txtSelectPhoto"
-                    android:visibility="gone"
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_10sdp"
-                    android:fontFamily="@font/ubuntu_regular"
-                    android:gravity="center_horizontal"
-                    android:text="Select photo credentials"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    >
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtSelectPhoto"
+                        android:visibility="gone"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_width="wrap_content"
+                        android:padding="@dimen/_3sdp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_10sdp"
+                        android:fontFamily="@font/ubuntu_regular"
+                        android:gravity="center_horizontal"
+                        android:text="@string/select_photo"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtCapturePhoto"
+                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_3sdp"
+                        android:layout_marginBottom="@dimen/_10sdp"
+                        android:fontFamily="@font/ubuntu_regular"
+                        android:gravity="center_horizontal"
+                        android:text="@string/capture"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/txtCredentialGuide"

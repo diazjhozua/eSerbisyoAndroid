@@ -24,6 +24,7 @@ import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
@@ -63,7 +64,6 @@ public class MissingItemsAdapter extends RecyclerView.Adapter<MissingItemsAdapte
     private final ArrayList<MissingItem> listAll;
     private final SharedPreferences sharedPreferences;
 
-
     private MissingItem mMissingItemObj;
     private Dialog userContactDialog, deleteDialog;
     private int selectedPosition;
@@ -90,8 +90,8 @@ public class MissingItemsAdapter extends RecyclerView.Adapter<MissingItemsAdapte
     @Override
     public void onBindViewHolder(@NonNull MissingItemsAdapter.MissingItemsHolder holder, @SuppressLint("RecyclerView") int position) {
         MissingItem missingItemObj = list.get(position);
-        Picasso.get().load(Api.STORAGE + missingItemObj.getUserPicturePath()).fit().error(R.drawable.user).into(holder.circIvUserPic);
-        Picasso.get().load(Api.STORAGE + missingItemObj.getPicturePath()).fit().error(R.drawable.no_picture).into(holder.ivMissingPicture);
+        Picasso.get().load(missingItemObj.getUserPicturePath()).fit().error(R.drawable.user).into(holder.circIvUserPic);
+        Picasso.get().load(missingItemObj.getPicturePath()).fit().error(R.drawable.no_picture).into(holder.ivMissingPicture);
 
         holder.txtUserName.setText(missingItemObj.getUserName());
         holder.txtCreatedAt.setText(missingItemObj.getCreatedAt());
@@ -100,7 +100,7 @@ public class MissingItemsAdapter extends RecyclerView.Adapter<MissingItemsAdapte
         holder.txtLastSeen.setText("Last Seen: " + missingItemObj.getLastSeen());
         holder.txtCommentCount.setText("View all "+ missingItemObj.getCommentsCount() + ((missingItemObj.getCommentsCount() > 1 ) ? " comments" : " comment"));
 
-        if (sharedPreferences.getInt(Pref.ID, 0) != missingItemObj.getUserId() || sharedPreferences.getInt(Pref.IS_VERIFIED, 0) != 1) {
+        if (sharedPreferences.getInt(Pref.ID, 0) != missingItemObj.getUserId() || !sharedPreferences.getBoolean(Pref.IS_VERIFIED, false)) {
             holder.imgBtnOption.setVisibility(View.GONE);
             holder.linLayAdmin.setVisibility(View.GONE);
         } else {
@@ -133,7 +133,7 @@ public class MissingItemsAdapter extends RecyclerView.Adapter<MissingItemsAdapte
 
         holder.ivMissingPicture.setOnClickListener(v -> {
             Intent intent= new Intent(context, ViewImageActivity.class);
-            intent.putExtra("image_url", Api.STORAGE + missingItemObj.getPicturePath());
+            intent.putExtra("image_url", missingItemObj.getPicturePath());
             context.startActivity(intent);
         });
 
@@ -187,7 +187,7 @@ public class MissingItemsAdapter extends RecyclerView.Adapter<MissingItemsAdapte
         progressDialog.setMessage("Getting the data.....");
         progressDialog.show();
 
-        StringRequest request = new StringRequest(Request.Method.GET, Api.MISSING_ITEMS + mMissingItemObj.getId() + Api.EDIT, response -> {
+        StringRequest request = new StringRequest(Request.Method.GET, Api.MISSING_ITEMS + "/" + mMissingItemObj.getId() + Api.EDIT, response -> {
             try {
 
                 progressDialog.dismiss();
@@ -253,6 +253,7 @@ public class MissingItemsAdapter extends RecyclerView.Adapter<MissingItemsAdapte
             }
         };
 
+        request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue queue = Volley.newRequestQueue(Objects.requireNonNull(context));
         queue.add(request);
     }
@@ -285,7 +286,7 @@ public class MissingItemsAdapter extends RecyclerView.Adapter<MissingItemsAdapte
     }
 
     private void deleteData() {
-        StringRequest request = new StringRequest(Request.Method.DELETE, Api.MISSING_ITEMS + mMissingItemObj.getId(), response -> {
+        StringRequest request = new StringRequest(Request.Method.DELETE, Api.MISSING_ITEMS + "/" + mMissingItemObj.getId(), response -> {
             list.remove(selectedPosition);
             notifyItemRemoved(selectedPosition);
             notifyDataSetChanged();
@@ -343,6 +344,8 @@ public class MissingItemsAdapter extends RecyclerView.Adapter<MissingItemsAdapte
             }
         };
 
+        request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
         RequestQueue queue = Volley.newRequestQueue(context);
         queue.add(request);
     }
@@ -358,7 +361,7 @@ public class MissingItemsAdapter extends RecyclerView.Adapter<MissingItemsAdapte
         TextView txtPhoneNo = userContactDialog.findViewById(R.id.txtPhoneNo);
         Button btnExit = userContactDialog.findViewById(R.id.btnExit);
 
-        Picasso.get().load(Api.STORAGE + mMissingItemObj.getUserPicturePath()).fit().error(R.drawable.user).into(ivUser);
+        Picasso.get().load(mMissingItemObj.getUserPicturePath()).fit().error(R.drawable.user).into(ivUser);
         txtUserName.setText(mMissingItemObj.getUserName());
         txtEmail.setText(mMissingItemObj.getEmail());
         txtPhoneNo.setText(mMissingItemObj.getPhoneNo());
@@ -434,6 +437,7 @@ public class MissingItemsAdapter extends RecyclerView.Adapter<MissingItemsAdapte
             txtStatus = itemView.findViewById(R.id.txtStatus);
             txtAdminMessage = itemView.findViewById(R.id.txtAdminMessage);
             txtRespondedAt = itemView.findViewById(R.id.txtUpdatedAt);
+
         }
     }
 }

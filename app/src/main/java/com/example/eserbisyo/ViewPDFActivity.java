@@ -39,8 +39,9 @@ public class ViewPDFActivity extends AppCompatActivity {
 
         pdfView = findViewById(R.id.pdfView);
         Button btnDownload = findViewById(R.id.btnDownload);
-        viewUrl =  Api.VIEW_FILE + getIntent().getStringExtra("pdf_path");
-        downloadUrl = Api.DOWNLOAD_FILE + getIntent().getStringExtra("pdf_path");
+
+        viewUrl =  getIntent().getStringExtra("pdf_path");
+        downloadUrl = getIntent().getStringExtra("pdf_path");
 
         btnDownload.setOnClickListener(view -> {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(downloadUrl));

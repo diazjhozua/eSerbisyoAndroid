@@ -24,6 +24,7 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
@@ -209,7 +210,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersHold
     }
 
     private void deleteData() {
-        StringRequest request = new StringRequest(Request.Method.DELETE, Api.ORDERS + id, response -> {
+        StringRequest request = new StringRequest(Request.Method.DELETE, Api.ORDERS + "/" +id, response -> {
 
             list.remove(selectedPosition);
             notifyItemRemoved(selectedPosition);
@@ -281,7 +282,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersHold
         progressDialog.setMessage("Getting the data.....");
         progressDialog.show();
 
-        StringRequest request = new StringRequest(Request.Method.GET, Api.ORDERS + id, response -> {
+        StringRequest request = new StringRequest(Request.Method.GET, Api.ORDERS +"/"+ id, response -> {
             try {
                 progressDialog.dismiss();
 
@@ -346,6 +347,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersHold
             }
         };
 
+        request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue queue = Volley.newRequestQueue(Objects.requireNonNull(context));
         queue.add(request);
     }

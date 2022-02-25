@@ -1,12 +1,5 @@
 package com.example.eserbisyo.ModelActivities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatCheckBox;
-import androidx.appcompat.widget.LinearLayoutCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -29,6 +22,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
@@ -39,7 +40,6 @@ import com.example.eserbisyo.Adapters.DDTypeAdapter;
 import com.example.eserbisyo.Constants.Api;
 import com.example.eserbisyo.Constants.Extra;
 import com.example.eserbisyo.Constants.Pref;
-import com.example.eserbisyo.HomeFragments.AuthMissingPersonFragment;
 import com.example.eserbisyo.HomeFragments.ComplaintFragment;
 import com.example.eserbisyo.ModelRecyclerViewAdapters.ComplainantsAdapter;
 import com.example.eserbisyo.ModelRecyclerViewAdapters.DefendantsAdapter;
@@ -578,6 +578,7 @@ public class ComplaintEditActivity extends AppCompatActivity {
             }
         };
 
+        request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue queue = Volley.newRequestQueue(ComplaintEditActivity.this);
         queue.add(request);
     }
@@ -754,6 +755,7 @@ public class ComplaintEditActivity extends AppCompatActivity {
             }
         };
 
+        request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue queue = Volley.newRequestQueue(ComplaintEditActivity.this);
         queue.add(request);
     }
@@ -846,7 +848,7 @@ public class ComplaintEditActivity extends AppCompatActivity {
         String email = Objects.requireNonNull(inputTxtEmail.getText()).toString().trim();
         String phoneNo = Objects.requireNonNull(inputTxtPhone.getText()).toString().trim();
 
-        StringRequest request = new StringRequest(Request.Method.PUT, Api.COMPLAINTS + mComplaint.getId(), response->{
+        StringRequest request = new StringRequest(Request.Method.PUT, Api.COMPLAINTS + "/" + mComplaint.getId(), response->{
             try {
                 JSONObject object = new JSONObject(response);
 
@@ -908,22 +910,10 @@ public class ComplaintEditActivity extends AppCompatActivity {
                     map.put("type_id", String.valueOf(typeID));
                 }
 
-/*                ArrayList<Defendant> defendantArrayList = defendantsAdapter.getList();
-                ArrayList<Complainant> complainantArrayList = complainantsAdapter.getList();*/
-
                 map.put("reason", reason);
                 map.put("action", action);
                 map.put("email", email);
                 map.put("phone_no", phoneNo);
-
-//                for(int i=0;i<defendantArrayList.size();i++){
-//                    map.put("defendant_list["+i+"][name]", defendantArrayList.get(i).getName());
-//                }
-//
-//                for(int i=0;i<complainantArrayList.size();i++){
-//                    map.put("complainant_list["+i+"][name]", complainantArrayList.get(i).getName());
-//                    map.put("complainant_list["+i+"][signature]", bitmapToString(complainantArrayList.get(i).getBitmapSignature()));
-//                }
 
                 return map;
             }
@@ -947,6 +937,7 @@ public class ComplaintEditActivity extends AppCompatActivity {
             }
         };
 
+        request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue queue = Volley.newRequestQueue(ComplaintEditActivity.this);
         queue.add(request);
     }

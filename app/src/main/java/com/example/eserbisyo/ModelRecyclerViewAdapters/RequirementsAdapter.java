@@ -83,11 +83,11 @@ public class RequirementsAdapter extends RecyclerView.Adapter<RequirementsAdapte
         holder.txtRequirement.setText(userRequirement.getRequirement().getName());
         holder.txtSubmittedAt.setText(userRequirement.getCreatedAt());
 
-        Picasso.get().load(Api.STORAGE + userRequirement.getFilePath()).fit().error(R.drawable.no_picture).into(holder.ivRequirement);
+        Picasso.get().load(userRequirement.getFilePath()).fit().error(R.drawable.no_picture).into(holder.ivRequirement);
 
         holder.layoutRequirement.setOnClickListener(v -> {
             Intent intent= new Intent(context, ViewImageActivity.class);
-            intent.putExtra("image_url", Api.STORAGE + userRequirement.getFilePath());
+            intent.putExtra("image_url", userRequirement.getFilePath());
             context.startActivity(intent);
         });
 
@@ -130,7 +130,7 @@ public class RequirementsAdapter extends RecyclerView.Adapter<RequirementsAdapte
         progressDialog.setMessage("Deleting requirement.....");
         progressDialog.show();
 
-        StringRequest request = new StringRequest(Request.Method.DELETE, Api.USER_REQUIREMENTS + id, response -> {
+        StringRequest request = new StringRequest(Request.Method.DELETE, Api.USER_REQUIREMENTS + "/" + id, response -> {
             try {
                 JSONObject object = new JSONObject(response);
                 String message = object.getString("message");

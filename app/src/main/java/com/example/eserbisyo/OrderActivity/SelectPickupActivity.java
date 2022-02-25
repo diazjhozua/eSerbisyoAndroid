@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
@@ -109,7 +110,7 @@ public class SelectPickupActivity extends AppCompatActivity {
 
         String pickupType = Objects.requireNonNull(autoCompleteOrderType.getText()).toString().trim();
 
-        StringRequest request = new StringRequest(Request.Method.GET, Api.ORDERS + Api.CREATE + pickupType, response->{
+        StringRequest request = new StringRequest(Request.Method.GET, Api.ORDERS + Api.CREATE + "/" + pickupType, response->{
             try {
                 JSONObject object = new JSONObject(response);
                 JSONArray array = new JSONArray(object.getString("data"));
@@ -176,6 +177,7 @@ public class SelectPickupActivity extends AppCompatActivity {
 
         };
 
+        request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue queue = Volley.newRequestQueue(SelectPickupActivity.this);
         queue.add(request);
     }

@@ -33,6 +33,7 @@ import com.example.eserbisyo.AuthActivity;
 import com.example.eserbisyo.Constants.Api;
 import com.example.eserbisyo.Constants.Pref;
 import com.example.eserbisyo.HomeActivity;
+import com.example.eserbisyo.HomeFragments.FeedbackFragment;
 import com.example.eserbisyo.HomeFragments.MainFragment;
 import com.example.eserbisyo.HomeFragments.ReportFragment;
 import com.example.eserbisyo.ModelRecyclerViewAdapters.FeedbackTypesAdapter;
@@ -123,8 +124,8 @@ public class FeedbackAnalyticsFragment extends Fragment {
         progressDialog.setCancelable(false);
 
         btnView.setOnClickListener(view -> {
-            ((HomeActivity) requireActivity()).switchFragment(new ReportFragment());
-            ((HomeActivity) requireActivity()).setReportNavCheck();
+            ((HomeActivity) requireActivity()).switchFragment(new FeedbackFragment());
+            ((HomeActivity) requireActivity()).setFeedbackNavCheck();
         });
 
         setPieChartSettings();
@@ -212,10 +213,8 @@ public class FeedbackAnalyticsFragment extends Fragment {
                     JSONObject typesJsonObject = typesJsonArray.getJSONObject(i);
                     Log.d("typesJsonObject", typesJsonObject.toString(4));
 
-                    if (typesJsonObject.getInt("feedbacks_count") > 0) {
-                        pieEntries.add(new PieEntry((float) (typesJsonObject.getInt("feedbacks_count")),
-                                typesJsonObject.getString("name")));
-                    }
+                    pieEntries.add(new PieEntry((float) (typesJsonObject.getInt("feedbacks_count")),
+                            typesJsonObject.getString("name")));
 
                 }
 
@@ -226,8 +225,8 @@ public class FeedbackAnalyticsFragment extends Fragment {
                     Type mType = new Type(
                             typesJsonObject.getInt("id"), typesJsonObject.getString("name"),
                             typesJsonObject.getInt("feedbacks_count") + " feedbacks",
-                            typesJsonObject.getDouble("feedbacks_avg_rating")
-                    );
+                            (typesJsonObject.isNull("feedbacks_avg_rating")) ? 0 : typesJsonObject.getDouble("feedbacks_avg_rating")
+                     );
                     arrayTypeList.add(mType);
 
                 }

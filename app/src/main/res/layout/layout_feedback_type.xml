@@ -12,13 +12,13 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_150sdp"
             android:id="@+id/txtName"
             android:textSize="@dimen/_13ssp"
             android:fontFamily="@font/ubuntu_medium"
             android:textColor="@color/black"
             android:text="Report Type"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             tools:ignore="HardcodedText" />
 
         <TextView

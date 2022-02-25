@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
@@ -198,7 +199,7 @@ public class LoginFragment extends Fragment {
                     editor.putString(Pref.PICTURE, user.getString("file_path"));
                     editor.putString(Pref.TOKEN, object.getString("access_token"));
                     editor.putString(Pref.STATUS, user.getString("status"));
-                    editor.putInt(Pref.IS_VERIFIED, user.getInt("is_verified"));
+                    editor.putBoolean(Pref.IS_VERIFIED, user.getBoolean("is_verified"));
                     editor.putInt(Pref.USER_ROLE_ID, user.getInt("user_role_id"));
 
                     editor.apply();
@@ -262,6 +263,8 @@ public class LoginFragment extends Fragment {
                 return volleyError;
             }
         };
+
+        request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         //add this request to request queue
         RequestQueue queue = Volley.newRequestQueue(requireContext());

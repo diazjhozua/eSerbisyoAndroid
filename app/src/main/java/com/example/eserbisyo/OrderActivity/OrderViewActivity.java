@@ -232,7 +232,7 @@ public class OrderViewActivity extends AppCompatActivity {
         if (mOrder.getOrderType().equals("Pickup") || mOrder.getmBiker() == null) {
             layoutBiker.setVisibility(View.GONE);
         } else {
-            Picasso.get().load(Api.STORAGE + mOrder.getmBiker().getFilePath()).fit().error(R.drawable.user).into(circIvBiker);
+            Picasso.get().load(mOrder.getmBiker().getFilePath()).fit().error(R.drawable.user).into(circIvBiker);
             txtBikerName.setText(mOrder.getmBiker().getName());
             txtBikerBikeName.setText(mOrder.getmBiker().getName());
             txtBikerPhoneNo.setText(mOrder.getmBiker().getPhoneNo());

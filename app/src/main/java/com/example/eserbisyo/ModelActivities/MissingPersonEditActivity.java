@@ -31,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
@@ -274,8 +275,8 @@ public class MissingPersonEditActivity extends AppCompatActivity {
         layoutWeightUnit.setHint("Current: " + mMissingPerson.getWeightUnit());
 
 
-        Picasso.get().load(Api.STORAGE + mMissingPerson.getPicturePath()).fit().error(R.drawable.user).into(cirIvMissingPicture);
-        Picasso.get().load(Api.STORAGE + mMissingPerson.getCredentialPath()).fit().error(R.drawable.user).into(ivCredentialPicture);
+        Picasso.get().load(mMissingPerson.getPicturePath()).fit().error(R.drawable.user).into(cirIvMissingPicture);
+        Picasso.get().load(mMissingPerson.getCredentialPath()).fit().error(R.drawable.user).into(ivCredentialPicture);
 
         inputMissingName.setText(mMissingPerson.getMissingName());
         inputHeight.setText(String.valueOf(mMissingPerson.getHeight()));
@@ -804,7 +805,7 @@ public class MissingPersonEditActivity extends AppCompatActivity {
         String phoneNo = Objects.requireNonNull(inputPhone.getText()).toString().trim();
         String reportType = autoCompleteReportType.getText().toString().trim();
 
-        StringRequest request = new StringRequest(Request.Method.PUT, Api.MISSING_PERSONS + mMissingPerson.getId(), response->{
+        StringRequest request = new StringRequest(Request.Method.PUT, Api.MISSING_PERSONS + "/" + mMissingPerson.getId(), response->{
             try {
                 JSONObject object = new JSONObject(response);
 
@@ -910,6 +911,7 @@ public class MissingPersonEditActivity extends AppCompatActivity {
             }
         };
 
+        request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue queue = Volley.newRequestQueue(MissingPersonEditActivity.this);
         queue.add(request);
     }

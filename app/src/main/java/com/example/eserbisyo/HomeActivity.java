@@ -27,6 +27,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
@@ -103,19 +104,19 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         String userPicture = userPref.getString(Pref.PICTURE, "");
         String firstName = userPref.getString(Pref.FIRST_NAME, "");
         String lastName = userPref.getString(Pref.LAST_NAME, "");
-        int isVerified =  userPref.getInt(Pref.IS_VERIFIED, 0);
-        String verifiedStatus = (isVerified == 1) ? "Verified" : "Not Verified";
+        boolean isVerified =  userPref.getBoolean(Pref.IS_VERIFIED, false);
+        String verifiedStatus = (isVerified) ? "Verified" : "Not Verified";
 
         String fullName = firstName + " " + lastName;
 
-        Picasso.get().load(Api.STORAGE + userPicture).fit().error(R.drawable.cupang).into(ivUser);
+        Picasso.get().load(userPicture).fit().error(R.drawable.cupang).into(ivUser);
         txtId.setText("ID #" + userPref.getInt(Pref.ID, 0));
         txtUsername.setText(fullName);
         txtVerifiedStatus.setText(verifiedStatus);
 
         txtVerifiedStatus.setOnClickListener(v->{
             // validate fields
-            if(isVerified == 1){
+            if(isVerified){
                 Toasty.info(this, "You are already verified hence, no need to see your current requests", Toast.LENGTH_SHORT, true).show();
 
             } else {
@@ -123,7 +124,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        if (isVerified == 1) {
+        if (isVerified) {
             Picasso.get().load(R.drawable.ic_baseline_check_circle_24).fit().error(R.drawable.ic_baseline_check_circle_24).into(ivVerifiedStatus);
         } else {
             Picasso.get().load(R.drawable.ic_baseline_radio_button_unchecked_24).fit().error(R.drawable.ic_baseline_check_circle_24).into(ivVerifiedStatus);
@@ -258,6 +259,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
         };
 
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
         RequestQueue queue = Volley.newRequestQueue(HomeActivity.this);
         queue.add(request);
     }
@@ -273,6 +279,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     public void setReportNavCheck() {
         navigationView.setCheckedItem(R.id.nav_report);
     }
+
+    public void setComplaintNavCheck() {
+        navigationView.setCheckedItem(R.id.nav_complaint);
+    }
+
 
     public void setRequirementNavCheck() {
         navigationView.setCheckedItem(R.id.nav_requirement);

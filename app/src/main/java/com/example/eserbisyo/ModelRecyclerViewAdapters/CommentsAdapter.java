@@ -22,6 +22,7 @@ import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
@@ -89,7 +90,10 @@ public class CommentsAdapter  extends RecyclerView.Adapter<CommentsAdapter.Comme
     @Override
     public void onBindViewHolder(@NonNull CommentsAdapter.CommentsHolder holder, @SuppressLint("RecyclerView") int position) {
         Comment comment = list.get(position);
-        Picasso.get().load(Api.STORAGE + comment.getUser().getFilePath()).fit().error(R.drawable.user).into(holder.imgProfile);
+
+        if (!comment.getUser().getFilePath().equals("")) {
+            Picasso.get().load(comment.getUser().getFilePath()).fit().error(R.drawable.user).into(holder.imgProfile);
+        }
 
         holder.txtDate.setText(comment.getCreatedAt());
         holder.txtComment.setText(comment.getBody());
@@ -134,7 +138,7 @@ public class CommentsAdapter  extends RecyclerView.Adapter<CommentsAdapter.Comme
         progressDialog.setMessage("Getting the comment data.....");
         progressDialog.show();
 
-        StringRequest request = new StringRequest(Request.Method.GET, Api.COMMENTS + id + Api.EDIT, response -> {
+        StringRequest request = new StringRequest(Request.Method.GET, Api.COMMENTS + "/" + id + Api.EDIT, response -> {
             try {
                 JSONObject object = new JSONObject(response);
                 JSONObject commentObject = object.getJSONObject("data");
@@ -199,6 +203,8 @@ public class CommentsAdapter  extends RecyclerView.Adapter<CommentsAdapter.Comme
             }
         };
 
+        request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
         RequestQueue queue = Volley.newRequestQueue(Objects.requireNonNull(context));
         queue.add(request);
     }
@@ -256,7 +262,7 @@ public class CommentsAdapter  extends RecyclerView.Adapter<CommentsAdapter.Comme
     }
 
     private void updateComment() {
-        StringRequest request = new StringRequest(Request.Method.PUT, Api.COMMENTS + id, response -> {
+        StringRequest request = new StringRequest(Request.Method.PUT, Api.COMMENTS + "/" + id, response -> {
             try {
                 JSONObject object = new JSONObject(response);
                 if (object.getBoolean("success")) {
@@ -343,8 +349,11 @@ public class CommentsAdapter  extends RecyclerView.Adapter<CommentsAdapter.Comme
             }
         };
 
+        request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
         RequestQueue queue = Volley.newRequestQueue(context);
         queue.add(request);
+
 
     }
 
@@ -397,19 +406,18 @@ public class CommentsAdapter  extends RecyclerView.Adapter<CommentsAdapter.Comme
     }
 
     private void deleteComment() {
-        StringRequest request = new StringRequest(Request.Method.DELETE, Api.COMMENTS + id, response -> {
+        StringRequest request = new StringRequest(Request.Method.DELETE, Api.COMMENTS + "/" + id, response -> {
 
             list.remove(selectedPosition);
             notifyItemRemoved(selectedPosition);
             notifyDataSetChanged();
 
-
-            if (CommentActivity.modelName.equals("ANNOUNCEMENT")) {
-                Announcement announcement = AnnouncementFragment.arrayList.get(CommentActivity.modelPosition);
-                announcement.setCommentsCount(announcement.getCommentsCount()-1);
-                AnnouncementFragment.arrayList.set(CommentActivity.modelPosition, announcement);
-                Objects.requireNonNull(AnnouncementFragment.recyclerView.getAdapter()).notifyDataSetChanged();
-            }
+//            if (CommentActivity.modelName.equals("ANNOUNCEMENT")) {
+//                Announcement announcement = AnnouncementFragment.arrayList.get(CommentActivity.modelPosition);
+//                announcement.setCommentsCount(announcement.getCommentsCount()-1);
+//                AnnouncementFragment.arrayList.set(CommentActivity.modelPosition, announcement);
+//                Objects.requireNonNull(AnnouncementFragment.recyclerView.getAdapter()).notifyDataSetChanged();
+//            }
 
             notifyDataSetChanged();
 
@@ -464,6 +472,8 @@ public class CommentsAdapter  extends RecyclerView.Adapter<CommentsAdapter.Comme
                 return volleyError;
             }
         };
+
+        request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         RequestQueue queue = Volley.newRequestQueue(context);
         queue.add(request);

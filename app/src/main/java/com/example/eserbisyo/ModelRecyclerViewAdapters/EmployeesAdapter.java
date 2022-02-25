@@ -45,7 +45,7 @@ public class EmployeesAdapter extends RecyclerView.Adapter<EmployeesAdapter.Empl
     public void onBindViewHolder(@NonNull EmployeesAdapter.EmployeesHolder holder, int position) {
         Employee employee = list.get(position);
 
-        Picasso.get().load(Api.STORAGE + employee.getFilePath()).fit().error(R.drawable.user).into(holder.ivPicture);
+        Picasso.get().load(employee.getFilePath()).fit().error(R.drawable.user).into(holder.ivPicture);
         holder.txtName.setText(employee.getName());
         holder.txtDesc.setText(employee.getDescription());
 
@@ -63,7 +63,7 @@ public class EmployeesAdapter extends RecyclerView.Adapter<EmployeesAdapter.Empl
 
         holder.ivPicture.setOnClickListener(v -> {
             Intent intent= new Intent(context, ViewImageActivity.class);
-            intent.putExtra("image_url", Api.STORAGE + employee.getFilePath());
+            intent.putExtra("image_url", employee.getFilePath());
             context.startActivity(intent);
         });
     }

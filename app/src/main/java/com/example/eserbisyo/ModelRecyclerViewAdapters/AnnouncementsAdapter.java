@@ -165,7 +165,7 @@ public class AnnouncementsAdapter extends RecyclerView.Adapter<AnnouncementsAdap
 
         likeArrayList = new ArrayList<>();
 
-        StringRequest request = new StringRequest(Request.Method.GET, Api.ANNOUNCEMENTS_LIKE + mAnnouncement.getId(), response -> {
+        StringRequest request = new StringRequest(Request.Method.GET, Api.ANNOUNCEMENTS_LIKE + "/"+ mAnnouncement.getId(), response -> {
             try {
                 JSONObject object = new JSONObject(response);
 
@@ -266,7 +266,7 @@ public class AnnouncementsAdapter extends RecyclerView.Adapter<AnnouncementsAdap
     }
 
     private void likePost() {
-        StringRequest request = new StringRequest(Request.Method.POST, Api.ANNOUNCEMENTS_LIKE + mAnnouncement.getId(), response->{
+        StringRequest request = new StringRequest(Request.Method.POST, Api.ANNOUNCEMENTS_LIKE + "/" + mAnnouncement.getId(), response->{
 
             mAnnouncement.setSelfLike(!mAnnouncement.isSelfLike());
             mAnnouncement.setLikesCount(mAnnouncement.isSelfLike()?mAnnouncement.getLikesCount()+1:mAnnouncement.getLikesCount()-1);
