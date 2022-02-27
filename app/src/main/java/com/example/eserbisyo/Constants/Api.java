@@ -40,11 +40,11 @@ public class Api {
 
     public static final String MISSING_PERSONS = HOME+"/missingPersons";
     public static final String MISSING_PERSONS_AUTH = MISSING_PERSONS+"/authReports";
-    public static final String MISSING_PERSONS_COMMENTS = MISSING_PERSONS+"comment";
+    public static final String MISSING_PERSONS_COMMENTS = MISSING_PERSONS+"/comment";
     public static final String MISSING_ITEMS = HOME+"/missingItems";
 
     public static final String MISSING_ITEMS_AUTH = MISSING_ITEMS+"/authReports";
-    public static final String MISSING_ITEMS_COMMENTS = MISSING_ITEMS+"comment";
+    public static final String MISSING_ITEMS_COMMENTS = MISSING_ITEMS+"/comment";
 
     public static final String COMPLAINTS = HOME+"/complaints";
     public static final String COMPLAINTS_ANALYTICS = HOME+"/complaints/getAnalytics";
