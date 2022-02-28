@@ -199,8 +199,8 @@ public class LoginFragment extends Fragment {
                     editor.putString(Pref.PICTURE, user.getString("file_path"));
                     editor.putString(Pref.TOKEN, object.getString("access_token"));
                     editor.putString(Pref.STATUS, user.getString("status"));
-//                    editor.putBoolean(Pref.IS_VERIFIED, user.getBoolean("is_verified"));
-                    editor.putBoolean(Pref.IS_VERIFIED, true);
+                    editor.putBoolean(Pref.IS_VERIFIED, user.getBoolean("is_verified"));
+//                    editor.putBoolean(Pref.IS_VERIFIED, true);
                     editor.putInt(Pref.USER_ROLE_ID, user.getInt("user_role_id"));
 
                     editor.apply();

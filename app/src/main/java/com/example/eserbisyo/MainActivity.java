@@ -118,9 +118,9 @@ public class MainActivity extends AppCompatActivity {
                     editor.putString(Pref.PICTURE, user.getString("file_path"));
                     editor.putString(Pref.TOKEN, object.getString("access_token"));
                     editor.putString(Pref.STATUS, user.getString("status"));
-//                    editor.putBoolean(Pref.IS_VERIFIED, user.getBoolean("is_verified"));
+                    editor.putBoolean(Pref.IS_VERIFIED, user.getBoolean("is_verified"));
 
-                    editor.putBoolean(Pref.IS_VERIFIED, true);
+//                    editor.putBoolean(Pref.IS_VERIFIED, true);
 
 
                     editor.apply();
