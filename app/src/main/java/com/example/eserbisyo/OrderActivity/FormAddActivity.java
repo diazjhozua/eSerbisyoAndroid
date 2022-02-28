@@ -1028,7 +1028,7 @@ public class FormAddActivity extends AppCompatActivity {
         editor.putString(Pref.FORM_WEIGHT, String.valueOf(weight));
         editor.putString(Pref.FORM_HEIGHT, String.valueOf(height));
         editor.putString(Pref.FORM_TIN, tinNo);
-        editor.putString(Pref.FORM_ICR, citizenship);
+        editor.putString(Pref.FORM_ICR, icrNo);
         editor.putString(Pref.FORM_PHONE, contactNo);
         editor.putString(Pref.FORM_CONTACT_PERSON, contactPerson);
         editor.putString(Pref.FORM_CONTACT_RELATION, contactPersonRelation);

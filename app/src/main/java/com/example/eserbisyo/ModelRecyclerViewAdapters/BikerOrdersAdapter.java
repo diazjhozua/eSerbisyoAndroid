@@ -136,7 +136,7 @@ public class BikerOrdersAdapter extends RecyclerView.Adapter<BikerOrdersAdapter.
         progressDialog.setMessage("Getting the data.....");
         progressDialog.show();
 
-        StringRequest request = new StringRequest(Request.Method.GET, Api.BIKER_GET_ORDER_DETAILS + selOrder.getId(), response -> {
+        StringRequest request = new StringRequest(Request.Method.GET, Api.BIKER_GET_ORDER_DETAILS + "/" + selOrder.getId(), response -> {
             try {
                 progressDialog.dismiss();
 
@@ -240,7 +240,7 @@ public class BikerOrdersAdapter extends RecyclerView.Adapter<BikerOrdersAdapter.
         progressDialog.setMessage("Booking the order please wait.....");
         progressDialog.show();
 
-        StringRequest request = new StringRequest(Request.Method.PUT, Api.BIKER_BOOKED_ORDER + selOrder.getId(), response -> {
+        StringRequest request = new StringRequest(Request.Method.PUT, Api.BIKER_BOOKED_ORDER + "/"+ selOrder.getId(), response -> {
             progressDialog.dismiss();
             confirmationDialog.dismiss();
             Toasty.success(context, "Order has been selected to delivery", Toast.LENGTH_LONG, true).show();

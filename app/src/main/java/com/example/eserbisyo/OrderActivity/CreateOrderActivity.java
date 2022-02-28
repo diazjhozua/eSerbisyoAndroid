@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Patterns;
@@ -19,7 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -70,9 +67,11 @@ public class CreateOrderActivity extends AppCompatActivity {
     private String orderType;
     public static ArrayList<Form> formArrayList;
     private ArrayList<Certificate> certificateArrayList;
+    @SuppressLint("StaticFieldLeak")
     public static FormsAdapter formsAdapter;
     private Certificate selCertificate;
 
+    @SuppressLint("StaticFieldLeak")
     public static TextView txtCertificateCount, txtTotalCertPrice, txtDeliveryFee, txtTotalFee;
     public static Double totalCertPrice, deliveryFee, totalFee;
 
@@ -147,11 +146,6 @@ public class CreateOrderActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(CreateOrderActivity.this));
 
         formArrayList = new ArrayList<>();
-//        formArrayList.add(new Form(
-//                0, 1, "Barangay Indigency", 200.0, "Jhozua", "Manguera", "Diaz",
-//                "633 Purok 5", "Single", "2000-09-12", "Filipino", "NBI Clearance", null, null, null, null, null,
-//                null, null, null, null, null, null, null, null, true
-//        ));
         formsAdapter = new FormsAdapter(CreateOrderActivity.this, formArrayList);
         recyclerView.setAdapter(formsAdapter);
         userPref = getApplicationContext().getSharedPreferences(Pref.USER_PREFS, Context.MODE_PRIVATE);
@@ -210,8 +204,7 @@ public class CreateOrderActivity extends AppCompatActivity {
         spnType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Certificate mcertificate = (Certificate) parent.getSelectedItem();
-                selCertificate = mcertificate;
+                selCertificate = (Certificate) parent.getSelectedItem();
             }
 
             @Override
@@ -302,10 +295,6 @@ public class CreateOrderActivity extends AppCompatActivity {
 
     private boolean validate() {
 
-//        String address = inputTxtLocation.getText().toString().trim();
-//        GeoLocation geoLocation = new GeoLocation();
-//        geoLocation.getAddress(address, getApplicationContext(), new GeoHandler());
-
         if (Objects.requireNonNull(inputTxtName.getText()).toString().length() < 3){
             layoutName.setErrorEnabled(true);
             layoutName.setError("Required at least 3 characters");
@@ -353,23 +342,6 @@ public class CreateOrderActivity extends AppCompatActivity {
         return true;
     }
 
-//    private class GeoHandler extends Handler {
-//        @Override
-//        public void handleMessage(Message msg) {
-//            String address;
-//            switch (msg.what) {
-//                case 1:
-//                    Bundle bundle = msg.getData();
-//                    address = bundle.getString("address");
-//                    break;
-//                default:
-//                    address=null;
-//            }
-//            Toasty.info(CreateOrderActivity.this, address, Toasty.LENGTH_LONG, true).show();
-//
-//        }
-//    }
-
     private void submitData() {
         progressDialog.setMessage("Submitting order please wait.....");
         progressDialog.show();
@@ -380,17 +352,9 @@ public class CreateOrderActivity extends AppCompatActivity {
         String phoneNo = Objects.requireNonNull(inputTxtPhoneNo.getText()).toString();
 
         StringRequest request = new StringRequest(Request.Method.POST, Api.ORDERS, response->{
-            try {
-                JSONObject object = new JSONObject(response);
-
-                JSONObject jsonObject = object.getJSONObject("data");
-
-                Toasty.success(this, "Your order has been submitted successfully, please wait for the administrator to respond to your order", Toast.LENGTH_LONG, true).show();
-                SelectPickupActivity.finishThis();
-                finish();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            Toasty.success(this, "Your order has been submitted successfully, please wait for the administrator to respond to your order", Toast.LENGTH_LONG, true).show();
+            SelectPickupActivity.finishThis();
+            finish();
             progressDialog.dismiss();
         },error ->{
             progressDialog.dismiss();
@@ -466,17 +430,22 @@ public class CreateOrderActivity extends AppCompatActivity {
                         map.put("certificate_forms["+i+"][weight]", String.valueOf(formArrayList.get(i).getWeight()));
                         map.put("certificate_forms["+i+"][sex]", formArrayList.get(i).getSex());
                         map.put("certificate_forms["+i+"][cedula_type]", formArrayList.get(i).getCedulaType());
-                        map.put("certificate_forms["+i+"][tin_no]", formArrayList.get(i).getTinNo());
-                        map.put("certificate_forms["+i+"][icr_no]", formArrayList.get(i).getIcrNo());
+                        if (!formArrayList.get(i).getTinNo().equals("")) {
+                            map.put("certificate_forms["+i+"][tin_no]", formArrayList.get(i).getTinNo());
+                        }
+
+                        if (!formArrayList.get(i).getIcrNo().equals("")) {
+                            map.put("certificate_forms["+i+"][icr_no]", formArrayList.get(i).getIcrNo());
+                        }
                     }
 
                     // if id
-                    if (formArrayList.get(i).getCertId() == 2) {
+                    if (formArrayList.get(i).getCertId() == 4) {
                         // contact no, contact person, relation contact person no
-                        map.put("certificate_forms["+i+"][contact_no]", formArrayList.get(i).getSex());
-                        map.put("certificate_forms["+i+"][contact_person]", formArrayList.get(i).getCedulaType());
-                        map.put("certificate_forms["+i+"][contact_person_no]", formArrayList.get(i).getTinNo());
-                        map.put("certificate_forms["+i+"][contact_person_relation]", formArrayList.get(i).getIcrNo());
+                        map.put("certificate_forms["+i+"][contact_no]", formArrayList.get(i).getPhoneNo());
+                        map.put("certificate_forms["+i+"][contact_person]", formArrayList.get(i).getContactPerson());
+                        map.put("certificate_forms["+i+"][contact_person_no]", formArrayList.get(i).getContactPersonPhoneNo());
+                        map.put("certificate_forms["+i+"][contact_person_relation]", formArrayList.get(i).getContactPersonRelation());
                     }
 
                     // if business

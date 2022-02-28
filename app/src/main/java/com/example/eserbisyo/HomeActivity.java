@@ -180,7 +180,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_my_missing_item) {
             switchFragment(new AuthMissingItemFragment());
         } else if (id == R.id.nav_bike) {
-            if(userPref.getInt(Pref.IS_VERIFIED, 0) != 1){
+            if(!userPref.getBoolean(Pref.IS_VERIFIED, false)){
                 Toasty.info(this, "This function is for verified user only.", Toast.LENGTH_LONG, true).show();
             } else {
                 // check if the person is barangay staff admin
