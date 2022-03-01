@@ -46,7 +46,6 @@
                     android:textColor="@color/colorLightGrey"
                     android:text="Jun 13"/>
 
-
             </LinearLayout>
 
         </LinearLayout>
@@ -56,6 +55,7 @@
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:id="@+id/txtAnnounceTitle"
+            android:fontFamily="@font/ubuntu_medium"
             android:textColor="@color/black"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
@@ -70,7 +70,7 @@
             android:paddingRight="8dp"
             android:paddingBottom="8dp"
             android:text="Sit nulla labore aut. Facilis et non rerum quos. Eligendi doloribus ollitia ut .Explice placeat pequatur voluptatum magni debitis et in. Quisquam dolores culpa est. Exercitationem aut et vitae ducimus enim architecto eligendi. Est sed ipsam est dolores quam et..........."
-            android:textColor="@color/colorGrey"
+            android:textColor="@color/black"
             android:textSize="14sp" />
 
         <androidx.cardview.widget.CardView

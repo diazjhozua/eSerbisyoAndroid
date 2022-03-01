@@ -94,12 +94,20 @@ public class AnnouncementsAdapter extends RecyclerView.Adapter<AnnouncementsAdap
         holder.txtTitle.setText(String.format("%s%s%s%s", announcement.getTitle(), context.getString(open_paren), announcement.getType().getName(), context.getString(R.string.close_paren)));
         String mDesc;
         if (announcement.getDescription().length() > 300) {
-            mDesc = announcement.getDescription().substring(0, 300) + "...";
+            mDesc = announcement.getDescription().substring(0, 300) + "... (Double Click to see the full post)";
         } else {
             mDesc = announcement.getDescription();
         }
 
         holder.txtDesc.setText(mDesc);
+
+        holder.txtDesc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                holder.txtDesc.setText(announcement.getDescription());
+            }
+        });
+
 
         holder.btnLike.setImageResource(
                 announcement.isSelfLike()?R.drawable.ic_baseline_favorite_24:R.drawable.ic_baseline_favorite_border_24
