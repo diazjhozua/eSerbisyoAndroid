@@ -106,7 +106,7 @@ public class CertificateFragment extends Fragment {
         FloatingActionButton btnAdd = view.findViewById(R.id.btnAdd);
 
         btnAdd.setOnClickListener(view -> {
-            if(sharedPreferences.getInt(Pref.IS_VERIFIED, 0) != 1){
+            if(!sharedPreferences.getBoolean(Pref.IS_VERIFIED, false)){
                 Toasty.info(requireContext(), "This function is for verified user only.", Toast.LENGTH_LONG, true).show();
             } else {
                 new Intent(((HomeActivity)getContext()), SelectPickupActivity.class);

@@ -171,6 +171,11 @@
         5. When the resident did not received his/her order, you are obliged to return the document to the barangay office. (No compensation)
     </string>
 
+    <string name="biker_terms6">
+        6. The system does not provide system messaging to the user. Hence, the biker is required to have load in their sim card to have extra communication
+        with the resident.
+    </string>
+
     <string name="biker_terms3asd">
         If residents are at fault bikers should immediately report to the barangay to be investigated. \n In addition, riders must not tamper the package in any way. By agreeing this you will agree with the protocols involved.
         Barangay Cupang will not be in-charged when accidents happen during the delivery.
