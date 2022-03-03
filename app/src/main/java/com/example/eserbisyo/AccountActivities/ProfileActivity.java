@@ -164,6 +164,11 @@ public class ProfileActivity extends AppCompatActivity {
 
         autoCompleteTxtPurok.setAdapter(adapterType);
 
+        inputTxtFirstName.setFocusable(false);
+        inputTxtLastName.setFocusable(false);
+        autoCompleteTxtPurok.setFocusable(false);
+        inputTxtAddress.setFocusable(false);
+
         initListeners();
 
         loadUserInfo();
