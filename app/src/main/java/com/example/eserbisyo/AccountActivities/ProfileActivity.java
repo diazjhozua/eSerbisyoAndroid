@@ -71,6 +71,8 @@ public class ProfileActivity extends AppCompatActivity {
     private Bitmap bitmap = null;
     private SharedPreferences userPref;
     private ProgressDialog loadingDialog;
+    private int currentPurok = 0;
+
 
     private final String[] puroks = new String[]{
             "Purok 1", "Purok 2", "Purok 3", "Purok 4", "Purok 5"
@@ -325,12 +327,13 @@ public class ProfileActivity extends AppCompatActivity {
                 editor.putString(Pref.PICTURE, user.getString("file_path"));
                 editor.putString(Pref.STATUS, user.getString("status"));
                 editor.putBoolean(Pref.IS_VERIFIED, user.getBoolean("is_verified"));
+                currentPurok = user.getInt("purok_id");
 
                 inputTxtFirstName.setText(user.getString("first_name"));
                 inputTxtMiddleName.setText(user.getString("middle_name"));
                 inputTxtLastName.setText(user.getString("last_name"));
                 inputTxtAddress.setText(user.getString("address"));
-                autoCompleteTxtPurok.setText(puroks[user.getInt("purok_id") - 1]);
+                layoutPurok.setHint("Current: " + puroks[user.getInt("purok_id") - 1]);
 
                 Picasso.get().load(user.getString("file_path")).fit().error(R.drawable.cupang).into(circleImageView);
 
@@ -398,6 +401,11 @@ public class ProfileActivity extends AppCompatActivity {
 
     private boolean validate() {
 
+        if (!autoCompleteTxtPurok.getText().toString().trim().isEmpty()) {
+            String purok = autoCompleteTxtPurok.getText().toString().trim();
+            currentPurok = Integer.parseInt(purok.substring(purok.length()-1));
+        }
+
         if (Objects.requireNonNull(inputTxtFirstName.getText()).toString().isEmpty()){
             layoutFirstName.setErrorEnabled(true);
             layoutFirstName.setError("First name is Required");
@@ -410,7 +418,7 @@ public class ProfileActivity extends AppCompatActivity {
             return false;
         }
 
-        if (autoCompleteTxtPurok.getText().toString().isEmpty()){
+        if (currentPurok == 0){
             layoutPurok.setErrorEnabled(true);
             layoutPurok.setError("Purok is required");
             return false;
@@ -431,8 +439,7 @@ public class ProfileActivity extends AppCompatActivity {
         String firstName = Objects.requireNonNull(inputTxtFirstName.getText()).toString().trim();
         String middleName = Objects.requireNonNull(inputTxtMiddleName.getText()).toString().trim();
         String lastName = Objects.requireNonNull(inputTxtLastName.getText()).toString().trim();
-        String purok = autoCompleteTxtPurok.getText().toString().trim();
-        String purokID = purok.substring(purok.length()-1);
+        String purokID = String.valueOf(currentPurok);
         String address = Objects.requireNonNull(inputTxtAddress.getText()).toString().trim();
 
         StringRequest request = new StringRequest(Request.Method.PUT, Api.SAVE_USER_INFO, response->{
@@ -449,14 +456,14 @@ public class ProfileActivity extends AppCompatActivity {
                 editor.putString(Pref.LAST_NAME, user.getString("last_name"));
                 editor.putString(Pref.PICTURE, user.getString("file_path"));
                 editor.putString(Pref.STATUS, user.getString("status"));
-                editor.putInt(Pref.IS_VERIFIED, user.getInt("is_verified"));
                 editor.apply();
 
                 inputTxtFirstName.setText(user.getString("first_name"));
                 inputTxtMiddleName.setText(user.getString("middle_name"));
                 inputTxtLastName.setText(user.getString("last_name"));
                 inputTxtAddress.setText(user.getString("address"));
-                autoCompleteTxtPurok.setText(puroks[user.getInt("purok_id") - 1]);
+                layoutPurok.setHint("Current: " + puroks[user.getInt("purok_id") - 1]);
+
                 Picasso.get().load(user.getString("file_path")).fit().error(R.drawable.cupang).into(circleImageView);
 
                 txtSelectPhoto.setVisibility(View.GONE);
