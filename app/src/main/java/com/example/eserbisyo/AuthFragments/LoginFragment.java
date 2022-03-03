@@ -141,13 +141,13 @@ public class LoginFragment extends Fragment {
     }
 
     private boolean validate() {
-        if (Objects.requireNonNull(txtEmail.getText()).toString().isEmpty()){
+        if (Objects.requireNonNull(txtEmail.getText()).toString().trim().isEmpty()){
             layoutEmail.setErrorEnabled(true);
             layoutEmail.setError("Email is Required");
             return false;
         }
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(txtEmail.getText().toString()).matches()){
+        if (!Patterns.EMAIL_ADDRESS.matcher(txtEmail.getText().toString().trim()).matches()){
             layoutEmail.setErrorEnabled(true);
             layoutEmail.setError("Invalid email address");
             return false;
@@ -189,7 +189,6 @@ public class LoginFragment extends Fragment {
                     editor.apply();
                     startActivity(new Intent(((AuthActivity)getContext()), UserInfoActivity.class));
                 } else {
-
                     editor.putInt(Pref.ID, user.getInt("id"));
                     editor.putInt(Pref.USER_ROLE_ID, user.getInt("user_role_id"));
                     editor.putString(Pref.FIRST_NAME, user.getString("first_name"));

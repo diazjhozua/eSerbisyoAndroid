@@ -256,6 +256,17 @@ tools:ignore="HardcodedText">
                 android:background="#ccc" />
 
 
+            <TextView
+                android:id="@+id/txtGuidelines"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:gravity="center"
+                android:textColor="@color/primaryColor"
+                android:text="Click this to see guidelines"
+                />
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnStartRiding"
                 android:layout_width="match_parent"

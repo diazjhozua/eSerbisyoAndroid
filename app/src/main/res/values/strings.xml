@@ -146,6 +146,41 @@
         There are certain types of certificate only available for pickup.
     </string>
 
+    <string name="guidelines">
+        Take note that if you did not deliver the specified order within 3 days after the specified received date,
+        the system will automatically marked it as cancelled. These are the following steps that you must follow to complete the delivery transaction.
+    </string>
+
+    <string name="guidelines1">
+        1. Pickup the order to the barangay hall with your device and valid ID.
+    </string>
+
+    <string name="guidelines2">
+        2. When the administrator marked your order as On-Going (When you pickup the order), it will sent email and sms notification to the user informing that you have
+        pickup the delivery item.
+    </string>
+
+    <string name="guidelines3">
+        3. Click the "Start Riding" button to inform the user that you are on the way to the location. Take note that some addresses cannot recognize google map direction,
+        so you must rely on your overall knowledge around the streets since it is required when registering for being a biker.
+    </string>
+
+    <string name="guidelines4">
+        4. When the resident received the order, you are required to submit a proof by capturing the specified customer while holding their order.
+    </string>
+
+    <string name="guidelines5">
+        5. When the resident received the order, the system shall need a proof by capturing the specified customer while holding their order.
+    </string>
+
+    <string name="guidelines6">
+        6. When the resident does not received the order, you are required to return the item to the barangay hall.
+    </string>
+
+    <string name="guidelines7">
+        Optional: Regardless whether the resident received or does not received the document, you can submit report.
+    </string>
+
     <string name="biker_terms">
         The e-Serbisyo Application allows any verified user to register as a part-time biker in the barangay Cupang. By registering, you are agreing with the terms and condition
         of being a delivery biker:
@@ -176,15 +211,19 @@
         with the resident.
     </string>
 
+    <string name="biker_terms7">
+        7. The bikers must be familiar with the streets and purok of barangay officials. They must not rely on the coordinates given in the system because there is a chance
+        that the google map does not recognize the familiar address.
+    </string>
+
     <string name="biker_terms3asd">
         If residents are at fault bikers should immediately report to the barangay to be investigated. \n In addition, riders must not tamper the package in any way. By agreeing this you will agree with the protocols involved.
         Barangay Cupang will not be in-charged when accidents happen during the delivery.
     </string>
 
-
-    <string name="order_type_desc2">(PICKUP MODE) - You will pickup the document based on your preferred pickup date.
+    <string name="order_type_desc2">
+        (PICKUP MODE) - You will pickup the document based on your preferred pickup date.
     </string>
-
 
     <string name="order_type_desc3">
         (DELIVERY MODE) - Once the administrator approved of your request, your order will wait for the bikers to choose your order. Pickup date may be change
@@ -208,6 +247,11 @@
     <string name="complaints_info">
         Complaint/Blotter can now be filed using this application. If you think someone is violating your rights, send a complaint indicating the complainant and the defendant. The administrator
         can receive complaints in realtime in their system.
+    </string>
+
+    <string name="no_verification_message">
+        Your account is still unverified. Please go to the sidebar (swipe left) and click the unverified text to proceed to the verification process. Click this
+        to get verified or to see current verification status.
     </string>
 
 

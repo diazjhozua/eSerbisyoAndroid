@@ -75,10 +75,7 @@ public class CreateOrderActivity extends AppCompatActivity {
     public static TextView txtCertificateCount, txtTotalCertPrice, txtDeliveryFee, txtTotalFee;
     public static Double totalCertPrice, deliveryFee, totalFee;
 
-
-
     public JSONObject errorObj = null;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,9 +105,7 @@ public class CreateOrderActivity extends AppCompatActivity {
 
             }
         }
-
         init();
-
     }
 
     @SuppressLint("SetTextI18n")
@@ -151,7 +146,6 @@ public class CreateOrderActivity extends AppCompatActivity {
         userPref = getApplicationContext().getSharedPreferences(Pref.USER_PREFS, Context.MODE_PRIVATE);
 
         setData();
-
     }
 
 

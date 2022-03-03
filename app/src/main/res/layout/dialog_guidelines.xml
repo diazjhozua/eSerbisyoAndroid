@@ -24,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/ubuntu_bold"
-                android:text="Waiver/Terms and Condition"
+                android:text="DELIVERY GUIDELINES"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_15ssp"
                 tools:ignore="HardcodedText" />
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/ubuntu_medium"
                 android:textColor="@color/white"
-                android:text="@string/biker_terms"/>
+                android:text="@string/guidelines"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/ubuntu_medium"
                 android:textColor="@color/white"
-                android:text="@string/biker_terms1"/>
+                android:text="@string/guidelines1"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/ubuntu_medium"
                 android:textColor="@color/white"
-                android:text="@string/biker_terms2"/>
+                android:text="@string/guidelines2"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/ubuntu_medium"
                 android:textColor="@color/white"
-                android:text="@string/biker_terms3"/>
+                android:text="@string/guidelines3"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -80,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/ubuntu_medium"
                 android:textColor="@color/white"
-                android:text="@string/biker_terms4"/>
+                android:text="@string/guidelines4"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/ubuntu_medium"
                 android:textColor="@color/white"
-                android:text="@string/biker_terms5"/>
+                android:text="@string/guidelines5"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -96,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/ubuntu_medium"
                 android:textColor="@color/white"
-                android:text="@string/biker_terms6"/>
+                android:text="@string/guidelines6"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -104,13 +104,12 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/ubuntu_medium"
                 android:textColor="@color/white"
-                android:text="@string/biker_terms7"/>
-
+                android:text="@string/guidelines7"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnExit"
+            android:id="@+id/btnCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_20sdp"

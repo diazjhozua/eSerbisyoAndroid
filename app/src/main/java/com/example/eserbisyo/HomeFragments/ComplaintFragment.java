@@ -33,6 +33,7 @@ import com.example.eserbisyo.Constants.Api;
 import com.example.eserbisyo.Constants.Pref;
 import com.example.eserbisyo.HomeActivity;
 import com.example.eserbisyo.ModelActivities.ComplaintAddActivity;
+import com.example.eserbisyo.ModelActivities.FeedbackAddActivity;
 import com.example.eserbisyo.ModelActivities.ReportAddActivity;
 import com.example.eserbisyo.ModelRecyclerViewAdapters.ComplaintsAdapter;
 import com.example.eserbisyo.ModelRecyclerViewAdapters.ReportsAdapter;
@@ -110,14 +111,19 @@ public class ComplaintFragment extends Fragment {
 
         getData();
 
-        btnAdd.setOnClickListener(v -> startActivity(new Intent(((HomeActivity)getContext()), ComplaintAddActivity.class)));
+        btnAdd.setOnClickListener(view -> {
+            if(!sharedPreferences.getBoolean(Pref.IS_VERIFIED, false)){
+                Toasty.info(requireContext(), "This function is for verified user only.", Toast.LENGTH_LONG, true).show();
+            } else {
+                startActivity(new Intent(getContext(), ComplaintAddActivity.class));
+            }
+        });
 
         refreshLayout.setOnRefreshListener(this::getData);
 
         txtSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
@@ -128,7 +134,6 @@ public class ComplaintFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
 

@@ -118,7 +118,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             // validate fields
             if(isVerified){
                 Toasty.info(this, "You are already verified hence, no need to see your current requests", Toast.LENGTH_SHORT, true).show();
-
             } else {
                 loadUserVerification();
             }

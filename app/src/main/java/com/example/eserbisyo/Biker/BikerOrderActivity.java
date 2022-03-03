@@ -74,7 +74,7 @@ import es.dmoral.toasty.Toasty;
 public class BikerOrderActivity extends AppCompatActivity {
     public static final int CAMERA_PERM_CODE = 101;
     private TextView txtOverallStatus, txtId, txtContactName, txtContactAddress, txtContactPhoneNo, txtContactEmail,
-            txtContactOrderType, txtTotalCertPrice, txtDeliveryFee, txtTotalFee;
+            txtContactOrderType, txtTotalCertPrice, txtDeliveryFee, txtTotalFee, txtGuidelines;
 
     private RecyclerView recyclerView;
     private Button btnStartRiding, btnMarkedAsReceive, btnMarkedAsDNR, btnReport;
@@ -91,6 +91,10 @@ public class BikerOrderActivity extends AppCompatActivity {
 
     private boolean isReported = false;
 
+
+    /* Guidelines Dialog */
+    private Dialog guidelinesDialog;
+    private Button guidelinesDialogBtnCancel;
 
     /*Confirmation Dialog*/
     private Dialog confirmDialog;
@@ -220,6 +224,7 @@ public class BikerOrderActivity extends AppCompatActivity {
         txtTotalCertPrice = findViewById(R.id.txtTotalCertPrice);
         txtDeliveryFee = findViewById(R.id.txtDeliveryFee);
         txtTotalFee = findViewById(R.id.txtTotalFee);
+        txtGuidelines = findViewById(R.id.txtGuidelines);
 
         btnStartRiding = findViewById(R.id.btnStartRiding);
         btnMarkedAsReceive = findViewById(R.id.btnMarkedAsReceive);
@@ -335,6 +340,12 @@ public class BikerOrderActivity extends AppCompatActivity {
             }
         });
 
+        txtGuidelines.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openGuidelinesDialog();
+            }
+        });
         btnStartRiding.setOnClickListener(view -> {
             isStarting = true;
             openConfirmationDialog("Start Riding Confirmation", "Do you really want to start the delivering your order? Once it is submitted, " +
@@ -353,6 +364,20 @@ public class BikerOrderActivity extends AppCompatActivity {
         });
 
         btnReport.setOnClickListener(view -> openReportDialog());
+    }
+
+    private void openGuidelinesDialog() {
+
+        guidelinesDialog = new Dialog(this);
+        guidelinesDialog.setContentView(R.layout.dialog_guidelines);
+        guidelinesDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        guidelinesDialog.setCancelable(true);
+
+        guidelinesDialogBtnCancel = guidelinesDialog.findViewById(R.id.btnCancel);
+
+        guidelinesDialogBtnCancel.setOnClickListener(v -> guidelinesDialog.dismiss());
+
+        guidelinesDialog.show();
     }
 
     private void openReportDialog() {
@@ -528,7 +553,7 @@ public class BikerOrderActivity extends AppCompatActivity {
             }
         });
 
-        receiveDialogBtnCancel.setOnClickListener(view -> confirmDialog.dismiss());
+        receiveDialogBtnCancel.setOnClickListener(view -> receiveDialog.dismiss());
 
         receiveDialogBtnConfirm.setOnClickListener(view -> {
             if (bitmap != null) {
@@ -537,7 +562,6 @@ public class BikerOrderActivity extends AppCompatActivity {
                 Toasty.error(this, "Please attached image correspond to the requirement", Toast.LENGTH_LONG, true).show();
             }
         });
-
 
         receiveDialog.show();
 
@@ -727,7 +751,7 @@ public class BikerOrderActivity extends AppCompatActivity {
             confirmDialog.dismiss();
             Toasty.success(this, "User notified about your progress in delivery", Toast.LENGTH_LONG, true).show();
 
-            btnStartRiding.setVisibility(View.GONE);
+            btnStartRiding.setVisibility(View.VISIBLE);
             btnMarkedAsReceive.setVisibility(View.VISIBLE);
             btnMarkedAsDNR.setVisibility(View.VISIBLE);
 

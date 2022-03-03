@@ -324,7 +324,7 @@ public class ProfileActivity extends AppCompatActivity {
                 editor.putString(Pref.LAST_NAME, user.getString("last_name"));
                 editor.putString(Pref.PICTURE, user.getString("file_path"));
                 editor.putString(Pref.STATUS, user.getString("status"));
-                editor.putInt(Pref.IS_VERIFIED, user.getInt("is_verified"));
+                editor.putBoolean(Pref.IS_VERIFIED, user.getBoolean("is_verified"));
 
                 inputTxtFirstName.setText(user.getString("first_name"));
                 inputTxtMiddleName.setText(user.getString("middle_name"));
