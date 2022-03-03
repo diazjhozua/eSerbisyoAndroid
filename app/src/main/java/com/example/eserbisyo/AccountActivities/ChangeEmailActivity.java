@@ -88,7 +88,7 @@ public class ChangeEmailActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!Objects.requireNonNull(inputTxtCurrentEmail.getText()).toString().isEmpty() && Patterns.EMAIL_ADDRESS.matcher(inputTxtCurrentEmail.getText().toString()).matches()){
+                if (!Objects.requireNonNull(inputTxtCurrentEmail.getText()).toString().trim().isEmpty() && Patterns.EMAIL_ADDRESS.matcher(inputTxtCurrentEmail.getText().toString().trim()).matches()){
                     layoutCurrentEmail.setErrorEnabled(false);
                 }
             }
@@ -107,7 +107,7 @@ public class ChangeEmailActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!Objects.requireNonNull(inputTxtNewEmail.getText()).toString().isEmpty() && Patterns.EMAIL_ADDRESS.matcher(inputTxtNewEmail.getText().toString()).matches()){
+                if (!Objects.requireNonNull(inputTxtNewEmail.getText()).toString().trim().isEmpty() && Patterns.EMAIL_ADDRESS.matcher(inputTxtNewEmail.getText().toString().trim()).matches()){
                     layoutNewEmail.setErrorEnabled(false);
                 }
             }
@@ -140,13 +140,13 @@ public class ChangeEmailActivity extends AppCompatActivity {
 
     private boolean validate() {
 
-        if (Objects.requireNonNull(inputTxtCurrentEmail.getText()).toString().isEmpty()){
+        if (Objects.requireNonNull(inputTxtCurrentEmail.getText()).toString().trim().isEmpty()){
             layoutCurrentEmail.setErrorEnabled(true);
             layoutCurrentEmail.setError("Current email is Required");
             return false;
         }
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(inputTxtCurrentEmail.getText().toString()).matches()){
+        if (!Patterns.EMAIL_ADDRESS.matcher(inputTxtCurrentEmail.getText().toString().trim()).matches()){
             layoutCurrentEmail.setErrorEnabled(true);
             layoutCurrentEmail.setError("Invalid email address");
             return false;
@@ -158,13 +158,13 @@ public class ChangeEmailActivity extends AppCompatActivity {
             return false;
         }
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(inputTxtNewEmail.getText().toString()).matches()){
+        if (!Patterns.EMAIL_ADDRESS.matcher(inputTxtNewEmail.getText().toString().trim()).matches()){
             layoutNewEmail.setErrorEnabled(true);
             layoutNewEmail.setError("Invalid email address");
             return false;
         }
 
-        if (!Objects.requireNonNull(inputTxtConfirmNewEmail.getText()).toString().equals(inputTxtNewEmail.getText().toString())){
+        if (!Objects.requireNonNull(inputTxtConfirmNewEmail.getText()).toString().equals(inputTxtNewEmail.getText().toString().trim())){
             layoutConfirmNewEmail.setErrorEnabled(true);
             layoutConfirmNewEmail.setError("New email does not match");
             return false;

@@ -663,7 +663,7 @@ public class ComplaintAddActivity extends AppCompatActivity {
         }
 
         /* Email Validation  */
-        if (!Patterns.EMAIL_ADDRESS.matcher(Objects.requireNonNull(inputTxtEmail.getText()).toString()).matches() || Objects.requireNonNull(inputTxtEmail.getText()).toString().isEmpty()){
+        if (!Patterns.EMAIL_ADDRESS.matcher(Objects.requireNonNull(inputTxtEmail.getText()).toString().trim()).matches() || Objects.requireNonNull(inputTxtEmail.getText()).toString().trim().isEmpty()){
             layoutEmail.setErrorEnabled(true);
             layoutEmail.setError("Invalid email address");
             return false;

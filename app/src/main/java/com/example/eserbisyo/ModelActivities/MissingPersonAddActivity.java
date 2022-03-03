@@ -725,7 +725,7 @@ public class MissingPersonAddActivity extends AppCompatActivity {
         }
 
         /* Email Validation  */
-        if (!Patterns.EMAIL_ADDRESS.matcher(Objects.requireNonNull(inputEmail.getText()).toString()).matches() || Objects.requireNonNull(inputEmail.getText()).toString().isEmpty()){
+        if (!Patterns.EMAIL_ADDRESS.matcher(Objects.requireNonNull(inputEmail.getText()).toString().trim()).matches() || Objects.requireNonNull(inputEmail.getText()).toString().trim().isEmpty()){
             layoutEmail.setErrorEnabled(true);
             layoutEmail.setError("Invalid email address");
             return false;

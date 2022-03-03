@@ -69,7 +69,7 @@
         when the administrator respond to your complaint.
     </string>
 
-    <string name="order_desc">These are the list of your submitted orders in the system. Once you submit a order you cannot edit or delete that order. Please always see the administrator message for the updates of your orders. You will receive an email and sms notification
+    <string name="order_desc">These are the list of your submitted orders in the system. You can only delete the order you submitted when the application status is still "Pending". Please always see the administrator message for the updates of your orders. You will receive an email and sms notification
         when the administrator made changes to your order.
     </string>
     <string name="search">Search</string>

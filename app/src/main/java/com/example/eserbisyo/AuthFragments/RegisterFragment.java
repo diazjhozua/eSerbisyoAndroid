@@ -148,13 +148,13 @@ public class RegisterFragment extends Fragment {
     }
 
     private boolean validate() {
-        if (Objects.requireNonNull(txtEmail.getText()).toString().isEmpty()){
+        if (Objects.requireNonNull(txtEmail.getText()).toString().trim().isEmpty()){
             layoutEmail.setErrorEnabled(true);
             layoutEmail.setError("Email is Required");
             return false;
         }
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(txtEmail.getText().toString()).matches()){
+        if (!Patterns.EMAIL_ADDRESS.matcher(txtEmail.getText().toString().trim()).matches()){
             layoutEmail.setErrorEnabled(true);
             layoutEmail.setError("Invalid email address");
             return false;
