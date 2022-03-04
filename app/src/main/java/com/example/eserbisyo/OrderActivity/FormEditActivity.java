@@ -161,7 +161,7 @@ public class FormEditActivity extends AppCompatActivity {
     }
 
     private void updateDateLabel() {
-        String myFormat="yyyy-dd-MM";
+        String myFormat="yyyy-MM-dd";
         SimpleDateFormat dateFormat=new SimpleDateFormat(myFormat, Locale.ROOT);
         inputDateBirthday.setText(dateFormat.format(myCalendar.getTime()));
     }
