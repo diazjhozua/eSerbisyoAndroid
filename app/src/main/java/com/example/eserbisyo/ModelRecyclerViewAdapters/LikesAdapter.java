@@ -41,7 +41,10 @@ public class LikesAdapter extends RecyclerView.Adapter<LikesAdapter.LikesHolder>
     @Override
     public void onBindViewHolder(@NonNull LikesAdapter.LikesHolder holder, int position) {
         Like like = list.get(position);
-        Picasso.get().load(Api.STORAGE + like.getUser().getFilePath()).fit().error(R.drawable.user).into(holder.imgProfile);
+
+        if (!like.getUser().getFilePath().isEmpty()) {
+            Picasso.get().load(like.getUser().getFilePath()).fit().error(R.drawable.user).into(holder.imgProfile);
+        }
 
         if (sharedPreferences.getInt(Pref.ID,0)!=like.getUser().getId()){
             holder.txtName.setText(like.getUser().getName());

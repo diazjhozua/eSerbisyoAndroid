@@ -32,6 +32,7 @@
 
     <TextView
         android:id="@+id/txtEmpTerm"
+        android:textColor="@color/black"
         android:layout_width="0dp"
         android:fontFamily="@font/ubuntu_medium"
         android:layout_height="wrap_content"
@@ -45,6 +46,7 @@
 
     <TextView
         android:id="@+id/txtEmpPos"
+        android:textColor="@color/black"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -57,6 +59,7 @@
         tools:ignore="HardcodedText" />
 
     <TextView
+        android:textColor="@color/black"
         android:id="@+id/textView9"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -70,6 +73,7 @@
         tools:ignore="HardcodedText" />
 
     <TextView
+        android:textColor="@color/black"
         android:id="@+id/txtEmpDesc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
