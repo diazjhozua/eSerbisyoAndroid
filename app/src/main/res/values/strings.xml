@@ -55,6 +55,11 @@
     <string name="feedback_desc">These are the list of your submitted feedbacks. You can only submit one feedback a day.
         Rest assured that if you submit a feedback that is marked as anonymous, your details will not be shown in the admin dashboard.
     </string>
+
+    <string name="inquiry_desc">These are the list of your submitted inquiries. You can add inquiries if you wan to ask question to a specific services of the barangay.
+        You will receive email notification once the administrator respond to your inquiry.
+    </string>
+
     <string name="report_desc">These are the list of your submitted reports. You can only submit three reports a day. Rest assured that if you submit a
         report that is marked as anonymous, your details will not be shown in the admin dashboard.
     </string>

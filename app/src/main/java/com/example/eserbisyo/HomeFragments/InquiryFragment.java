@@ -1,5 +1,6 @@
-package com.example.eserbisyo.Biker;
+package com.example.eserbisyo.HomeFragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,7 +22,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
@@ -32,14 +32,13 @@ import com.example.eserbisyo.AuthActivity;
 import com.example.eserbisyo.Constants.Api;
 import com.example.eserbisyo.Constants.Pref;
 import com.example.eserbisyo.HomeActivity;
-import com.example.eserbisyo.HomeFragments.MainFragment;
-import com.example.eserbisyo.ModelRecyclerViewAdapters.BikerOrdersAdapter;
-import com.example.eserbisyo.ModelRecyclerViewAdapters.DocumentsAdapter;
-import com.example.eserbisyo.ModelRecyclerViewAdapters.OrdersAdapter;
-import com.example.eserbisyo.Models.Document;
-import com.example.eserbisyo.Models.Order;
-import com.example.eserbisyo.Models.User;
-import com.example.eserbisyo.OrderActivity.SelectPickupActivity;
+import com.example.eserbisyo.ModelActivities.FeedbackAddActivity;
+import com.example.eserbisyo.ModelActivities.InquiryAddActivity;
+import com.example.eserbisyo.ModelRecyclerViewAdapters.FeedbacksAdapter;
+import com.example.eserbisyo.ModelRecyclerViewAdapters.InquiriesAdapter;
+import com.example.eserbisyo.Models.Feedback;
+import com.example.eserbisyo.Models.Inquiry;
+import com.example.eserbisyo.Models.Type;
 import com.example.eserbisyo.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -54,17 +53,20 @@ import java.util.Map;
 
 import es.dmoral.toasty.Toasty;
 
-
-public class BikerTransactionFragment extends Fragment {
+public class InquiryFragment extends Fragment {
     private View view;
     public static RecyclerView recyclerView;
-    public static ArrayList<Order> arrayList;
+    public static ArrayList<Inquiry> arrayList;
     private SwipeRefreshLayout refreshLayout;
-    private BikerOrdersAdapter bikerOrdersAdapter;
+    private InquiriesAdapter inquiriesAdapter;
     private SharedPreferences sharedPreferences;
     private EditText txtSearch;
 
     public JSONObject errorObj = null;
+
+    public InquiryFragment() {
+        // Required empty public constructor
+    }
 
     /* OVERRIDE TO ADD ANIMATION WHEN THE USER CLICK BACK BUTTON ON THEIR DEVICE */
     @Override
@@ -74,7 +76,7 @@ public class BikerTransactionFragment extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                ((HomeActivity) requireActivity()).switchFragment(new BikerHomeFragment());
+                ((HomeActivity) requireActivity()).switchFragment(new MainFragment());
                 ((HomeActivity) requireActivity()).setHomeNavCheck();
             }
         };
@@ -82,14 +84,12 @@ public class BikerTransactionFragment extends Fragment {
         requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
     }
 
-    public BikerTransactionFragment() {
-        // Required empty public constructor
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view =  inflater.inflate(R.layout.fragment_biker_transaction, container, false);
+        // Inflate the layout for this fragment
+        ((HomeActivity) requireActivity()).setFeedbackNavCheck();
+        view =  inflater.inflate(R.layout.fragment_inquiry, container, false);
         init();
         return view;
     }
@@ -104,11 +104,20 @@ public class BikerTransactionFragment extends Fragment {
 
         sharedPreferences = requireContext().getSharedPreferences(Pref.USER_PREFS, Context.MODE_PRIVATE);
 
+        /*For loading when the user submits the genre form*/
+        ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setCancelable(false);
+
         getData();
 
         btnAdd.setOnClickListener(view -> {
-            ((HomeActivity) requireActivity()).switchFragment(new BikerAvailableOrderFragment());
+            if(!sharedPreferences.getBoolean(Pref.IS_VERIFIED, false)){
+                Toasty.info(requireContext(), "This function is for verified user only.", Toast.LENGTH_LONG, true).show();
+            } else {
+                startActivity(new Intent(getContext(), InquiryAddActivity.class));
+            }
         });
+
 
         refreshLayout.setOnRefreshListener(this::getData);
 
@@ -120,7 +129,7 @@ public class BikerTransactionFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                try { bikerOrdersAdapter.getFilter().filter(txtSearch.getText().toString());
+                try { inquiriesAdapter.getFilter().filter(txtSearch.getText().toString());
                 } catch (NullPointerException ignored) {}
             }
 
@@ -135,26 +144,24 @@ public class BikerTransactionFragment extends Fragment {
         arrayList = new ArrayList<>();
         refreshLayout.setRefreshing(true);
 
-        StringRequest request = new StringRequest(Request.Method.GET, Api.BIKERS_AUTH_TRANSACTION, response -> {
+        StringRequest request = new StringRequest(Request.Method.GET, Api.INQUIRIES, response -> {
 
             try {
                 JSONObject object = new JSONObject(response);
 
                 JSONArray array = new JSONArray(object.getString("data"));
                 for (int i = 0; i < array.length(); i++) {
-                    JSONObject orderJSONObject = array.getJSONObject(i);
-                    Log.d("order", orderJSONObject.toString(4));
+                    JSONObject inquiryObject = array.getJSONObject(i);
+                    Log.d("inquiry", inquiryObject.toString(4));
 
-                    Order mOrder = new Order(
-                            orderJSONObject.getInt("id"), orderJSONObject.getString("created_at"), orderJSONObject.getString("order_status"),
-                            orderJSONObject.getString("pickup_date"), !orderJSONObject.getString("received_at").equals("null") ? orderJSONObject.getString("received_at") : "Not yet delivered", orderJSONObject.getDouble("total_price"),
-                            orderJSONObject.getDouble("delivery_fee"), orderJSONObject.getString("delivery_payment_status"), true, orderJSONObject.getString("is_returned")
-                    );
+                    Inquiry inquiry = new Inquiry(
+                            inquiryObject.getInt("id"), inquiryObject.getString("about"), inquiryObject.getString("message") , inquiryObject.getString("admin_message"),
+                            inquiryObject.getString("status"), inquiryObject.getString("created_at"), inquiryObject.getString("updated_at"));
 
-                    arrayList.add(mOrder);
+                    arrayList.add(inquiry);
                 }
-                bikerOrdersAdapter = new BikerOrdersAdapter(requireContext(), arrayList);
-                recyclerView.setAdapter(bikerOrdersAdapter);
+                inquiriesAdapter = new InquiriesAdapter(requireContext(), arrayList);
+                recyclerView.setAdapter(inquiriesAdapter);
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -162,7 +169,7 @@ public class BikerTransactionFragment extends Fragment {
 
             refreshLayout.setRefreshing(false);
 
-        }, error -> {
+        },error -> {
             refreshLayout.setRefreshing(false);
 
             if (errorObj.has("errors")) {
@@ -179,13 +186,13 @@ public class BikerTransactionFragment extends Fragment {
             } else {
                 Toasty.error(requireContext(), "Request Timeout", Toast.LENGTH_SHORT, true).show();
             }
-        }) {
+        }){
             // provide token in header
             @Override
             public Map<String, String> getHeaders() {
-                String token = sharedPreferences.getString(Pref.TOKEN, "");
-                HashMap<String, String> map = new HashMap<>();
-                map.put("Authorization", "Bearer " + token);
+                String token = sharedPreferences.getString(Pref.TOKEN,"");
+                HashMap<String,String> map = new HashMap<>();
+                map.put("Authorization","Bearer "+token);
                 return map;
             }
 
@@ -210,7 +217,6 @@ public class BikerTransactionFragment extends Fragment {
             }
         };
 
-        request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue queue = Volley.newRequestQueue(requireContext());
         queue.add(request);
     }

@@ -73,19 +73,25 @@
         tools:ignore="HardcodedText" />
 
     <TextView
-        android:textColor="@color/black"
         android:id="@+id/txtEmpDesc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/ubuntu_regular"
-        android:layout_marginBottom="8dp"
         android:text="HIS time of life. The King's argument was, that she was holding, and she felt a little shaking among the party. Some of the edge of her favourite word 'moral,' and the baby at her hands, and was a."
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/txtEmpTerm"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/ivEmpPicture"
         app:layout_constraintTop_toBottomOf="@+id/textView9"
-        app:layout_constraintVertical_bias="0.014"
         tools:ignore="HardcodedText" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_height="2px"
+        android:background="#ccc"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEmpDesc"
+        tools:layout_editor_absoluteX="4dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

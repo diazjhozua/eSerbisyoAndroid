@@ -43,6 +43,12 @@
             android:id="@+id/nav_my_missing_person"
             android:title="@string/my_missing_person_report"
             android:icon="@drawable/ic_baseline_person_search_24"/>
+
+        <item
+            android:id="@+id/nav_my_inquiries"
+            android:title="Inquiries"
+            android:icon="@drawable/ic_baseline_help_center_24"
+            tools:ignore="HardcodedText" />
     </group>
 
     <group android:checkableBehavior="single">
@@ -77,6 +83,5 @@
                     android:icon="@drawable/ic_baseline_exit_to_app_24"/>
             </menu>
         </item>
-
     </group>
 </menu>

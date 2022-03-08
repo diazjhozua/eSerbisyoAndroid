@@ -1,7 +1,8 @@
 package com.example.eserbisyo.Constants;
 
 public class Api {
-    public static final String URL = "https://barangay-cupang.herokuapp.com/";
+//    public static final String URL = "https://barangay-cupang.herokuapp.com/";
+    public static final String URL = "http://192.168.1.3:8001/";
     public static final String HOME = URL+"api";
     public static final String LOGIN = HOME+"/login";
     public static final String REGISTER = HOME+"/register";
@@ -12,7 +13,9 @@ public class Api {
     public static final String SAVE_USER_INFO = HOME+"/updateProfile";
     public static final String MY_VERIFICATION_REQUEST = HOME+"/myVerificationRequest";
     public static final String SUBMIT_VERIFICATION_REQUEST = HOME+"/submitVerificationRequest";
-    
+
+    public static final String INQUIRIES = HOME+"/inquiries";
+
     public static final String FEEDBACKS = HOME+"/feedbacks";
     public static final String FEEDBACKS_ANALYTICS = HOME+"/feedbacks/getAnalytics";
     public static final String FEEDBACKS_CREATE = HOME+"/feedbacks/create";

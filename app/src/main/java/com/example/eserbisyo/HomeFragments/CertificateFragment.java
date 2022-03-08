@@ -32,6 +32,7 @@ import com.example.eserbisyo.AuthActivity;
 import com.example.eserbisyo.Constants.Api;
 import com.example.eserbisyo.Constants.Pref;
 import com.example.eserbisyo.HomeActivity;
+import com.example.eserbisyo.ModelActivities.ComplaintAddActivity;
 import com.example.eserbisyo.ModelRecyclerViewAdapters.CertificatesAdapter;
 import com.example.eserbisyo.ModelRecyclerViewAdapters.ProjectsAdapter;
 import com.example.eserbisyo.Models.Certificate;
@@ -109,7 +110,7 @@ public class CertificateFragment extends Fragment {
             if(!sharedPreferences.getBoolean(Pref.IS_VERIFIED, false)){
                 Toasty.info(requireContext(), "This function is for verified user only.", Toast.LENGTH_LONG, true).show();
             } else {
-                new Intent(((HomeActivity)getContext()), SelectPickupActivity.class);
+                startActivity(new Intent(getContext(), SelectPickupActivity.class));
             }
         });
 

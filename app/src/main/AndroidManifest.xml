@@ -19,6 +19,9 @@
         android:theme="@style/Theme.ESerbisyo"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ModelActivities.InquiryAddActivity"
+            android:exported="false" />
+        <activity
             android:name=".Biker.BikerOrderActivity"
             android:exported="false" />
         <activity

@@ -24,7 +24,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-
                 android:orientation="vertical"
                 tools:ignore="UselessParent">
 
@@ -35,7 +34,7 @@
                     android:id="@+id/txtID"
                     android:textColor="@color/primaryColor"
                     android:textStyle="bold"
-                    android:text="Feedback # 32"
+                    android:text="Inquiry # 32"
                     />
 
                 <TextView
@@ -50,54 +49,17 @@
 
         </LinearLayout>
 
-        <androidx.appcompat.widget.AppCompatRatingBar
-            android:id="@+id/ratingBar"
-            android:layout_width="wrap_content"
-            android:scaleX="0.5"
-            android:scaleY="0.5"
-            android:layout_gravity="center"
-            android:layout_height="@dimen/_30sdp"
-            android:progressTint="@color/primaryColor"
-            android:numStars="5"
-            android:clickable="false"
-            android:isIndicator="true"
-            android:rating="3"
-            />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_gravity="center"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/_9ssp"
-            android:id="@+id/txtPolarity"
-            android:textColor="@color/black"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:paddingBottom="8dp"
-            android:text="Rating: 3/5"/>
-
-        <TextView
+            android:id="@+id/txtAbout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:id="@+id/txtSubmittedAs"
-            android:textColor="@color/black"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:paddingBottom="8dp"
-            android:fontFamily="@font/ubuntu_medium"
-            android:text="Submitted as: Anonymous"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:id="@+id/txtType"
+            android:text="About: "
             android:textColor="@color/black"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:paddingBottom="8dp"
-            android:text="Feedback type: Neighborhood Problem"/>
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/txtMessage"
@@ -106,7 +68,7 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:paddingBottom="8dp"
-            android:text="Context: Gusto ko sana mamatay na........"
+            android:text="Message: "
             android:textColor="@color/black"
             android:textSize="14sp" />
 

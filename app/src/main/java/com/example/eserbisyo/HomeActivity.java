@@ -48,6 +48,7 @@ import com.example.eserbisyo.HomeFragments.AuthMissingItemFragment;
 import com.example.eserbisyo.HomeFragments.AuthMissingPersonFragment;
 import com.example.eserbisyo.HomeFragments.ComplaintFragment;
 import com.example.eserbisyo.HomeFragments.FeedbackFragment;
+import com.example.eserbisyo.HomeFragments.InquiryFragment;
 import com.example.eserbisyo.HomeFragments.MainFragment;
 import com.example.eserbisyo.HomeFragments.OrderFragment;
 import com.example.eserbisyo.HomeFragments.ReportFragment;
@@ -193,6 +194,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
         } else if (id == R.id.nav_my_missing_person) {
             switchFragment(new AuthMissingPersonFragment());
+        } else if (id == R.id.nav_my_inquiries) {
+            switchFragment(new InquiryFragment());
         } else if (id == R.id.nav_change_email) {
             startActivity(new Intent(this, ChangeEmailActivity.class));
         } else if (id == R.id.nav_change_password) {

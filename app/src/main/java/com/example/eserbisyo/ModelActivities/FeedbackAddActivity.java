@@ -250,7 +250,7 @@ public class FeedbackAddActivity extends AppCompatActivity {
                 FeedbackFragment.arrayList.add(0,feedback);
                 Objects.requireNonNull(FeedbackFragment.recyclerView.getAdapter()).notifyItemInserted(0);
                 FeedbackFragment.recyclerView.getAdapter().notifyDataSetChanged();
-                Toasty.success(this, "Your feedback has been submitted successfully, please wait for the administrator to respond to your feedback", Toast.LENGTH_SHORT, true).show();
+                Toasty.success(this, "Your feedback has been submitted successfully, please wait for the administrator to respond to your feedback", Toast.LENGTH_LONG, true).show();
                 finish();
 
             } catch (JSONException e) {

@@ -134,7 +134,7 @@ public class BikerAvailableOrderFragment extends Fragment {
 
                     Order mOrder = new Order(
                             orderJSONObject.getInt("id"), orderJSONObject.getString("created_at"), orderJSONObject.getString("order_status"),
-                            orderJSONObject.getString("pickup_date"), orderJSONObject.getString("received_at"), orderJSONObject.getDouble("total_price"),
+                            orderJSONObject.getString("pickup_date"), !orderJSONObject.getString("received_at").equals("null") ? orderJSONObject.getString("received_at") : "Not yet delivered", orderJSONObject.getDouble("total_price"),
                             orderJSONObject.getDouble("delivery_fee"), orderJSONObject.getString("delivery_payment_status"), false, orderJSONObject.getString("is_returned")
                     );
 
