@@ -30,7 +30,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textView2"
             android:layout_width="189dp"
-            android:layout_height="31dp"
+            android:layout_height="wrap_content"
             android:fontFamily="@font/ubuntu_regular"
             android:text="@string/barangay_cupang_n_electronic_service"
             android:textAlignment="center"
