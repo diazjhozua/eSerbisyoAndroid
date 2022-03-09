@@ -187,7 +187,7 @@
     </string>
 
     <string name="biker_terms">
-        The e-Serbisyo Application allows any verified user to register as a part-time biker in the barangay Cupang. By registering, you are agreing with the terms and condition
+        The e-Serbisyo Application allows any verified user to register as a part-time biker in the barangay Cupang. By registering, you are agreeing with the terms and condition
         of being a delivery biker:
     </string>
 
@@ -258,6 +258,12 @@
         Your account is still unverified. Please go to the sidebar (swipe left) and click the unverified text to proceed to the verification process. Click this
         to get verified or to see current verification status.
     </string>
+
+<!--    <string name="no_verification_message">-->
+<!--        Important Notice: You will only receive notification in this specific email and phone number (Depending on what type of services). \n Email: asdasd\n-->
+<!--        Phone #: \n-->
+<!--            System.getProperty("line.separator")-->
+<!--    </string>-->
 
 
 </resources>

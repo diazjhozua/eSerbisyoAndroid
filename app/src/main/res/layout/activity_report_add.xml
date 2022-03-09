@@ -66,38 +66,39 @@
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="@dimen/_10sdp"
                     android:orientation="horizontal"
                     android:gravity="center"
                     >
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/txtSelectPhoto"
+                        android:background="@drawable/round_card"
+                        android:padding="@dimen/_8sdp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_marginEnd="@dimen/_10sdp"
-                        android:layout_width="wrap_content"
-                        android:padding="@dimen/_3sdp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/_10sdp"
                         android:fontFamily="@font/ubuntu_regular"
                         android:gravity="center_horizontal"
                         android:text="@string/select_photo"
                         android:textColor="@color/white"
-                        android:textSize="18sp" />
+                        android:textSize="12sp" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/txtCapturePhoto"
-                        android:layout_width="wrap_content"
+                        android:background="@drawable/round_card"
+                        android:padding="@dimen/_8sdp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_marginEnd="@dimen/_10sdp"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/_3sdp"
-                        android:layout_marginBottom="@dimen/_10sdp"
                         android:fontFamily="@font/ubuntu_regular"
                         android:gravity="center_horizontal"
                         android:text="@string/capture"
                         android:textColor="@color/white"
-                        android:textSize="18sp" />
-
+                        android:textSize="12sp" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
-
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:id="@+id/layoutSelectType"

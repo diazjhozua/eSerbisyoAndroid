@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="HardcodedText"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -78,34 +79,38 @@
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="@dimen/_10sdp"
                     android:gravity="center"
+                    android:layout_marginBottom="@dimen/_10sdp"
                     android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/txtSelectMissingPhoto"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:background="@drawable/round_card"
+                        android:padding="@dimen/_8sdp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_marginEnd="@dimen/_10sdp"
-                        android:layout_marginBottom="@dimen/_10sdp"
+                        android:layout_height="wrap_content"
                         android:fontFamily="@font/ubuntu_regular"
                         android:gravity="center_horizontal"
-                        android:padding="@dimen/_3sdp"
                         android:text="@string/select_photo"
                         android:textColor="@color/white"
-                        android:textSize="18sp" />
+                        android:textSize="12sp" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/txtCaptureMissingPhoto"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:background="@drawable/round_card"
+                        android:padding="@dimen/_8sdp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_marginEnd="@dimen/_10sdp"
-                        android:layout_marginBottom="@dimen/_10sdp"
+                        android:layout_height="wrap_content"
                         android:fontFamily="@font/ubuntu_regular"
                         android:gravity="center_horizontal"
-                        android:padding="@dimen/_3sdp"
                         android:text="@string/capture"
                         android:textColor="@color/white"
-                        android:textSize="18sp" />
+                        android:textSize="12sp" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -126,43 +131,45 @@
                     android:layout_height="@dimen/_100sdp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="10dp"
-                    android:src="@color/colorLightGrey" />
+                    android:src="@color/colorLightGrey"
+                    android:contentDescription="Iv" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:padding="@dimen/_10sdp"
                     android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/txtSelectCredentialPhoto"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:background="@drawable/round_card"
+                        android:padding="@dimen/_8sdp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_marginEnd="@dimen/_10sdp"
-                        android:layout_marginBottom="@dimen/_10sdp"
+                        android:layout_height="wrap_content"
                         android:fontFamily="@font/ubuntu_regular"
                         android:gravity="center_horizontal"
-                        android:padding="@dimen/_3sdp"
                         android:text="@string/select_photo"
                         android:textColor="@color/white"
-                        android:textSize="18sp" />
+                        android:textSize="12sp" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/txtCaptureCredentialPhoto"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:background="@drawable/round_card"
+                        android:padding="@dimen/_8sdp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_marginEnd="@dimen/_10sdp"
-                        android:layout_marginBottom="@dimen/_10sdp"
+                        android:layout_height="wrap_content"
                         android:fontFamily="@font/ubuntu_regular"
                         android:gravity="center_horizontal"
-                        android:padding="@dimen/_3sdp"
                         android:text="@string/capture"
                         android:textColor="@color/white"
-                        android:textSize="18sp" />
+                        android:textSize="12sp" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
-
-
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/txtLayoutReportType"
@@ -172,7 +179,8 @@
                     android:layout_marginBottom="@dimen/_10sdp"
                     android:hint="Report Type"
                     android:textColorHint="@color/white"
-                    app:counterTextColor="@color/white">
+                    app:counterTextColor="@color/white"
+                    >
 
                     <AutoCompleteTextView
                         android:id="@+id/autoCompleteReportType"

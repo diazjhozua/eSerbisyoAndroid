@@ -49,19 +49,19 @@
         <entry key="..\:/Users/Jhozua Diaz/AndroidStudioProjects/eSerbisyo/app/src/main/res/layout/activity_home.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Jhozua Diaz/AndroidStudioProjects/eSerbisyo/app/src/main/res/layout/activity_inquiry_add.xml" value="0.22" />
         <entry key="..\:/Users/Jhozua Diaz/AndroidStudioProjects/eSerbisyo/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Users/Jhozua Diaz/AndroidStudioProjects/eSerbisyo/app/src/main/res/layout/activity_missing_item_add.xml" value="0.16" />
+        <entry key="..\:/Users/Jhozua Diaz/AndroidStudioProjects/eSerbisyo/app/src/main/res/layout/activity_missing_item_add.xml" value="0.33" />
         <entry key="..\:/Users/Jhozua Diaz/AndroidStudioProjects/eSerbisyo/app/src/main/res/layout/activity_missing_item_edit.xml" value="0.32175925925925924" />
-        <entry key="..\:/Users/Jhozua Diaz/AndroidStudioProjects/eSerbisyo/app/src/main/res/layout/activity_missing_person_add.xml" value="0.25" />
+        <entry key="..\:/Users/Jhozua Diaz/AndroidStudioProjects/eSerbisyo/app/src/main/res/layout/activity_missing_person_add.xml" value="0.33" />
         <entry key="..\:/Users/Jhozua Diaz/AndroidStudioProjects/eSerbisyo/app/src/main/res/layout/activity_missing_person_edit.xml" value="0.29372937293729373" />
         <entry key="..\:/Users/Jhozua Diaz/AndroidStudioProjects/eSerbisyo/app/src/main/res/layout/activity_on_board.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Jhozua Diaz/AndroidStudioProjects/eSerbisyo/app/src/main/res/layout/activity_on_board_biker.xml" value="0.32592592592592595" />
         <entry key="..\:/Users/Jhozua Diaz/AndroidStudioProjects/eSerbisyo/app/src/main/res/layout/activity_order_view.xml" value="0.22" />
-        <entry key="..\:/Users/Jhozua Diaz/AndroidStudioProjects/eSerbisyo/app/src/main/res/layout/activity_profile.xml" value="0.22" />
-        <entry key="..\:/Users/Jhozua Diaz/AndroidStudioProjects/eSerbisyo/app/src/main/res/layout/activity_report_add.xml" value="0.2" />
+        <entry key="..\:/Users/Jhozua Diaz/AndroidStudioProjects/eSerbisyo/app/src/main/res/layout/activity_profile.xml" value="0.33" />
+        <entry key="..\:/Users/Jhozua Diaz/AndroidStudioProjects/eSerbisyo/app/src/main/res/layout/activity_report_add.xml" value="0.33" />
         <entry key="..\:/Users/Jhozua Diaz/AndroidStudioProjects/eSerbisyo/app/src/main/res/layout/activity_report_show.xml" value="0.32592592592592595" />
-        <entry key="..\:/Users/Jhozua Diaz/AndroidStudioProjects/eSerbisyo/app/src/main/res/layout/activity_requirement_add.xml" value="0.22" />
+        <entry key="..\:/Users/Jhozua Diaz/AndroidStudioProjects/eSerbisyo/app/src/main/res/layout/activity_requirement_add.xml" value="0.33" />
         <entry key="..\:/Users/Jhozua Diaz/AndroidStudioProjects/eSerbisyo/app/src/main/res/layout/activity_select_pickup.xml" value="0.33" />
-        <entry key="..\:/Users/Jhozua Diaz/AndroidStudioProjects/eSerbisyo/app/src/main/res/layout/activity_user_info.xml" value="0.22" />
+        <entry key="..\:/Users/Jhozua Diaz/AndroidStudioProjects/eSerbisyo/app/src/main/res/layout/activity_user_info.xml" value="0.33" />
         <entry key="..\:/Users/Jhozua Diaz/AndroidStudioProjects/eSerbisyo/app/src/main/res/layout/activity_user_verification.xml" value="0.33" />
         <entry key="..\:/Users/Jhozua Diaz/AndroidStudioProjects/eSerbisyo/app/src/main/res/layout/activity_view_image.xml" value="0.21064814814814814" />
         <entry key="..\:/Users/Jhozua Diaz/AndroidStudioProjects/eSerbisyo/app/src/main/res/layout/activity_view_pdfactivity.xml" value="0.22" />
@@ -96,7 +96,7 @@
         <entry key="..\:/Users/Jhozua Diaz/AndroidStudioProjects/eSerbisyo/app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="..\:/Users/Jhozua Diaz/AndroidStudioProjects/eSerbisyo/app/src/main/res/layout/fragment_inquiry.xml" value="0.33" />
         <entry key="..\:/Users/Jhozua Diaz/AndroidStudioProjects/eSerbisyo/app/src/main/res/layout/fragment_login.xml" value="0.33" />
-        <entry key="..\:/Users/Jhozua Diaz/AndroidStudioProjects/eSerbisyo/app/src/main/res/layout/fragment_main.xml" value="0.3462897526501767" />
+        <entry key="..\:/Users/Jhozua Diaz/AndroidStudioProjects/eSerbisyo/app/src/main/res/layout/fragment_main.xml" value="0.33" />
         <entry key="..\:/Users/Jhozua Diaz/AndroidStudioProjects/eSerbisyo/app/src/main/res/layout/fragment_main_dashboard.xml" value="0.25" />
         <entry key="..\:/Users/Jhozua Diaz/AndroidStudioProjects/eSerbisyo/app/src/main/res/layout/fragment_missing_item.xml" value="0.30925925925925923" />
         <entry key="..\:/Users/Jhozua Diaz/AndroidStudioProjects/eSerbisyo/app/src/main/res/layout/fragment_missing_person.xml" value="0.32175925925925924" />

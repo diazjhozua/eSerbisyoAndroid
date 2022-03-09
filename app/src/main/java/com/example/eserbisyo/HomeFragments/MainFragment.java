@@ -1,5 +1,6 @@
 package com.example.eserbisyo.HomeFragments;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -34,6 +35,7 @@ import com.example.eserbisyo.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -62,6 +64,7 @@ public class MainFragment extends Fragment {
         return view;
     }
 
+    @SuppressLint("SetTextI18n")
     private void init() {
         CardView cardAnnouncement = view.findViewById(R.id.cardAnnouncement);
         CardView cardReport = view.findViewById(R.id.cardReport);
@@ -71,6 +74,7 @@ public class MainFragment extends Fragment {
         CardView cardProject= view.findViewById(R.id.cardProject);
         CardView cardEmployee = view.findViewById(R.id.cardEmployee);
         TextView txtUnverified = view.findViewById(R.id.txtVerifiedStatus);
+        TextView txtNotice = view.findViewById(R.id.txtNoticeApp);
 
         CardView cardMissingPerson = view.findViewById(R.id.cardMissingPerson);
         CardView cardMissingItem = view.findViewById(R.id.cardMissingItem);
@@ -87,6 +91,14 @@ public class MainFragment extends Fragment {
 
         if (isVerified) {
             txtUnverified.setVisibility(View.GONE);
+            txtNotice.setVisibility(View.VISIBLE);
+            txtNotice.setText("Important Notice: You will only receive notification in this specific email and phone number (Depending on what type of services)." +
+                    System.getProperty("line.separator") +
+                    System.getProperty("line.separator") +
+                    "Email: brg.cupang.unofficial@gmail.com" +
+                    System.getProperty("line.separator") +
+                    "Phone #: 0977-714-6176"
+            );
         }
 
         txtUnverified.setOnClickListener(new View.OnClickListener() {

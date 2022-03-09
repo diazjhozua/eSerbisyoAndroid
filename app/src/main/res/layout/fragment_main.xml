@@ -58,16 +58,30 @@
             android:id="@+id/txtVerifiedStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             android:background="@drawable/round_warning_card"
             android:padding="@dimen/_7sdp"
+            android:text="@string/no_verification_message"
             android:textColor="@color/white"
             android:textSize="@dimen/_10ssp"
-            android:text="@string/no_verification_message"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:layout_marginBottom="@dimen/_15sdp"
             app:layout_constraintEnd_toEndOf="@+id/linearLayout"
             app:layout_constraintStart_toStartOf="@+id/linearLayout"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <TextView
+            android:id="@+id/txtNoticeApp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:background="@drawable/round_green_card"
+            android:padding="@dimen/_7sdp"
+            android:layout_marginTop="24dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout"
+            app:layout_constraintTop_toBottomOf="@+id/txtVerifiedStatus" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/linearLayout"
@@ -78,7 +92,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.509"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtVerifiedStatus">
+            app:layout_constraintTop_toBottomOf="@+id/txtNoticeApp">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardAnnouncement"
