@@ -156,19 +156,23 @@ public class BikerOrdersAdapter extends RecyclerView.Adapter<BikerOrdersAdapter.
             error.printStackTrace();
             progressDialog.dismiss();
 
-            if (errorObj.has("errors")) {
-                try {
-                    JSONObject errors = errorObj.getJSONObject("errors");
-                    ((HomeActivity)context).showErrorMessage(errors);
-                } catch (JSONException ignored) {
+            try {
+                if (errorObj.has("errors")) {
+                    try {
+                        JSONObject errors = errorObj.getJSONObject("errors");
+                        ((HomeActivity)context).showErrorMessage(errors);
+                    } catch (JSONException ignored) {
+                    }
+                } else if (errorObj.has("message")) {
+                    try {
+                        Toasty.error(context, errorObj.getString("message"), Toast.LENGTH_LONG, true).show();
+                    } catch (JSONException ignored) {
+                    }
+                } else {
+                    Toasty.error(context, "Request Timeout", Toast.LENGTH_SHORT, true).show();
                 }
-            } else if (errorObj.has("message")) {
-                try {
-                    Toasty.error(context, errorObj.getString("message"), Toast.LENGTH_LONG, true).show();
-                } catch (JSONException ignored) {
-                }
-            } else {
-                Toasty.error(context, "Request Timeout", Toast.LENGTH_SHORT, true).show();
+            } catch (Exception ignored) {
+                Toasty.error(context, "No internet/data connection detected", Toast.LENGTH_SHORT, true).show();
             }
         }){
 

@@ -246,19 +246,23 @@ public class FeedbackAnalyticsFragment extends Fragment {
         },error -> {
             progressDialog.dismiss();
 
-            if (errorObj.has("errors")) {
-                try {
-                    JSONObject errors = errorObj.getJSONObject("errors");
-                    ((AuthActivity) requireActivity()).showErrorMessage(getContext(), errors);
-                } catch (JSONException ignored) {
+            try {
+                if (errorObj.has("errors")) {
+                    try {
+                        JSONObject errors = errorObj.getJSONObject("errors");
+                        ((HomeActivity) requireActivity()).showErrorMessage(errors);
+                    } catch (JSONException ignored) {
+                    }
+                } else if (errorObj.has("message")) {
+                    try {
+                        Toasty.error(requireContext(), errorObj.getString("message"), Toast.LENGTH_SHORT, true).show();
+                    } catch (JSONException ignored) {
+                    }
+                } else {
+                    Toasty.error(requireContext(), "Request Timeout", Toast.LENGTH_SHORT, true).show();
                 }
-            } else if (errorObj.has("message")) {
-                try {
-                    Toasty.error(requireContext(), errorObj.getString("message"), Toast.LENGTH_SHORT, true).show();
-                } catch (JSONException ignored) {
-                }
-            } else {
-                Toasty.error(requireContext(), "Request Timeout", Toast.LENGTH_SHORT, true).show();
+            } catch (Exception ignored) {
+                Toasty.error(requireContext(), "No internet/data connection detected", Toast.LENGTH_SHORT, true).show();
             }
         }){
             // provide token in header

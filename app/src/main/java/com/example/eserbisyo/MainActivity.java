@@ -118,10 +118,12 @@ public class MainActivity extends AppCompatActivity {
                     editor.putString(Pref.PICTURE, user.getString("file_path"));
                     editor.putString(Pref.TOKEN, object.getString("access_token"));
                     editor.putString(Pref.STATUS, user.getString("status"));
-                    editor.putBoolean(Pref.IS_VERIFIED, user.getBoolean("is_verified"));
 
-//                    editor.putBoolean(Pref.IS_VERIFIED, true);
-
+                    try {
+                        editor.putBoolean(Pref.IS_VERIFIED, user.getBoolean("is_verified"));
+                    } catch (Exception e) {
+                        editor.putBoolean(Pref.IS_VERIFIED, user.getInt("is_verified") == 1);
+                    }
 
                     editor.apply();
 
@@ -137,19 +139,23 @@ public class MainActivity extends AppCompatActivity {
         },error -> {
             progressDialog.dismiss();
 
-            if (errorObj.has("errors")) {
-                try {
-                    JSONObject errors = errorObj.getJSONObject("errors");
-                    showErrorMessage(errors);
-                } catch (JSONException ignored) {
+            try {
+                if (errorObj.has("errors")) {
+                    try {
+                        JSONObject errors = errorObj.getJSONObject("errors");
+                        showErrorMessage(errors);
+                    } catch (JSONException ignored) {
+                    }
+                } else if (errorObj.has("message")) {
+                    try {
+                        Toasty.error(this, errorObj.getString("message"), Toast.LENGTH_SHORT, true).show();
+                    } catch (JSONException ignored) {
+                    }
+                } else {
+                    Toasty.error(this, "Request Timeout", Toast.LENGTH_SHORT, true).show();
                 }
-            } else if (errorObj.has("message")) {
-                try {
-                    Toasty.error(this, errorObj.getString("message"), Toast.LENGTH_SHORT, true).show();
-                } catch (JSONException ignored) {
-                }
-            } else {
-                Toasty.error(this, "Request Timeout", Toast.LENGTH_SHORT, true).show();
+            } catch (Exception ignored) {
+                Toasty.error(this, "No internet/data connection detected", Toast.LENGTH_SHORT, true).show();
             }
 
             startActivity(new Intent(MainActivity.this,AuthActivity.class));

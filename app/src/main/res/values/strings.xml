@@ -147,9 +147,14 @@
     <string name="missing_item_desc">These are the list of approved missing item report.
         Please contact the user name who posted the said report if you have the information that may help him/her finding the report.
         You can see the contact information of the use by clicking the name or by writing a comment.</string>
+
     <string name="order_type_desc">Take note that the certificates available depends on which order type you have chosen.
         There are certain types of certificate only available for pickup.
     </string>
+
+<!--    <string name="order_received_note">When the administrator approved of your order request, go to the barangay to received your delivery (if Pickup) or-->
+<!--        expect to receive the order from the biker (If Delivery) at specific or within 3 days after the specified received date.-->
+<!--    </string>-->
 
     <string name="guidelines">
         Take note that if you did not deliver the specified order within 3 days after the specified received date,
@@ -231,8 +236,13 @@
     </string>
 
     <string name="order_type_desc3">
-        (DELIVERY MODE) - Once the administrator approved of your request, your order will wait for the bikers to choose your order. Pickup date may be change
-        in accordance to the availability of the administrator.
+        (DELIVERY MODE) - Once the administrator approved of your request, your order will wait for the bikers to choose your order. If your order does not get picked by our
+        biker on or within 3 days after the specified received date, it will automatically marked as CANCELLED.
+    </string>
+
+    <string name="order_type_desc5">
+        (PICKUP MODE) - Once the administrator approved of your request, go to the barangay office to pay and pickup your order on or within 3 days after the specified
+        pickup date. If you did not pickup your order within 3 days after the specified received date, it will automatically marked as "DNR (DID NOT RECEIVED)".
     </string>
 
     <string name="order_type_desc4">Please make sure that you have the required requirements when proceeding. Go to the certificates section to see the required requirements.

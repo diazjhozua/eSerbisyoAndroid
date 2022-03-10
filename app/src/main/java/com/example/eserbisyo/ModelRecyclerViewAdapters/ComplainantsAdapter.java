@@ -210,19 +210,23 @@ public class ComplainantsAdapter extends RecyclerView.Adapter<ComplainantsAdapte
             error.printStackTrace();
             progressDialog.dismiss();
 
-            if (errorObj.has("errors")) {
-                try {
-                    JSONObject errors = errorObj.getJSONObject("errors");
-                    ((CommentActivity)context).showErrorMessage(errors);
-                } catch (JSONException ignored) {
+            try {
+                if (errorObj.has("errors")) {
+                    try {
+                        JSONObject errors = errorObj.getJSONObject("errors");
+                        ((ComplaintEditActivity)context).showErrorMessage(errors);
+                    } catch (JSONException ignored) {
+                    }
+                } else if (errorObj.has("message")) {
+                    try {
+                        Toasty.error(context, errorObj.getString("message"), Toast.LENGTH_LONG, true).show();
+                    } catch (JSONException ignored) {
+                    }
+                } else {
+                    Toasty.error(context, "Request Timeout", Toast.LENGTH_SHORT, true).show();
                 }
-            } else if (errorObj.has("message")) {
-                try {
-                    Toasty.error(context, errorObj.getString("message"), Toast.LENGTH_LONG, true).show();
-                } catch (JSONException ignored) {
-                }
-            } else {
-                Toasty.error(context, "Request Timeout", Toast.LENGTH_LONG, true).show();
+            } catch (Exception ignored) {
+                Toasty.error(context, "No internet/data connection detected", Toast.LENGTH_SHORT, true).show();
             }
         }){
             @Override
@@ -288,19 +292,23 @@ public class ComplainantsAdapter extends RecyclerView.Adapter<ComplainantsAdapte
             error.printStackTrace();
             progressDialog.dismiss();
 
-            if (errorObj.has("errors")) {
-                try {
-                    JSONObject errors = errorObj.getJSONObject("errors");
-                    ((CommentActivity)context).showErrorMessage(errors);
-                } catch (JSONException ignored) {
+            try {
+                if (errorObj.has("errors")) {
+                    try {
+                        JSONObject errors = errorObj.getJSONObject("errors");
+                        ((ComplaintEditActivity)context).showErrorMessage(errors);
+                    } catch (JSONException ignored) {
+                    }
+                } else if (errorObj.has("message")) {
+                    try {
+                        Toasty.error(context, errorObj.getString("message"), Toast.LENGTH_LONG, true).show();
+                    } catch (JSONException ignored) {
+                    }
+                } else {
+                    Toasty.error(context, "Request Timeout", Toast.LENGTH_SHORT, true).show();
                 }
-            } else if (errorObj.has("message")) {
-                try {
-                    Toasty.error(context, errorObj.getString("message"), Toast.LENGTH_LONG, true).show();
-                } catch (JSONException ignored) {
-                }
-            } else {
-                Toasty.error(context, "Request Timeout", Toast.LENGTH_SHORT, true).show();
+            } catch (Exception ignored) {
+                Toasty.error(context, "No internet/data connection detected", Toast.LENGTH_SHORT, true).show();
             }
         }){
 
@@ -475,19 +483,23 @@ public class ComplainantsAdapter extends RecyclerView.Adapter<ComplainantsAdapte
             error.printStackTrace();
             progressDialog.dismiss();
 
-            if (errorObj.has("errors")) {
-                try {
-                    JSONObject errors = errorObj.getJSONObject("errors");
-                    ((CommentActivity)context).showErrorMessage(errors);
-                } catch (JSONException ignored) {
+            try {
+                if (errorObj.has("errors")) {
+                    try {
+                        JSONObject errors = errorObj.getJSONObject("errors");
+                        ((ComplaintEditActivity)context).showErrorMessage(errors);
+                    } catch (JSONException ignored) {
+                    }
+                } else if (errorObj.has("message")) {
+                    try {
+                        Toasty.error(context, errorObj.getString("message"), Toast.LENGTH_LONG, true).show();
+                    } catch (JSONException ignored) {
+                    }
+                } else {
+                    Toasty.error(context, "Request Timeout", Toast.LENGTH_SHORT, true).show();
                 }
-            } else if (errorObj.has("message")) {
-                try {
-                    Toasty.error(context, errorObj.getString("message"), Toast.LENGTH_LONG, true).show();
-                } catch (JSONException ignored) {
-                }
-            } else {
-                Toasty.error(context, "Request Timeout", Toast.LENGTH_SHORT, true).show();
+            } catch (Exception ignored) {
+                Toasty.error(context, "No internet/data connection detected", Toast.LENGTH_SHORT, true).show();
             }
         }){
             // provide token in header

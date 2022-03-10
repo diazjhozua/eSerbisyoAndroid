@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -200,7 +201,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             startActivity(new Intent(this, ChangeEmailActivity.class));
         } else if (id == R.id.nav_change_password) {
             startActivity(new Intent(this, ChangePasswordActivity.class));
-        }  else if (id == R.id.nav_logout) {
+        } else if (id == R.id.nav_video) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=S_QvqvoEkjM&list=RDS_QvqvoEkjM&start_radio=1&ab_channel=STEREOTYPE")));
+        }   else if (id == R.id.nav_logout) {
             openLogoutDialog();
         }
 
@@ -324,19 +327,23 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         },error ->{
             progressDialog.dismiss();
-            if (errorObj.has("errors")) {
-                try {
-                    JSONObject errors = errorObj.getJSONObject("errors");
-                    showErrorMessage(errors);
-                } catch (JSONException ignored) {
+            try {
+                if (errorObj.has("errors")) {
+                    try {
+                        JSONObject errors = errorObj.getJSONObject("errors");
+                        showErrorMessage(errors);
+                    } catch (JSONException ignored) {
+                    }
+                } else if (errorObj.has("message")) {
+                    try {
+                        Toasty.error(this, errorObj.getString("message"), Toast.LENGTH_SHORT, true).show();
+                    } catch (JSONException ignored) {
+                    }
+                } else {
+                    Toasty.error(this, "Request Timeout", Toast.LENGTH_SHORT, true).show();
                 }
-            } else if (errorObj.has("message")) {
-                try {
-                    Toasty.error(this, errorObj.getString("message"), Toast.LENGTH_SHORT, true).show();
-                } catch (JSONException ignored) {
-                }
-            } else {
-                Toasty.error(this, "Request Timeout", Toast.LENGTH_SHORT, true).show();
+            } catch (Exception ignored) {
+                Toasty.error(this, "No internet/data connection detected", Toast.LENGTH_SHORT, true).show();
             }
         } ){
 

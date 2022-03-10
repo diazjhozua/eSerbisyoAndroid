@@ -198,8 +198,13 @@ public class LoginFragment extends Fragment {
                     editor.putString(Pref.PICTURE, user.getString("file_path"));
                     editor.putString(Pref.TOKEN, object.getString("access_token"));
                     editor.putString(Pref.STATUS, user.getString("status"));
-                    editor.putBoolean(Pref.IS_VERIFIED, user.getBoolean("is_verified"));
-//                    editor.putBoolean(Pref.IS_VERIFIED, true);
+
+                    try {
+                        editor.putBoolean(Pref.IS_VERIFIED, user.getBoolean("is_verified"));
+                    } catch (Exception e) {
+                        editor.putBoolean(Pref.IS_VERIFIED, user.getInt("is_verified") == 1);
+                    }
+
                     editor.putInt(Pref.USER_ROLE_ID, user.getInt("user_role_id"));
 
                     editor.apply();
@@ -219,20 +224,25 @@ public class LoginFragment extends Fragment {
         },error -> {
             dialog.dismiss();
 
-            if (errorObj.has("errors")) {
-                try {
-                    JSONObject errors = errorObj.getJSONObject("errors");
-                    ((AuthActivity) requireActivity()).showErrorMessage(getContext(), errors);
-                } catch (JSONException ignored) {
+            try {
+                if (errorObj.has("errors")) {
+                    try {
+                        JSONObject errors = errorObj.getJSONObject("errors");
+                        ((AuthActivity) requireActivity()).showErrorMessage(getContext(), errors);
+                    } catch (JSONException ignored) {
+                    }
+                } else if (errorObj.has("message")) {
+                    try {
+                        Toasty.error(requireContext(), errorObj.getString("message"), Toast.LENGTH_SHORT, true).show();
+                    } catch (JSONException ignored) {
+                    }
+                } else {
+                    Toasty.error(requireContext(), "Request Timeout", Toast.LENGTH_SHORT, true).show();
                 }
-            } else if (errorObj.has("message")) {
-                try {
-                    Toasty.error(requireContext(), errorObj.getString("message"), Toast.LENGTH_SHORT, true).show();
-                } catch (JSONException ignored) {
-                }
-            } else {
-                Toasty.error(requireContext(), "Request Timeout", Toast.LENGTH_SHORT, true).show();
+            } catch (Exception ignored) {
+                Toasty.error(requireContext(), "No internet/data connection detected", Toast.LENGTH_SHORT, true).show();
             }
+
         }){
             // add parameters
             @Override
