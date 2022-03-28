@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
@@ -37,9 +38,12 @@ import com.example.eserbisyo.ModelActivities.ComplaintViewActivity;
 import com.example.eserbisyo.ModelRecyclerViewAdapters.ComplainantsAdapter;
 import com.example.eserbisyo.ModelRecyclerViewAdapters.FormsAdapter;
 import com.example.eserbisyo.Models.Complainant;
+import com.example.eserbisyo.Models.Complaint;
+import com.example.eserbisyo.Models.Defendant;
 import com.example.eserbisyo.Models.Form;
 import com.example.eserbisyo.Models.MissingPerson;
 import com.example.eserbisyo.Models.Order;
+import com.example.eserbisyo.Models.Type;
 import com.example.eserbisyo.Models.User;
 import com.example.eserbisyo.R;
 import com.google.android.material.textfield.TextInputEditText;
@@ -73,6 +77,7 @@ public class OrderViewActivity extends AppCompatActivity {
     private JSONObject jsonObject;
     private Order mOrder;
 
+    private int modelId = 0;
     private ProgressDialog progressDialog;
     private SharedPreferences userPref;
 
@@ -88,6 +93,10 @@ public class OrderViewActivity extends AppCompatActivity {
 
     private boolean isReported = false;
 
+    /* FOR ORDER REPORT LAYOUT*/
+    private LinearLayout layoutOrderReport;
+    private TextView txtMessage, txtORStatus, txtORAdminMessage, txtORUpdatedAt;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,8 +105,66 @@ public class OrderViewActivity extends AppCompatActivity {
 
         Bundle extras  = getIntent().getExtras();
         if (extras != null) {
+            modelId = extras.getInt(Extra.MODEL_ID, 0);
+        }
+        init();
+    }
+    private void init() {
+        txtOverallStatus = findViewById(R.id.txtOverallStatus);
+        txtId = findViewById(R.id.txtId);
+        txtContactName = findViewById(R.id.txtContactName);
+        txtContactAddress = findViewById(R.id.txtContactAddress);
+        txtContactPhoneNo = findViewById(R.id.txtContactPhoneNo);
+        txtContactEmail = findViewById(R.id.txtContactEmail);
+        txtContactOrderType = findViewById(R.id.txtContactOrderType);
+        txtStatus = findViewById(R.id.txtStatus);
+        txtAdminMessage = findViewById(R.id.txtAdminMessage);
+        txtUpdatedAt = findViewById(R.id.txtUpdatedAt);
+        txtTotalCertPrice = findViewById(R.id.txtTotalCertPrice);
+        txtDeliveryFee = findViewById(R.id.txtDeliveryFee);
+        txtTotalFee = findViewById(R.id.txtTotalFee);
+        txtBikerName = findViewById(R.id.txtBikerName);
+        txtBikerPhoneNo = findViewById(R.id.txtBikerPhoneNo);
+        txtBikerEmail = findViewById(R.id.txtBikerEmail);
+        txtBikerPhoneNo = findViewById(R.id.txtBikerPhoneNo);
+        txtBikerEmail = findViewById(R.id.txtBikerEmail);
+        txtBikerBikeName = findViewById(R.id.txtBikerBikeName);
+        txtBikerBikeSize = findViewById(R.id.txtBikerBikeSize);
+        txtBikerBikeColor = findViewById(R.id.txtBikerBikeColor);
+
+        layoutBiker = findViewById(R.id.layoutBiker);
+        circIvBiker = findViewById(R.id.circIvBiker);
+        recyclerView = findViewById(R.id.recyclerView);
+        btnReport = findViewById(R.id.btnReport);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+
+        recyclerView.setHasFixedSize(false);
+        recyclerView.setLayoutManager(new LinearLayoutManager(OrderViewActivity.this));
+
+        /* FOR ORDER REPORT LAYOUT*/
+        layoutOrderReport = findViewById(R.id.layoutOrderReport);
+        txtMessage = findViewById(R.id.txtMessage);
+        txtORStatus = findViewById(R.id.txtORStatus);
+        txtORAdminMessage = findViewById(R.id.txtORAdminMessage);
+        txtORUpdatedAt = findViewById(R.id.txtORUpdatedAt);
+
+
+        getData();
+    }
+
+    private void getData() {
+        progressDialog.setMessage("Getting the data.....");
+        progressDialog.show();
+
+        StringRequest request = new StringRequest(Request.Method.GET, Api.ORDERS + "/" + modelId, response -> {
             try {
-                jsonObject= new JSONObject(extras.getString(Extra.JSON_OBJECT));
+
+                progressDialog.dismiss();
+
+                JSONObject object = new JSONObject(response);
+                JSONObject jsonObject = object.getJSONObject("data");
 
                 User mBiker = null;
 
@@ -143,54 +210,90 @@ public class OrderViewActivity extends AppCompatActivity {
                         JSONObject reportJSONObject = reportJSONArray.getJSONObject(i);
                         if (userPref.getInt(Pref.ID, 0) == reportJSONObject.getInt("user_id")) {
                             isReported = true;
+
+                            layoutOrderReport.setVisibility(View.VISIBLE);
+                            txtMessage.setText("Content: " + reportJSONObject.getString("body"));
+                            txtORStatus.setText(reportJSONObject.getString("status"));
+                            switch (reportJSONObject.getString("status")) {
+                                case "Pending":
+                                    txtORStatus.setTextColor(getResources().getColor(R.color.primaryColor));
+                                    txtORAdminMessage.setVisibility(View.GONE);
+                                    txtORUpdatedAt.setVisibility(View.GONE);
+                                    break;
+                                case "Noted":
+                                    txtORStatus.setTextColor(getResources().getColor(R.color.teal_700));
+                                    txtORAdminMessage.setText("Admin Message: " + reportJSONObject.getString("admin_message"));
+                                    txtORUpdatedAt.setText("Responded At: " + reportJSONObject.getString("updated_at"));
+                                    break;
+                            }
                         }
                     }
                 }
-
             } catch (JSONException e) {
                 e.printStackTrace();
-
             }
-        }
-        init();
-    }
-    private void init() {
-        txtOverallStatus = findViewById(R.id.txtOverallStatus);
-        txtId = findViewById(R.id.txtId);
-        txtContactName = findViewById(R.id.txtContactName);
-        txtContactAddress = findViewById(R.id.txtContactAddress);
-        txtContactPhoneNo = findViewById(R.id.txtContactPhoneNo);
-        txtContactEmail = findViewById(R.id.txtContactEmail);
-        txtContactOrderType = findViewById(R.id.txtContactOrderType);
-        txtStatus = findViewById(R.id.txtStatus);
-        txtAdminMessage = findViewById(R.id.txtAdminMessage);
-        txtUpdatedAt = findViewById(R.id.txtUpdatedAt);
-        txtTotalCertPrice = findViewById(R.id.txtTotalCertPrice);
-        txtDeliveryFee = findViewById(R.id.txtDeliveryFee);
-        txtTotalFee = findViewById(R.id.txtTotalFee);
-        txtBikerName = findViewById(R.id.txtBikerName);
-        txtBikerPhoneNo = findViewById(R.id.txtBikerPhoneNo);
-        txtBikerEmail = findViewById(R.id.txtBikerEmail);
-        txtBikerPhoneNo = findViewById(R.id.txtBikerPhoneNo);
-        txtBikerEmail = findViewById(R.id.txtBikerEmail);
-        txtBikerBikeName = findViewById(R.id.txtBikerBikeName);
-        txtBikerBikeSize = findViewById(R.id.txtBikerBikeSize);
-        txtBikerBikeColor = findViewById(R.id.txtBikerBikeColor);
+            setData();
 
-        layoutBiker = findViewById(R.id.layoutBiker);
-        circIvBiker = findViewById(R.id.circIvBiker);
-        recyclerView = findViewById(R.id.recyclerView);
-        btnReport = findViewById(R.id.btnReport);
+            progressDialog.dismiss();
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setCancelable(false);
+        },error -> {
+            error.printStackTrace();
+            progressDialog.dismiss();
 
-        recyclerView.setHasFixedSize(false);
-        recyclerView.setLayoutManager(new LinearLayoutManager(OrderViewActivity.this));
+            try {
+                if (errorObj.has("errors")) {
+                    try {
+                        JSONObject errors = errorObj.getJSONObject("errors");
+                        showErrorMessage(errors);
+                    } catch (JSONException ignored) {
+                    }
+                } else if (errorObj.has("message")) {
+                    try {
+                        Toasty.error(this, errorObj.getString("message"), Toast.LENGTH_LONG, true).show();
+                    } catch (JSONException ignored) {
+                    }
+                } else {
+                    Toasty.error(this, "Request Timeout", Toast.LENGTH_SHORT, true).show();
+                }
+            } catch (Exception ignored) {
+                Toasty.error(this, "No internet/data connection detected", Toast.LENGTH_SHORT, true).show();
+            }
 
+            finish();
+        }){
 
+            // provide token in header
+            @Override
+            public Map<String, String> getHeaders() {
+                String token = userPref.getString(Pref.TOKEN,"");
+                HashMap<String,String> map = new HashMap<>();
+                map.put("Authorization","Bearer "+token);
+                return map;
+            }
 
-        setData();
+            @Override
+            protected VolleyError parseNetworkError(VolleyError volleyError) {
+                String json;
+
+                if (volleyError.networkResponse != null && volleyError.networkResponse.data != null) {
+                    try {
+                        json = new String(volleyError.networkResponse.data,
+                                HttpHeaderParser.parseCharset(volleyError.networkResponse.headers));
+
+                        errorObj = new JSONObject(json);
+                    } catch (UnsupportedEncodingException | JSONException e) {
+                        return new VolleyError(e.getMessage());
+                    }
+
+                    return new VolleyError(json);
+                }
+                return volleyError;
+            }
+        };
+
+        request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue queue = Volley.newRequestQueue(OrderViewActivity.this);
+        queue.add(request);
     }
 
     @SuppressLint("SetTextI18n")
@@ -250,13 +353,11 @@ public class OrderViewActivity extends AppCompatActivity {
         txtTotalFee.setText("Total Fee: ₱ " + (mOrder.getTotalPrice() + mOrder.getDeliveryFee()));
 
         if ((mOrder.getApplicationStatus().equals("Approved") || mOrder.getOrderStatus().equals("Received")) && mOrder.getOrderType().equals("Delivery")) {
-
             if (isReported) {
-                btnReport.setEnabled(false);
-                btnReport.setText("You already submitted a report");
-                btnReport.setBackgroundColor(getResources().getColor(R.color.infoColor));
+                btnReport.setVisibility(View.GONE);
+            } else {
+                btnReport.setVisibility(View.VISIBLE);
             }
-            btnReport.setVisibility(View.VISIBLE);
         }
 
         setListeners();
@@ -335,7 +436,7 @@ public class OrderViewActivity extends AppCompatActivity {
         progressDialog.show();
 
         String body = Objects.requireNonNull(inputTxtMessage.getText()).toString().trim();
-        StringRequest request = new StringRequest(Request.Method.POST, Api.ORDER_SUBMIT_REPORT + mOrder.getId(), response->{
+        StringRequest request = new StringRequest(Request.Method.POST, Api.ORDER_SUBMIT_REPORT + "/" + mOrder.getId(), response->{
             try {
                 JSONObject object = new JSONObject(response);
 
@@ -449,9 +550,6 @@ public class OrderViewActivity extends AppCompatActivity {
             }
         }
     }
-
-
-
 
     public void cancelEdit(View view) {
         finish();

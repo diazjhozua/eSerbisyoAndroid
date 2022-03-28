@@ -32,6 +32,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,9 +47,12 @@ import com.example.eserbisyo.Constants.Api;
 import com.example.eserbisyo.Constants.Extra;
 import com.example.eserbisyo.Constants.Pref;
 import com.example.eserbisyo.HomeActivity;
+import com.example.eserbisyo.ModelActivities.Profile.DocumentActivity;
 import com.example.eserbisyo.ModelRecyclerViewAdapters.FormsAdapter;
+import com.example.eserbisyo.Models.Document;
 import com.example.eserbisyo.Models.Form;
 import com.example.eserbisyo.Models.Order;
+import com.example.eserbisyo.Models.Type;
 import com.example.eserbisyo.Models.User;
 import com.example.eserbisyo.OrderActivity.OrderViewActivity;
 import com.example.eserbisyo.R;
@@ -91,6 +95,9 @@ public class BikerOrderActivity extends AppCompatActivity {
 
     private boolean isReported = false;
 
+    /* FOR ORDER REPORT LAYOUT*/
+    private LinearLayout layoutOrderReport;
+    private TextView txtMessage, txtStatus, txtAdminMessage, txtUpdatedAt;
 
     /* Guidelines Dialog */
     private Dialog guidelinesDialog;
@@ -108,6 +115,8 @@ public class BikerOrderActivity extends AppCompatActivity {
 
     private boolean isStarting = false;
     private boolean isMarkingDNR = false;
+
+    private int modelId = 0;
 
     private Dialog reportDialog;
     private TextInputLayout txtLayoutMessage;
@@ -167,48 +176,7 @@ public class BikerOrderActivity extends AppCompatActivity {
 
         Bundle extras  = getIntent().getExtras();
         if (extras != null) {
-            try {
-                jsonObject= new JSONObject(extras.getString(Extra.JSON_OBJECT));
-
-                mOrder = new Order(
-                        jsonObject.getInt("id"), jsonObject.getString("name"), jsonObject.getString("email"), jsonObject.getString("phone_no"),
-                        jsonObject.getString("location_address"), jsonObject.getString("pick_up_type"), jsonObject.getString("order_status"),
-                        jsonObject.getString("pickup_date"), jsonObject.getString("received_at"), jsonObject.getDouble("total_price"),
-                        jsonObject.getDouble("delivery_fee"), jsonObject.getString("delivery_payment_status"), true,
-                        jsonObject.getString("is_returned")
-                );
-
-                JSONArray formJSONArray = new JSONArray(jsonObject.getString("certificate_forms"));
-                formArrayList = new ArrayList<>();
-                if(formJSONArray.length() > 0){
-                    for (int i = 0; i < formJSONArray.length(); i++) {
-                        JSONObject formJSONObject = formJSONArray.getJSONObject(i);
-
-                        Form mForm = new Form(
-                                formJSONObject.getInt("id"),
-                                formJSONObject.getInt("certificate_id"),
-                                formJSONObject.getJSONObject("certificate").getString("name"),
-                                formJSONObject.getDouble("price_filled"),
-                                false
-                        );
-                        formArrayList.add(mForm);
-                    }
-                }
-
-                JSONArray reportJSONArray = new JSONArray(jsonObject.getString("order_reports"));
-                if(reportJSONArray.length() > 0){
-                    for (int i = 0; i < reportJSONArray.length(); i++) {
-                        JSONObject reportJSONObject = reportJSONArray.getJSONObject(i);
-                        if (userPref.getInt(Pref.ID, 0) == reportJSONObject.getInt("user_id")) {
-                            isReported = true;
-                        }
-                    }
-                }
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-
-            }
+            modelId = extras.getInt(Extra.MODEL_ID, 0);
         }
         init();
     }
@@ -259,9 +227,143 @@ public class BikerOrderActivity extends AppCompatActivity {
         receiveDialogIvCredential = receiveDialog.findViewById(R.id.imgCredential);
         receiveDialogTxtExamplePicture = receiveDialog.findViewById(R.id.txtExamplePicture);
 
-        setData();
+        /* FOR ORDER REPORT LAYOUT*/
+        layoutOrderReport = findViewById(R.id.layoutOrderReport);
+        txtMessage = findViewById(R.id.txtMessage);
+        txtStatus = findViewById(R.id.txtStatus);
+        txtAdminMessage = findViewById(R.id.txtAdminMessage);
+        txtUpdatedAt = findViewById(R.id.txtUpdatedAt);
+
+        getData();
     }
 
+    private void getData() {
+        progressDialog.setMessage("Getting the data.....");
+        progressDialog.show();
+
+        StringRequest request = new StringRequest(Request.Method.GET, Api.BIKER_GET_ORDER_DETAILS + "/" + modelId, response -> {
+            try {
+
+                progressDialog.dismiss();
+
+                JSONObject object = new JSONObject(response);
+                JSONObject jsonObject = object.getJSONObject("data");
+                mOrder = new Order(
+                        jsonObject.getInt("id"), jsonObject.getString("name"), jsonObject.getString("email"), jsonObject.getString("phone_no"),
+                        jsonObject.getString("location_address"), jsonObject.getString("pick_up_type"), jsonObject.getString("order_status"),
+                        jsonObject.getString("pickup_date"), jsonObject.getString("received_at"), jsonObject.getDouble("total_price"),
+                        jsonObject.getDouble("delivery_fee"), jsonObject.getString("delivery_payment_status"), true,
+                        jsonObject.getString("is_returned")
+                );
+
+                JSONArray formJSONArray = new JSONArray(jsonObject.getString("certificate_forms"));
+                formArrayList = new ArrayList<>();
+                if(formJSONArray.length() > 0){
+                    for (int i = 0; i < formJSONArray.length(); i++) {
+                        JSONObject formJSONObject = formJSONArray.getJSONObject(i);
+
+                        Form mForm = new Form(
+                                formJSONObject.getInt("id"),
+                                formJSONObject.getInt("certificate_id"),
+                                formJSONObject.getJSONObject("certificate").getString("name"),
+                                formJSONObject.getDouble("price_filled"),
+                                false
+                        );
+                        formArrayList.add(mForm);
+                    }
+                }
+
+                JSONArray reportJSONArray = new JSONArray(jsonObject.getString("order_reports"));
+                if(reportJSONArray.length() > 0){
+                    for (int i = 0; i < reportJSONArray.length(); i++) {
+                        JSONObject reportJSONObject = reportJSONArray.getJSONObject(i);
+                        if (userPref.getInt(Pref.ID, 0) == reportJSONObject.getInt("user_id")) {
+                            isReported = true;
+
+                            layoutOrderReport.setVisibility(View.VISIBLE);
+                            txtMessage.setText("Content: " + reportJSONObject.getString("body"));
+                            txtStatus.setText(reportJSONObject.getString("status"));
+                            switch (reportJSONObject.getString("status")) {
+                                case "Pending":
+                                    txtStatus.setTextColor(getResources().getColor(R.color.primaryColor));
+                                    txtAdminMessage.setVisibility(View.GONE);
+                                    txtUpdatedAt.setVisibility(View.GONE);
+                                    break;
+                                case "Noted":
+                                    txtStatus.setTextColor(getResources().getColor(R.color.teal_700));
+                                    txtAdminMessage.setText("Admin Message: " + reportJSONObject.getString("admin_message"));
+                                    txtUpdatedAt.setText("Responded At: " + reportJSONObject.getString("updated_at"));
+                                    break;
+                            }
+                        }
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            setData();
+
+            progressDialog.dismiss();
+
+        },error -> {
+            error.printStackTrace();
+            progressDialog.dismiss();
+
+            try {
+                if (errorObj.has("errors")) {
+                    try {
+                        JSONObject errors = errorObj.getJSONObject("errors");
+                        showErrorMessage(errors);
+                    } catch (JSONException ignored) {
+                    }
+                } else if (errorObj.has("message")) {
+                    try {
+                        Toasty.error(this, errorObj.getString("message"), Toast.LENGTH_LONG, true).show();
+                    } catch (JSONException ignored) {
+                    }
+                } else {
+                    Toasty.error(this, "Request Timeout", Toast.LENGTH_SHORT, true).show();
+                }
+            } catch (Exception ignored) {
+                Toasty.error(this, "No internet/data connection detected", Toast.LENGTH_SHORT, true).show();
+            }
+
+            finish();
+        }){
+
+            // provide token in header
+            @Override
+            public Map<String, String> getHeaders() {
+                String token = userPref.getString(Pref.TOKEN,"");
+                HashMap<String,String> map = new HashMap<>();
+                map.put("Authorization","Bearer "+token);
+                return map;
+            }
+
+            @Override
+            protected VolleyError parseNetworkError(VolleyError volleyError) {
+                String json;
+
+                if (volleyError.networkResponse != null && volleyError.networkResponse.data != null) {
+                    try {
+                        json = new String(volleyError.networkResponse.data,
+                                HttpHeaderParser.parseCharset(volleyError.networkResponse.headers));
+
+                        errorObj = new JSONObject(json);
+                    } catch (UnsupportedEncodingException | JSONException e) {
+                        return new VolleyError(e.getMessage());
+                    }
+
+                    return new VolleyError(json);
+                }
+                return volleyError;
+            }
+        };
+
+        request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue queue = Volley.newRequestQueue(BikerOrderActivity.this);
+        queue.add(request);
+    }
     @SuppressLint("SetTextI18n")
     private void setData() {
 
@@ -285,10 +387,10 @@ public class BikerOrderActivity extends AppCompatActivity {
 
         if (mOrder.getOrderStatus().equals("Received") || mOrder.getOrderStatus().equals("DNR")) {
             if (isReported) {
-                btnReport.setEnabled(false);
-                btnReport.setText("You already submitted a report");
+                btnReport.setVisibility(View.GONE);
+            } else {
+                btnReport.setVisibility(View.VISIBLE);
             }
-            btnReport.setVisibility(View.VISIBLE);
             btnStartRiding.setVisibility(View.GONE);
             btnMarkedAsReceive.setVisibility(View.GONE);
             btnMarkedAsDNR.setVisibility(View.GONE);

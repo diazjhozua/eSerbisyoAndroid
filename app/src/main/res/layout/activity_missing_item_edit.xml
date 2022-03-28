@@ -267,7 +267,7 @@
                     android:fontFamily="@font/ubuntu_regular"
                     android:gravity="center_horizontal"
                     android:padding="@dimen/_10sdp"
-                    android:text="The email and phone no that you input, should be working and you have access to that contact information. You will receive notification via  your inputted contact information"
+                    android:text="The email and phone no that you input, should be working and you have access to that contact information. You will receive notification via  your inputted contact information when the administrator change the status of your request or when the user commented on your submitted request"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12ssp" />
 

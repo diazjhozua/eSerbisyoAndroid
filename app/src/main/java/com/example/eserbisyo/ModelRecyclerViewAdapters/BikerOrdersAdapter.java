@@ -34,6 +34,7 @@ import com.example.eserbisyo.Constants.Extra;
 import com.example.eserbisyo.Constants.Pref;
 import com.example.eserbisyo.HomeActivity;
 import com.example.eserbisyo.ModelActivities.CommentActivity;
+import com.example.eserbisyo.ModelActivities.Profile.DocumentActivity;
 import com.example.eserbisyo.Models.Order;
 import com.example.eserbisyo.OrderActivity.OrderViewActivity;
 import com.example.eserbisyo.R;
@@ -120,9 +121,13 @@ public class BikerOrdersAdapter extends RecyclerView.Adapter<BikerOrdersAdapter.
         } else {
 
             holder.card.setOnClickListener(view -> {
-                selOrder = mOrder;
-                selectedPosition = position;
-                getData();
+//                selOrder = mOrder;
+//                selectedPosition = position;
+//                getData();
+
+                Intent intent = new Intent(context, BikerOrderActivity.class);
+                intent.putExtra(Extra.MODEL_ID, mOrder.getId());
+                context.startActivity(intent);
             });
 
         }

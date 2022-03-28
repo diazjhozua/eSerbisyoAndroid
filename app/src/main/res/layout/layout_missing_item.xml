@@ -99,7 +99,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
                     android:id="@+id/txtMissingName"
-                    android:textColor="@color/black"
+                    android:textColor="@color/primaryColor"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
                     android:paddingBottom="8dp"

@@ -149,7 +149,7 @@ public class MissingItemFragment extends Fragment {
     }
 
     private void getData() {
-        arrayList = new ArrayList<MissingItem>();
+        arrayList = new ArrayList<>();
         refreshLayout.setRefreshing(true);
 
         StringRequest request = new StringRequest(Request.Method.GET, Api.MISSING_ITEMS, response -> {

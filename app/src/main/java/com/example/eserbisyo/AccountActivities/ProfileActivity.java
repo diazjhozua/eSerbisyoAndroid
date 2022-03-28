@@ -332,7 +332,13 @@ public class ProfileActivity extends AppCompatActivity {
                 editor.putString(Pref.LAST_NAME, user.getString("last_name"));
                 editor.putString(Pref.PICTURE, user.getString("file_path"));
                 editor.putString(Pref.STATUS, user.getString("status"));
-                editor.putBoolean(Pref.IS_VERIFIED, user.getBoolean("is_verified"));
+
+                try {
+                    editor.putBoolean(Pref.IS_VERIFIED, user.getBoolean("is_verified"));
+                } catch (Exception e) {
+                    editor.putBoolean(Pref.IS_VERIFIED, user.getInt("is_verified") == 1);
+                }
+
                 currentPurok = user.getInt("purok_id");
 
                 inputTxtFirstName.setText(user.getString("first_name"));

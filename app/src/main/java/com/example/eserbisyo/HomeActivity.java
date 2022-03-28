@@ -54,6 +54,10 @@ import com.example.eserbisyo.HomeFragments.MainFragment;
 import com.example.eserbisyo.HomeFragments.OrderFragment;
 import com.example.eserbisyo.HomeFragments.ReportFragment;
 import com.example.eserbisyo.HomeFragments.RequirementFragment;
+import com.example.eserbisyo.ModelActivities.Profile.AnnouncementActivity;
+import com.example.eserbisyo.ModelActivities.Profile.OrdinanceActivity;
+import com.example.eserbisyo.ModelActivities.Profile.ProjectActivity;
+import com.example.eserbisyo.OrderActivity.OrderViewActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
@@ -72,6 +76,7 @@ import es.dmoral.toasty.Toasty;
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+    public static String modelFragment;
 
     private SharedPreferences userPref;
     private Dialog dialog;
@@ -84,6 +89,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_home);
+
+        Bundle extras  = getIntent().getExtras();
+        if (extras != null) {
+            modelFragment = extras.getString(Extra.MODEL_FRAGMENT, "");
+        } else {
+            modelFragment = "";
+        }
+
 
         /* Hooks */
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -121,7 +134,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             if(isVerified){
                 Toasty.info(this, "You are already verified hence, no need to see your current requests", Toast.LENGTH_SHORT, true).show();
             } else {
-                loadUserVerification();
+                startActivity(new Intent(HomeActivity.this, UserVerificationActivity.class));
             }
         });
 
@@ -145,9 +158,23 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
         toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.white));
 
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.frameHomeContainer, new MainFragment()).commit();
-            navigationView.setCheckedItem(R.id.nav_home);
+
+        switch (modelFragment) {
+            case "INQUIRY_FRAGMENT":
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameHomeContainer, new InquiryFragment()).commit();
+                navigationView.setCheckedItem(R.id.nav_my_inquiries);
+                break;
+            case "FEEDBACK_FRAGMENT":
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameHomeContainer, new FeedbackFragment()).commit();
+                navigationView.setCheckedItem(R.id.nav_feedback);
+                break;
+            case "REPORT_FRAGMENT":
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameHomeContainer, new ReportFragment()).commit();
+                navigationView.setCheckedItem(R.id.nav_report);
+                break;
+            default:
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameHomeContainer, new MainFragment()).commit();
+                navigationView.setCheckedItem(R.id.nav_home);
         }
 
         if (userPref.getInt(Pref.USER_ROLE_ID, 9) == 8) {
@@ -188,7 +215,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 if (userPref.getInt(Pref.USER_ROLE_ID, 9) < 8) {
                     Toasty.info(this, "You cannot use this application since you are part of the barangay cupang administrator/staff.", Toast.LENGTH_LONG, true).show();
                 } else if (userPref.getInt(Pref.USER_ROLE_ID, 9) != 8) {
-                    getLatestVerification();
+                    startActivity(new Intent(HomeActivity.this, BikerViewRegistrationActivity.class));
+//                    getLatestVerification();
                 } else {
                     switchFragment(new BikerHomeFragment());
                 }
@@ -202,7 +230,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_change_password) {
             startActivity(new Intent(this, ChangePasswordActivity.class));
         } else if (id == R.id.nav_video) {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=S_QvqvoEkjM&list=RDS_QvqvoEkjM&start_radio=1&ab_channel=STEREOTYPE")));
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtu.be/8argrTJ2l8w")));
         }   else if (id == R.id.nav_logout) {
             openLogoutDialog();
         }
@@ -299,6 +327,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void setAuthMissingItemNavCheck() {
+        navigationView.setCheckedItem(R.id.nav_my_missing_item);
+    }
+
+    public void backFragment() {
         navigationView.setCheckedItem(R.id.nav_my_missing_item);
     }
 
@@ -409,15 +441,31 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         StringRequest request = new StringRequest(Request.Method.GET, Api.LOGOUT, res->{
 
             SharedPreferences.Editor editor = userPref.edit();
-            editor.clear();
+
+            editor.putBoolean(Pref.IS_REMEMBER,true);
+            editor.putString(Pref.EMAIL, "");
+            editor.putString(Pref.PASSWORD, "");
+            editor.putString(Pref.TOKEN, "");
+            editor.putInt(Pref.ID, 0);
+            editor.putInt(Pref.USER_ROLE_ID, 0);
+            editor.putString(Pref.FIRST_NAME, "");
+            editor.putString(Pref.MIDDLE_NAME,  "");
+            editor.putString(Pref.LAST_NAME,  "");
+            editor.putString(Pref.ADDRESS,  "");
+            editor.putString(Pref.PICTURE,  "");
+            editor.putString(Pref.TOKEN,  "");
+            editor.putString(Pref.STATUS,  "");
+            editor.putBoolean(Pref.IS_VERIFIED, false);
+            editor.putInt(Pref.USER_ROLE_ID, 0);
+
             editor.apply();
 
-            Toasty.success(this, "Logout success", Toast.LENGTH_SHORT, true).show();
+            progressDialog.dismiss();
 
+            Toasty.success(this, "Logout success", Toast.LENGTH_SHORT, true).show();
             startActivity(new Intent(HomeActivity.this, AuthActivity.class));
             finish();
 
-            progressDialog.dismiss();
         },error -> {
             error.printStackTrace();
             progressDialog.dismiss();

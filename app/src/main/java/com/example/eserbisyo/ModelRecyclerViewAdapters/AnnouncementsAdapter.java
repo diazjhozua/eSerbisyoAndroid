@@ -20,9 +20,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
@@ -36,6 +38,8 @@ import com.example.eserbisyo.Constants.Extra;
 import com.example.eserbisyo.Constants.Pref;
 import com.example.eserbisyo.HomeActivity;
 import com.example.eserbisyo.ModelActivities.CommentActivity;
+import com.example.eserbisyo.ModelActivities.MissingItemEditActivity;
+import com.example.eserbisyo.ModelActivities.Profile.AnnouncementActivity;
 import com.example.eserbisyo.Models.Announcement;
 import com.example.eserbisyo.Models.Like;
 import com.example.eserbisyo.Models.User;
@@ -61,6 +65,7 @@ public class AnnouncementsAdapter extends RecyclerView.Adapter<AnnouncementsAdap
     private final ArrayList<Announcement> listAll;
     private final SharedPreferences sharedPreferences;
 
+    private int selectedPosition;
     private ArrayList<Like> likeArrayList;
 
     private Announcement mAnnouncement;
@@ -91,7 +96,12 @@ public class AnnouncementsAdapter extends RecyclerView.Adapter<AnnouncementsAdap
         Announcement announcement = list.get(position);
 
         holder.txtDate.setText(announcement.getCreatedAt());
-        holder.txtTitle.setText(String.format("%s%s%s%s", announcement.getTitle(), context.getString(open_paren), announcement.getType().getName(), context.getString(R.string.close_paren)));
+        if (announcement.getType().getName().contains("null")) {
+            holder.txtTitle.setText(String.format("%s%s%s%s", announcement.getTitle(), context.getString(open_paren), announcement.getCustomType(), context.getString(R.string.close_paren)));
+        } else {
+            holder.txtTitle.setText(String.format("%s%s%s%s", announcement.getTitle(), context.getString(open_paren), announcement.getType().getName(), context.getString(R.string.close_paren)));
+        }
+
         String mDesc;
         if (announcement.getDescription().length() > 300) {
             mDesc = announcement.getDescription().substring(0, 300) + "... (Double Click to see the full post)";
@@ -160,6 +170,16 @@ public class AnnouncementsAdapter extends RecyclerView.Adapter<AnnouncementsAdap
             i.putExtra(Extra.MODEL_ID, announcement.getId());
             i.putExtra(Extra.MODEL_POSITION, position);
             context.startActivity(i);
+        });
+
+        holder.txtTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, AnnouncementActivity.class);
+                intent.putExtra(Extra.MODEL_ID, announcement.getId());
+                intent.putExtra(Extra.MODEL_POSITION, selectedPosition);
+                context.startActivity(intent);
+            }
         });
 
     }
@@ -350,7 +370,8 @@ public class AnnouncementsAdapter extends RecyclerView.Adapter<AnnouncementsAdap
                 filteredList.addAll(listAll);
             } else {
                 for (Announcement announcement : listAll){
-                    if(announcement.getType().getName().toLowerCase().contains(constraint.toString().toLowerCase())
+                    if(String.valueOf(announcement.getId()).contains(constraint.toString().toLowerCase())||
+                            announcement.getType().getName().toLowerCase().contains(constraint.toString().toLowerCase())
                             || announcement.getTitle().toLowerCase().contains(constraint.toString().toLowerCase())
                             || announcement.getDescription().toLowerCase().contains(constraint.toString().toLowerCase())
                             || announcement.getCreatedAt().toLowerCase().contains(constraint.toString().toLowerCase())){
@@ -400,8 +421,6 @@ public class AnnouncementsAdapter extends RecyclerView.Adapter<AnnouncementsAdap
             btnComment = itemView.findViewById(R.id.btnAnnounceComment);
 
             imageSlider = itemView.findViewById(R.id.imageSlider);
-
-
         }
     }
 }

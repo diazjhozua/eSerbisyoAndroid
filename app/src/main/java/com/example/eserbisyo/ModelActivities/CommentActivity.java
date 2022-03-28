@@ -24,6 +24,8 @@ import com.example.eserbisyo.Constants.Api;
 import com.example.eserbisyo.Constants.Extra;
 import com.example.eserbisyo.Constants.Pref;
 import com.example.eserbisyo.HomeFragments.AnnouncementFragment;
+import com.example.eserbisyo.HomeFragments.AuthMissingItemFragment;
+import com.example.eserbisyo.HomeFragments.AuthMissingPersonFragment;
 import com.example.eserbisyo.HomeFragments.MissingItemFragment;
 import com.example.eserbisyo.HomeFragments.MissingPersonFragment;
 import com.example.eserbisyo.ModelRecyclerViewAdapters.CommentsAdapter;
@@ -202,6 +204,7 @@ public class CommentActivity extends AppCompatActivity {
         String commentText = txtAddComment.getText().toString();
         dialog.setMessage("Adding comment");
         dialog.show();
+
         if (commentText.length()>0){
             StringRequest request = new StringRequest(Request.Method.POST, apiURL, res->{
 
@@ -216,29 +219,43 @@ public class CommentActivity extends AppCompatActivity {
                                 (!commentObject.isNull("file_path")) ? commentObject.getString("file_path") : ""), commentObject.getString("created_at")
                         );
 
-//                        switch (modelName) {
-//                            case "ANNOUNCEMENT":
-////                                apiURL = Api.ANNOUNCEMENTS_COMMENTS + modelId;
-//                                Announcement announcement = AnnouncementFragment.arrayList.get(modelPosition);
-//                                announcement.setCommentsCount(announcement.getCommentsCount() + 1);
-//                                AnnouncementFragment.arrayList.set(modelPosition,announcement);
-//                                Objects.requireNonNull(AnnouncementFragment.recyclerView.getAdapter()).notifyDataSetChanged();
-//                                break;
-//                            case "MISSING_PERSON":
-////                                apiURL = Api.MISSING_PERSONS_COMMENTS + modelId;
-//                                MissingPerson missingPersonObj = MissingPersonFragment.arrayList.get(modelPosition);
-//                                missingPersonObj.setCommentsCount(missingPersonObj.getCommentsCount() + 1);
-//                                MissingPersonFragment.arrayList.set(modelPosition,missingPersonObj);
-//                                Objects.requireNonNull(MissingPersonFragment.recyclerView.getAdapter()).notifyDataSetChanged();
-//                                break;
-//                            case "MISSING_ITEM":
-////                                apiURL = Api.MISSING_ITEMS_COMMENTS + modelId;
-//                                MissingItem missingItemObj = MissingItemFragment.arrayList.get(modelPosition);
-//                                missingItemObj.setCommentsCount(missingItemObj.getCommentsCount() + 1);
-//                                MissingItemFragment.arrayList.set(modelPosition,missingItemObj);
-//                                Objects.requireNonNull(MissingItemFragment.recyclerView.getAdapter()).notifyDataSetChanged();
-//                                break;
-//                        }
+                        switch (modelName) {
+                            case "ANNOUNCEMENT":
+//                                apiURL = Api.ANNOUNCEMENTS_COMMENTS + modelId;
+                                Announcement announcement = AnnouncementFragment.arrayList.get(modelPosition);
+                                announcement.setCommentsCount(announcement.getCommentsCount() + 1);
+                                AnnouncementFragment.arrayList.set(modelPosition,announcement);
+                                Objects.requireNonNull(AnnouncementFragment.recyclerView.getAdapter()).notifyDataSetChanged();
+                                break;
+                            case "MISSING_PERSON":
+//                                apiURL = Api.MISSING_PERSONS_COMMENTS + modelId;
+                                try {
+                                    MissingPerson missingPersonObj = MissingPersonFragment.arrayList.get(modelPosition);
+                                    missingPersonObj.setCommentsCount(missingPersonObj.getCommentsCount() + 1);
+                                    MissingPersonFragment.arrayList.set(modelPosition,missingPersonObj);
+                                    Objects.requireNonNull(MissingPersonFragment.recyclerView.getAdapter()).notifyDataSetChanged();
+                                } catch (Exception ignored) {
+                                    MissingPerson missingPersonObj = AuthMissingPersonFragment.arrayList.get(modelPosition);
+                                    missingPersonObj.setCommentsCount(missingPersonObj.getCommentsCount() + 1);
+                                    AuthMissingPersonFragment.arrayList.set(modelPosition,missingPersonObj);
+                                    Objects.requireNonNull(AuthMissingPersonFragment.recyclerView.getAdapter()).notifyDataSetChanged();
+                                }
+                                break;
+                            case "MISSING_ITEM":
+//                                apiURL = Api.MISSING_ITEMS_COMMENTS + modelId;
+                                try {
+                                    MissingItem missingItemObj = MissingItemFragment.arrayList.get(modelPosition);
+                                    missingItemObj.setCommentsCount(missingItemObj.getCommentsCount() + 1);
+                                    MissingItemFragment.arrayList.set(modelPosition,missingItemObj);
+                                    Objects.requireNonNull(MissingItemFragment.recyclerView.getAdapter()).notifyDataSetChanged();
+                                } catch (Exception ignored) {
+                                    MissingItem missingItemObj = AuthMissingItemFragment.arrayList.get(modelPosition);
+                                    missingItemObj.setCommentsCount(missingItemObj.getCommentsCount() + 1);
+                                    AuthMissingItemFragment.arrayList.set(modelPosition,missingItemObj);
+                                    Objects.requireNonNull(AuthMissingItemFragment.recyclerView.getAdapter()).notifyDataSetChanged();
+                                }
+                                break;
+                        }
                         commentArrayList.add(comment);
                         Objects.requireNonNull(recyclerView.getAdapter()).notifyDataSetChanged();
                         txtAddComment.setText("");
@@ -314,6 +331,9 @@ public class CommentActivity extends AppCompatActivity {
 
             RequestQueue queue = Volley.newRequestQueue(CommentActivity.this);
             queue.add(request);
+        } else {
+            Toasty.error(this, "Comment is required", Toast.LENGTH_SHORT, true).show();
+            dialog.dismiss();
         }
     }
 }

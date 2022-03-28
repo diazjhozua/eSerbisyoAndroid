@@ -11,5 +11,6 @@ public class Extra {
     public static final String MODEL_NAME = "com.example.eserbisyo.EXTRA_MODEL_NAME";
     public static final String MODEL_ID = "com.example.eserbisyo.EXTRA_MODELS_ID";
     public static final String MODEL_POSITION = "com.example.eserbisyo.EXTRA_MODELS_POSITION";
+    public static final String MODEL_FRAGMENT = "com.example.eserbisyo.EXTRA_MODEL_FRAGMENT";
 
 }

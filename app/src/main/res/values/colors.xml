@@ -8,6 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+
     <color name="primaryColor">#0275d8</color>
     <color name="secondaryColor">#FCB07E</color>
     <color name="tertiaryColor">#DEE2D6</color>
@@ -16,6 +17,7 @@
     <color name="infoColor">#f48b29</color>
     <color name="notBlack">#241E26</color>
 
+    <color name="babyBlue">#E7F2F8</color>
 
     <color name="firebrick">#D10028</color>
     <color name="transparent">#00000000</color>

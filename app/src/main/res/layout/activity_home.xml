@@ -28,6 +28,7 @@
                 android:fontFamily="@font/ubuntu_bold"
                 android:textSize="20sp"
                 android:textColor="@color/white"/>
+
         </androidx.appcompat.widget.Toolbar>
 
         <FrameLayout

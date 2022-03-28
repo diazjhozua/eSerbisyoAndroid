@@ -39,6 +39,8 @@ import com.example.eserbisyo.HomeFragments.AnnouncementFragment;
 import com.example.eserbisyo.ModelActivities.CommentActivity;
 import com.example.eserbisyo.ModelActivities.MissingItemEditActivity;
 import com.example.eserbisyo.ModelActivities.MissingPersonEditActivity;
+import com.example.eserbisyo.ModelActivities.Profile.DocumentActivity;
+import com.example.eserbisyo.ModelActivities.Profile.MissingPersonActivity;
 import com.example.eserbisyo.Models.Announcement;
 import com.example.eserbisyo.Models.MissingPerson;
 import com.example.eserbisyo.R;
@@ -136,6 +138,13 @@ public class MissingPersonsAdapter extends RecyclerView.Adapter<MissingPersonsAd
         holder.txtUserName.setOnClickListener(v->{
             mMissingPersonObj = missingPersonObj;
             openUserContactDialog();
+        });
+
+        holder.txtMissingName.setOnClickListener(view -> {
+            Intent intent = new Intent(context, MissingPersonActivity.class);
+            intent.putExtra(Extra.MODEL_ID, missingPersonObj.getId());
+            intent.putExtra(Extra.MODEL_POSITION, position);
+            context.startActivity(intent);
         });
 
         holder.ivMissingPicture.setOnClickListener(v -> {

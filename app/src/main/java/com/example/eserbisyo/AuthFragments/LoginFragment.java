@@ -56,6 +56,7 @@ public class LoginFragment extends Fragment {
     private AppCompatCheckBox chkRememberMe;
 
     public JSONObject errorObj = null;
+    private String deviceID;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -81,6 +82,9 @@ public class LoginFragment extends Fragment {
         Button btnGoToRegister = view.findViewById(R.id.btnGoToRegister);
 
         chkRememberMe = view.findViewById(R.id.chkRememberMe);
+
+        SharedPreferences userPref = requireActivity().getApplicationContext().getSharedPreferences(Pref.USER_PREFS, Context.MODE_PRIVATE);
+        deviceID = userPref.getString(Pref.DEVICE_ID, "");
 
         btnGoToRegister.setOnClickListener(v -> requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameAuthContainer,new RegisterFragment()).commit());
 
@@ -250,6 +254,7 @@ public class LoginFragment extends Fragment {
                 HashMap<String,String> map = new HashMap<>();
                 map.put("email", Objects.requireNonNull(txtEmail.getText()).toString().trim());
                 map.put("password", Objects.requireNonNull(txtPassword.getText()).toString().trim());
+                map.put("device_id", deviceID);
                 return map;
             }
 

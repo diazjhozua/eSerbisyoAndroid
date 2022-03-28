@@ -6,9 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +32,7 @@ import com.example.eserbisyo.HomeActivity;
 import com.example.eserbisyo.HomeFragments.Analytics.ComplaintAnalyticsFragment;
 import com.example.eserbisyo.HomeFragments.Analytics.FeedbackAnalyticsFragment;
 import com.example.eserbisyo.HomeFragments.Analytics.ReportAnalyticsFragment;
+import com.example.eserbisyo.NotificationActivity;
 import com.example.eserbisyo.OrderActivity.SelectPickupActivity;
 import com.example.eserbisyo.R;
 
@@ -40,6 +43,7 @@ import org.w3c.dom.Text;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
@@ -49,6 +53,9 @@ public class MainFragment extends Fragment {
     public JSONObject errorObj = null;
     private SharedPreferences sharedPreferences;
     private ProgressDialog progressDialog;
+
+    private ImageView ivNotification;
+    private TextView txtNotificationCount;
 
     public MainFragment() {
         // Required empty public constructor
@@ -135,6 +142,101 @@ public class MainFragment extends Fragment {
                 startActivity(new Intent(requireContext(), SelectPickupActivity.class));
             }
         });
+
+        ivNotification = view.findViewById(R.id.ivNotification);
+        txtNotificationCount = view.findViewById(R.id.txtNotificationCount);
+
+
+        getAuthNotificationCount();
+    }
+
+    private void getAuthNotificationCount() {
+        progressDialog.setMessage("Loading asset");
+        progressDialog.show();
+
+        StringRequest request = new StringRequest(Request.Method.GET, Api.NOTIFICATION_COUNT, response->{
+
+            try {
+                JSONObject object = new JSONObject(response);
+
+                int notificationCount = object.getInt("notificationCount");
+                Log.d("notificationCount", String.valueOf(notificationCount));
+
+                if (notificationCount > 0) {
+                   ivNotification.setImageResource(R.drawable.ic_notification_important_24);
+                   txtNotificationCount.setText(notificationCount + "");
+                } else {
+                    txtNotificationCount.setVisibility(View.GONE);
+                }
+
+                ivNotification.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent(requireContext(), NotificationActivity.class));
+                        requireActivity().finish();
+                    }
+                });
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            progressDialog.dismiss();
+
+        },error ->{
+            progressDialog.dismiss();
+            try {
+                if (errorObj.has("errors")) {
+                    try {
+                        JSONObject errors = errorObj.getJSONObject("errors");
+                        ((HomeActivity) requireActivity()).showErrorMessage(errors);
+                    } catch (JSONException ignored) {
+                    }
+                } else if (errorObj.has("message")) {
+                    try {
+                        Toasty.error(requireContext(), errorObj.getString("message"), Toast.LENGTH_SHORT, true).show();
+                    } catch (JSONException ignored) {
+                    }
+                } else {
+                    Toasty.error(requireContext(), "Request Timeout", Toast.LENGTH_SHORT, true).show();
+                }
+            } catch (Exception ignored) {
+                Toasty.error(requireContext(), "No internet/data connection detected", Toast.LENGTH_SHORT, true).show();
+            }
+        } ){
+
+            //add token to headers
+            @Override
+            public Map<String, String> getHeaders() {
+                String token = sharedPreferences.getString(Pref.TOKEN,"");
+                HashMap<String,String> map = new HashMap<>();
+                map.put("Authorization","Bearer "+token);
+                return map;
+            }
+
+            @Override
+            protected VolleyError parseNetworkError(VolleyError volleyError) {
+                String json;
+
+                if (volleyError.networkResponse != null && volleyError.networkResponse.data != null) {
+                    try {
+                        json = new String(volleyError.networkResponse.data,
+                                HttpHeaderParser.parseCharset(volleyError.networkResponse.headers));
+
+                        errorObj = new JSONObject(json);
+                    } catch (UnsupportedEncodingException | JSONException e) {
+                        return new VolleyError(e.getMessage());
+                    }
+
+                    return new VolleyError(json);
+                }
+                return volleyError;
+            }
+
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(requireContext());
+        queue.add(request);
+
     }
 
     private void loadUserVerification() {

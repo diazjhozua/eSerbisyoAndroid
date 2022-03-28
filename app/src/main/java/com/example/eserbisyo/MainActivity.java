@@ -1,11 +1,15 @@
 package com.example.eserbisyo;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -13,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -24,6 +29,11 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.eserbisyo.Constants.Api;
 import com.example.eserbisyo.Constants.Pref;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.installations.FirebaseInstallations;
+import com.google.firebase.installations.InstallationTokenResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,6 +49,11 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences userPref;
     private ProgressDialog progressDialog;
     private String userEmail, userPassword;
+
+
+    private static final String TAG = "PushNotification";
+    private static final String CHANNEL_ID = "1002";
+    private String deviceID;
 
     public JSONObject errorObj = null;
 
@@ -64,27 +79,83 @@ public class MainActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
 
-        //this code will pause the app for 1.5 secs and then any thing in run method will run.
-        Handler handler = new Handler();
-        handler.postDelayed(() -> {
+        userPref = getApplicationContext().getSharedPreferences(Pref.USER_PREFS, Context.MODE_PRIVATE);
 
-            userPref = getApplicationContext().getSharedPreferences(Pref.USER_PREFS, Context.MODE_PRIVATE);
-            userEmail = userPref.getString(Pref.EMAIL, "");
-            userPassword = userPref.getString(Pref.PASSWORD, "");
+        createNotificationChannel();
+        getToken();
 
-            boolean isRemember = userPref.getBoolean(Pref.IS_REMEMBER,false);
-            boolean isFirstTime = userPref.getBoolean(Pref.IS_FIRST_TIME,true);
+//        Handler handler = new Handler();
+//        handler.postDelayed(() -> {
+//
+//            userEmail = userPref.getString(Pref.EMAIL, "");
+//            userPassword = userPref.getString(Pref.PASSWORD, "");
+//
+//            boolean isRemember = userPref.getBoolean(Pref.IS_REMEMBER,false);
+//            boolean isFirstTime = userPref.getBoolean(Pref.IS_FIRST_TIME,true);
+//
+//            if (isRemember){
+//                loginPrefCredentials();
+//            } else if (isFirstTime) {
+//                isFirstTime();
+//            } else {
+//                startActivity(new Intent(MainActivity.this,AuthActivity.class));
+//                finish();
+//            }
+//        },1500);
+//        //this code will pause the app for 1.5 secs and then any thing in run method will run.
+    }
 
-            if (isRemember){
-                loginPrefCredentials();
-            } else if (isFirstTime) {
-                isFirstTime();
-            } else {
-                startActivity(new Intent(MainActivity.this,AuthActivity.class));
-                finish();
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "notificationChannel";
+            String description = "Receive Firebase notification";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    private void getToken() {
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                //If task is failed then
+                if (!task.isSuccessful()) {
+                    Log.d(TAG, "onComplete: Failed to get the Token");
+                }
+
+                //Token
+                String token = task.getResult();
+
+                Log.d(TAG, "onComplete: " + token);
+                deviceID = token;
+
+                SharedPreferences.Editor editor = userPref.edit();
+                editor.putString(Pref.DEVICE_ID, token);
+                editor.apply();
+
+                Handler handler = new Handler();
+                handler.postDelayed(() -> {
+
+                    userEmail = userPref.getString(Pref.EMAIL, "");
+                    userPassword = userPref.getString(Pref.PASSWORD, "");
+
+                    boolean isRemember = userPref.getBoolean(Pref.IS_REMEMBER,false);
+                    boolean isFirstTime = userPref.getBoolean(Pref.IS_FIRST_TIME,true);
+
+                    if (isRemember){
+                        loginPrefCredentials();
+                    } else if (isFirstTime) {
+                        isFirstTime();
+                    } else {
+                        startActivity(new Intent(MainActivity.this,AuthActivity.class));
+                        finish();
+                    }
+                },1500);
             }
-        },1500);
-
+        });
     }
 
     private void loginPrefCredentials() {
@@ -167,6 +238,7 @@ public class MainActivity extends AppCompatActivity {
                 HashMap<String,String> map = new HashMap<>();
                 map.put("email", userEmail);
                 map.put("password", userPassword);
+                map.put("device_id", deviceID);
                 return map;
             }
 

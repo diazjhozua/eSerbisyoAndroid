@@ -20,6 +20,6 @@
     <com.github.barteksc.pdfviewer.PDFView
         android:id="@+id/pdfView"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_500sdp"/>
+        android:layout_height="@dimen/_500sdp" />
 
 </LinearLayout>

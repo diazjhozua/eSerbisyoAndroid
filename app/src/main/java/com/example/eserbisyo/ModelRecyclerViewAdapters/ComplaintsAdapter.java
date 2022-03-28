@@ -39,6 +39,7 @@ import com.example.eserbisyo.ModelActivities.CommentActivity;
 import com.example.eserbisyo.ModelActivities.ComplaintEditActivity;
 import com.example.eserbisyo.ModelActivities.ComplaintViewActivity;
 import com.example.eserbisyo.ModelActivities.MissingPersonEditActivity;
+import com.example.eserbisyo.ModelActivities.Profile.DocumentActivity;
 import com.example.eserbisyo.Models.Announcement;
 import com.example.eserbisyo.Models.Complaint;
 import com.example.eserbisyo.Models.MissingPerson;
@@ -71,12 +72,9 @@ public class ComplaintsAdapter extends RecyclerView.Adapter<ComplaintsAdapter.Co
     private Button cancel;
 
     private int id;
-    private String comment;
     private int selectedPosition;
 
-
     private JSONObject errorObj = null;
-
 
     public ComplaintsAdapter(Context context, ArrayList<Complaint> list) {
         this.context = context;
@@ -154,7 +152,10 @@ public class ComplaintsAdapter extends RecyclerView.Adapter<ComplaintsAdapter.Co
                 selectedPosition = position;
                 switch (item.getItemId()) {
                     case R.id.item_view: {
-                        getData();
+                        Intent intent = new Intent(context, ComplaintViewActivity.class);
+                        intent.putExtra(Extra.MODEL_ID, mComplaint.getId());
+                        context.startActivity(intent);
+//                        getData();
                         return true;
                     }
                     case R.id.item_edit: {

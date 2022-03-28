@@ -76,8 +76,14 @@ public class InquiryFragment extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                ((HomeActivity) requireActivity()).switchFragment(new MainFragment());
-                ((HomeActivity) requireActivity()).setHomeNavCheck();
+                if (!HomeActivity.modelFragment.equals("")) {
+                    requireActivity().finish();
+                } else {
+                    ((HomeActivity) requireActivity()).switchFragment(new MainFragment());
+                    ((HomeActivity) requireActivity()).setHomeNavCheck();
+                }
+
+
             }
         };
 

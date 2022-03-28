@@ -177,9 +177,12 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersHold
         holder.txtUpdatedAt.setText("Responded At: " + mOrder.getUpdatedAt());
 
         holder.card.setOnClickListener(view -> {
-            id = mOrder.getId();
-            selectedPosition = position;
-            getData();
+            Intent intent = new Intent(context, OrderViewActivity.class);
+            intent.putExtra(Extra.MODEL_ID, mOrder.getId());
+            context.startActivity(intent);
+//            id = mOrder.getId();
+//            selectedPosition = position;
+//            getData();
         });
     }
 

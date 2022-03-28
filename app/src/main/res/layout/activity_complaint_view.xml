@@ -42,7 +42,7 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Complaint View"
+                    android:text="Complaint"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_15ssp" />
 
@@ -71,7 +71,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Complaint #32"
-                            android:textColor="@color/primaryColor"
+                            android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 

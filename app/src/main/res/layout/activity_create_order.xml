@@ -56,6 +56,17 @@
                 android:padding="@dimen/_20sdp">
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:background="@drawable/round_white_card"
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:padding="@dimen/_10sdp"
+                    android:text="Take note that the price indicated in Barangay Cedula is in initial state which means it will change depending on the amount of tax you will pay."
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/txtOrderType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

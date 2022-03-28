@@ -474,6 +474,88 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/_15ssp" />
 
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/layoutOrderReport"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:paddingBottom="8dp"
+                        android:text="REPORT INFO"
+                        android:textColor="@color/black"
+                        android:gravity="center"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/txtMessage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:paddingBottom="8dp"
+                        android:text="Context: Gusto ko sana mamatay na........"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"
+                            android:paddingBottom="8dp"
+                            android:text="Status: "
+                            android:textColor="@color/colorGrey"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/txtORStatus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="8dp"
+                            android:text="Pending"
+                            android:textColor="@color/colorGrey"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="#ccc"/>
+                    <TextView
+                        android:id="@+id/txtORAdminMessage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:paddingBottom="8dp"
+                        android:text="Admin Message: Odio dolorum omnis enim et quo nihil quod cupiditate est est quaerat adip"
+                        android:textColor="@color/colorGrey"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/txtORUpdatedAt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="8dp"
+                        android:paddingBottom="8dp"
+                        android:text="Responded At: Jun 30, 2021"
+                        android:textColor="@color/colorGrey"
+                        android:textSize="14sp"
+                        tools:ignore="RtlSymmetry" />
+                </LinearLayout>
             </androidx.appcompat.widget.LinearLayoutCompat>
 
 

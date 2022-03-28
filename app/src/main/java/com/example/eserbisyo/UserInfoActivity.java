@@ -279,7 +279,12 @@ public class UserInfoActivity extends AppCompatActivity {
                 editor.putString(Pref.ADDRESS, user.getString("address"));
                 editor.putString(Pref.PICTURE, user.getString("file_path"));
                 editor.putString(Pref.STATUS, user.getString("status"));
-                editor.putBoolean(Pref.IS_VERIFIED, user.getBoolean("is_verified"));
+                try {
+                    editor.putBoolean(Pref.IS_VERIFIED, user.getBoolean("is_verified"));
+                } catch (Exception e) {
+                    editor.putBoolean(Pref.IS_VERIFIED, user.getInt("is_verified") == 1);
+                }
+
                 editor.apply();
 
                 Toasty.success(this, "Information is updated successfully", Toast.LENGTH_SHORT, true).show();

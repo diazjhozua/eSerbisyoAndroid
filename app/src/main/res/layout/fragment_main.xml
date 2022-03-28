@@ -46,13 +46,40 @@
             android:layout_width="112dp"
             android:layout_height="106dp"
             android:layout_marginStart="@dimen/_16sdp"
-            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginTop="16dp"
             android:src="@drawable/cupang"
             app:layout_constraintEnd_toStartOf="@+id/textView"
             app:layout_constraintHorizontal_bias="0.164"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:id="@+id/ivNotification"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:backgroundTint="@color/transparent"
+            android:src="@drawable/ic_notifications_none_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/primaryColor" />
+
+        <TextView
+            android:id="@+id/txtNotificationCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_green_card"
+            android:fontFamily="@font/ubuntu_bold"
+            android:gravity="end"
+            android:padding="@dimen/_2sdp"
+            android:textSize="@dimen/_6ssp"
+            android:text="11"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/ivNotification"
+            app:layout_constraintEnd_toEndOf="@+id/ivNotification"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/ivNotification"
+            app:layout_constraintTop_toBottomOf="@+id/ivNotification"
+            app:layout_constraintVertical_bias="0.318" />
 
         <TextView
             android:id="@+id/txtVerifiedStatus"

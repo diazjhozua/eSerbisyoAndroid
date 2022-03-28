@@ -1,36 +1,67 @@
 package com.example.eserbisyo.ModelRecyclerViewAdapters;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.eserbisyo.Constants.Api;
+import com.example.eserbisyo.Constants.Extra;
+import com.example.eserbisyo.Constants.Pref;
+import com.example.eserbisyo.HomeActivity;
+import com.example.eserbisyo.ModelActivities.Profile.AnnouncementActivity;
+import com.example.eserbisyo.ModelActivities.Profile.DocumentActivity;
+import com.example.eserbisyo.ModelActivities.Profile.OrdinanceActivity;
 import com.example.eserbisyo.Models.Document;
 import com.example.eserbisyo.Models.Ordinance;
 import com.example.eserbisyo.R;
 import com.example.eserbisyo.ViewPDFActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
+import es.dmoral.toasty.Toasty;
 
 public class OrdinancesAdapter extends RecyclerView.Adapter<OrdinancesAdapter.OrdinancesHolder>{
 
     private final Context context;
     private final ArrayList<Ordinance> list;
     private final ArrayList<Ordinance> listAll;
+    private final SharedPreferences sharedPreferences;
+    private int id;
+
+    private JSONObject errorObj = null;
+    private ProgressDialog progressDialog;
 
     public OrdinancesAdapter(Context context, ArrayList<Ordinance> list) {
         this.context = context;
         this.list = list;
         this.listAll = new ArrayList<>(list);
+        sharedPreferences = context.getApplicationContext().getSharedPreferences(Pref.USER_PREFS,Context.MODE_PRIVATE);
     }
 
     @NonNull
@@ -58,12 +89,17 @@ public class OrdinancesAdapter extends RecyclerView.Adapter<OrdinancesAdapter.Or
 
         holder.txtNo.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent= new Intent(context, ViewPDFActivity.class);
-                intent.putExtra("pdf_path", ordinance.getFilePath());
+//                Intent intent= new Intent(context, ViewPDFActivity.class);
+//                intent.putExtra("pdf_path", ordinance.getFilePath());
+//                context.startActivity(intent);
+
+                Intent intent = new Intent(context, OrdinanceActivity.class);
+                intent.putExtra(Extra.MODEL_ID, ordinance.getId());
                 context.startActivity(intent);
             }
         });
     }
+
 
     /* SEARCH FUNCTION */
     Filter filter = new Filter() {

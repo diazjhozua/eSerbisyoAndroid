@@ -610,7 +610,6 @@ public class ReportAddActivity extends AppCompatActivity {
         };
 
         request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
         RequestQueue queue = Volley.newRequestQueue(ReportAddActivity.this);
         queue.add(request);
     }

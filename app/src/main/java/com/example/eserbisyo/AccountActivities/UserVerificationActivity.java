@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -33,9 +34,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.eserbisyo.Biker.BikerViewRegistrationActivity;
+import com.example.eserbisyo.Biker.OnBoardBikerActivity;
 import com.example.eserbisyo.Constants.Api;
 import com.example.eserbisyo.Constants.Extra;
 import com.example.eserbisyo.Constants.Pref;
+import com.example.eserbisyo.HomeActivity;
 import com.example.eserbisyo.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -55,7 +59,7 @@ import es.dmoral.toasty.Toasty;
 
 public class UserVerificationActivity extends AppCompatActivity {
     public static final int CAMERA_PERM_CODE = 101;
-    private TextView txtCurrentRequest, txtCredentialGuide, txtSelectPhoto, txtCapturePhoto, txtSubmittedCredential;
+    private TextView txtCurrentRequest, txtCredentialGuide, txtSelectPhoto, txtCapturePhoto, txtSubmittedCredential, inputTxtStatus, inputTxtAdminMessage;
     private Button btnSubmit, btnResubmit;
     private ImageView imgCredential;
 
@@ -117,16 +121,6 @@ public class UserVerificationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_verification);
 
-        Bundle extras  = getIntent().getExtras();
-        if (extras != null) {
-            try {
-                userVerification= new JSONObject(extras.getString(Extra.USER_VERIFICATION_OBJECT));
-                isEmpty = false;
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
         init();
     }
 
@@ -145,13 +139,95 @@ public class UserVerificationActivity extends AppCompatActivity {
         layoutStatus = findViewById(R.id.txtLayoutStatus);
         layoutAdminMessage = findViewById(R.id.txtLayoutAdminMessage);
 
-        TextInputEditText inputTxtStatus = findViewById(R.id.inputTxtStatus);
-        TextInputEditText inputTxtAdminMessage = findViewById(R.id.inputTxtAdminMessage);
+        inputTxtStatus = findViewById(R.id.inputTxtStatus);
+        inputTxtAdminMessage = findViewById(R.id.inputTxtAdminMessage);
 
         loadingDialog = new ProgressDialog(this);
         loadingDialog.setCancelable(false);
         userPref = getApplicationContext().getSharedPreferences(Pref.USER_PREFS, Context.MODE_PRIVATE);
 
+        getData();
+    }
+
+    private void getData() {
+        loadingDialog.setMessage("Checking");
+        loadingDialog.show();
+        StringRequest request = new StringRequest(Request.Method.GET, Api.MY_VERIFICATION_REQUEST, response->{
+
+            try {
+                JSONObject object = new JSONObject(response);
+
+                if (object.getBoolean("isEmpty")) {
+                    startActivity(new Intent(this, UserVerificationActivity.class));
+                } else {
+                    userVerification = object.getJSONObject("data");
+                }
+
+                setData();
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            loadingDialog.dismiss();
+
+        },error ->{
+            loadingDialog.dismiss();
+            try {
+                if (errorObj.has("errors")) {
+                    try {
+                        JSONObject errors = errorObj.getJSONObject("errors");
+                        showErrorMessage(errors);
+                    } catch (JSONException ignored) {
+                    }
+                } else if (errorObj.has("message")) {
+                    try {
+                        Toasty.error(this, errorObj.getString("message"), Toast.LENGTH_SHORT, true).show();
+                    } catch (JSONException ignored) {
+                    }
+                } else {
+                    Toasty.error(this, "Request Timeout", Toast.LENGTH_SHORT, true).show();
+                }
+            } catch (Exception ignored) {
+                Toasty.error(this, "No internet/data connection detected", Toast.LENGTH_SHORT, true).show();
+            }
+        } ){
+
+            //add token to headers
+            @Override
+            public Map<String, String> getHeaders() {
+                String token = userPref.getString(Pref.TOKEN,"");
+                HashMap<String,String> map = new HashMap<>();
+                map.put("Authorization","Bearer "+token);
+                return map;
+            }
+
+            @Override
+            protected VolleyError parseNetworkError(VolleyError volleyError) {
+                String json;
+
+                if (volleyError.networkResponse != null && volleyError.networkResponse.data != null) {
+                    try {
+                        json = new String(volleyError.networkResponse.data,
+                                HttpHeaderParser.parseCharset(volleyError.networkResponse.headers));
+
+                        errorObj = new JSONObject(json);
+                    } catch (UnsupportedEncodingException | JSONException e) {
+                        return new VolleyError(e.getMessage());
+                    }
+
+                    return new VolleyError(json);
+                }
+                return volleyError;
+            }
+
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(UserVerificationActivity.this);
+        queue.add(request);
+    }
+
+    private void setData() {
         if (isEmpty) {
             txtCurrentRequest.setText(R.string.new_request_message);
             txtSelectPhoto.setVisibility(View.VISIBLE);

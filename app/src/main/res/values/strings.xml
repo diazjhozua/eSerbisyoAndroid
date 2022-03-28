@@ -2,7 +2,7 @@
     <string name="app_name">e-Serbisyo</string>
     <string name="appTitle">Barangay Cupang \n e-Serbisyo</string>
     <string name="appDesc">Barangay Cupang Information Dessimination and \n Certificate Issuance System</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -152,9 +152,9 @@
         There are certain types of certificate only available for pickup.
     </string>
 
-<!--    <string name="order_received_note">When the administrator approved of your order request, go to the barangay to received your delivery (if Pickup) or-->
-<!--        expect to receive the order from the biker (If Delivery) at specific or within 3 days after the specified received date.-->
-<!--    </string>-->
+    <!--    <string name="order_received_note">When the administrator approved of your order request, go to the barangay to received your delivery (if Pickup) or-->
+    <!--        expect to receive the order from the biker (If Delivery) at specific or within 3 days after the specified received date.-->
+    <!--    </string>-->
 
     <string name="guidelines">
         Take note that if you did not deliver the specified order within 3 days after the specified received date,
@@ -269,11 +269,11 @@
         to get verified or to see current verification status.
     </string>
 
-<!--    <string name="no_verification_message">-->
-<!--        Important Notice: You will only receive notification in this specific email and phone number (Depending on what type of services). \n Email: asdasd\n-->
-<!--        Phone #: \n-->
-<!--            System.getProperty("line.separator")-->
-<!--    </string>-->
+    <!--    <string name="no_verification_message">-->
+    <!--        Important Notice: You will only receive notification in this specific email and phone number (Depending on what type of services). \n Email: asdasd\n-->
+    <!--        Phone #: \n-->
+    <!--            System.getProperty("line.separator")-->
+    <!--    </string>-->
 
 
 </resources>

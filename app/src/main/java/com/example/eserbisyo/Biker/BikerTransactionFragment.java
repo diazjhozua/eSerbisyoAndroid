@@ -131,7 +131,7 @@ public class BikerTransactionFragment extends Fragment {
         });
     }
 
-    private void getData() {
+    public void getData() {
         arrayList = new ArrayList<>();
         refreshLayout.setRefreshing(true);
 

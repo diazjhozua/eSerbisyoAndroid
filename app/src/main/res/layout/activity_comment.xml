@@ -44,37 +44,36 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:background="@color/primaryColor"
+        android:layout_height="?attr/actionBarSize"
         android:layout_alignParentBottom="true"
-        android:layout_height="?attr/actionBarSize">
+        android:background="@color/primaryColor"
+        android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:textColorHint="@color/white"
-            android:backgroundTint="@color/white"
-            android:textColor="@color/white"
+            android:id="@+id/txtAddComment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_gravity="bottom"
             android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
             android:layout_marginBottom="4dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/white"
             android:hint="Write something"
             android:inputType="textMultiLine"
-            android:layout_marginRight="6dp"
-            android:textSize="16sp"
-            android:id="@+id/txtAddComment"/>
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="16sp" />
 
         <ImageButton
+            android:id="@+id/btnAddComment"
             android:layout_width="70dp"
-            android:src="@drawable/ic_baseline_fast_forward_24"
-            android:background="@drawable/btn_round"
+            android:layout_height="30dp"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="6dp"
+            android:background="@drawable/btn_round"
             android:onClick="addComment"
-            android:id="@+id/btnAddComment"
-            android:layout_height="30dp"/>
-
+            android:src="@drawable/ic_baseline_insert_comment_24" />
 
     </LinearLayout>
 

@@ -33,9 +33,18 @@ import com.example.eserbisyo.Constants.Api;
 import com.example.eserbisyo.Constants.Pref;
 import com.example.eserbisyo.HomeActivity;
 import com.example.eserbisyo.HomeFragments.AnnouncementFragment;
+import com.example.eserbisyo.HomeFragments.AuthMissingItemFragment;
+import com.example.eserbisyo.HomeFragments.AuthMissingPersonFragment;
+import com.example.eserbisyo.HomeFragments.MissingItemFragment;
+import com.example.eserbisyo.HomeFragments.MissingPersonFragment;
 import com.example.eserbisyo.ModelActivities.CommentActivity;
+import com.example.eserbisyo.ModelActivities.Profile.AnnouncementActivity;
+import com.example.eserbisyo.ModelActivities.Profile.MissingItemActivity;
+import com.example.eserbisyo.ModelActivities.Profile.MissingPersonActivity;
 import com.example.eserbisyo.Models.Announcement;
 import com.example.eserbisyo.Models.Comment;
+import com.example.eserbisyo.Models.MissingItem;
+import com.example.eserbisyo.Models.MissingPerson;
 import com.example.eserbisyo.Models.User;
 import com.example.eserbisyo.R;
 import com.google.android.material.textfield.TextInputEditText;
@@ -413,6 +422,7 @@ public class CommentsAdapter  extends RecyclerView.Adapter<CommentsAdapter.Comme
         dialog.show();
     }
 
+    @SuppressLint({"NotifyDataSetChanged", "SetTextI18n"})
     private void deleteComment() {
         StringRequest request = new StringRequest(Request.Method.DELETE, Api.COMMENTS + "/" + id, response -> {
 
@@ -420,12 +430,88 @@ public class CommentsAdapter  extends RecyclerView.Adapter<CommentsAdapter.Comme
             notifyItemRemoved(selectedPosition);
             notifyDataSetChanged();
 
-//            if (CommentActivity.modelName.equals("ANNOUNCEMENT")) {
-//                Announcement announcement = AnnouncementFragment.arrayList.get(CommentActivity.modelPosition);
-//                announcement.setCommentsCount(announcement.getCommentsCount()-1);
-//                AnnouncementFragment.arrayList.set(CommentActivity.modelPosition, announcement);
-//                Objects.requireNonNull(AnnouncementFragment.recyclerView.getAdapter()).notifyDataSetChanged();
-//            }
+            try {
+                if (CommentActivity.modelName.equals("ANNOUNCEMENT")) {
+                    /* if within announcement fragment */
+                    Announcement announcement = AnnouncementFragment.arrayList.get(CommentActivity.modelPosition);
+                    announcement.setCommentsCount(announcement.getCommentsCount()-1);
+                    AnnouncementFragment.arrayList.set(CommentActivity.modelPosition, announcement);
+                    Objects.requireNonNull(AnnouncementFragment.recyclerView.getAdapter()).notifyDataSetChanged();
+                }
+                else if (CommentActivity.modelName.equals("MISSING_PERSON")) {
+                    try {
+                        MissingPerson missingPerson = MissingPersonFragment.arrayList.get(CommentActivity.modelPosition);
+                        missingPerson.setCommentsCount(missingPerson.getCommentsCount()-1);
+                        MissingPersonFragment.arrayList.set(CommentActivity.modelPosition, missingPerson);
+                        Objects.requireNonNull(MissingPersonFragment.recyclerView.getAdapter()).notifyDataSetChanged();
+                    } catch (Exception ignored) {
+                        MissingPerson missingPerson = AuthMissingPersonFragment.arrayList.get(CommentActivity.modelPosition);
+                        missingPerson.setCommentsCount(missingPerson.getCommentsCount()-1);
+                        AuthMissingPersonFragment.arrayList.set(CommentActivity.modelPosition, missingPerson);
+                        Objects.requireNonNull(AuthMissingPersonFragment.recyclerView.getAdapter()).notifyDataSetChanged();
+                    }
+                } else if (CommentActivity.modelName.equals("MISSING_ITEM")) {
+                    try {
+                        MissingItem missingItem = MissingItemFragment.arrayList.get(CommentActivity.modelPosition);
+                        missingItem.setCommentsCount(missingItem.getCommentsCount()-1);
+                        MissingItemFragment.arrayList.set(CommentActivity.modelPosition, missingItem);
+                        Objects.requireNonNull(MissingItemFragment.recyclerView.getAdapter()).notifyDataSetChanged();
+                    } catch (Exception ignored) {
+                        MissingItem missingItem = AuthMissingItemFragment.arrayList.get(CommentActivity.modelPosition);
+                        missingItem.setCommentsCount(missingItem.getCommentsCount()-1);
+                        AuthMissingItemFragment.arrayList.set(CommentActivity.modelPosition, missingItem);
+                        Objects.requireNonNull(AuthMissingItemFragment.recyclerView.getAdapter()).notifyDataSetChanged();
+                    }
+                }
+            } catch (Exception ignored) { }
+
+            try {
+                if (AnnouncementActivity.modelName.equals("ANNOUNCEMENT")) {
+                    try {
+                        Announcement announcement = AnnouncementFragment.arrayList.get(AnnouncementActivity.modelPosition);
+                        announcement.setCommentsCount(list.size());
+                        AnnouncementFragment.arrayList.set(AnnouncementActivity.modelPosition, announcement);
+                        Objects.requireNonNull(AnnouncementFragment.recyclerView.getAdapter()).notifyDataSetChanged();
+                    } catch (Exception ignored) {}
+                    AnnouncementActivity.txtComment.setText("Total of " + list.size() + ((list.size() > 1 ) ? " comments" : " comment"));
+                }
+            } catch (Exception ignored) {}
+
+            try {
+                if (MissingPersonActivity.modelName.equals("MISSING_PERSON")) {
+                    try {
+                        MissingPerson missingPerson = MissingPersonFragment.arrayList.get(CommentActivity.modelPosition);
+                        missingPerson.setCommentsCount(missingPerson.getCommentsCount()-1);
+                        MissingPersonFragment.arrayList.set(CommentActivity.modelPosition, missingPerson);
+                        Objects.requireNonNull(MissingPersonFragment.recyclerView.getAdapter()).notifyDataSetChanged();
+                    } catch (Exception ignored) {
+                        MissingPerson missingPerson = AuthMissingPersonFragment.arrayList.get(CommentActivity.modelPosition);
+                        missingPerson.setCommentsCount(missingPerson.getCommentsCount()-1);
+                        AuthMissingPersonFragment.arrayList.set(CommentActivity.modelPosition, missingPerson);
+                        Objects.requireNonNull(AuthMissingPersonFragment.recyclerView.getAdapter()).notifyDataSetChanged();
+                    }
+
+                    MissingPersonActivity.txtCommentCount.setText("Total of " + list.size() + ((list.size() > 1 ) ? " comments" : " comment"));
+                }
+            } catch (Exception ignored) {}
+
+            try {
+                if (MissingItemActivity.modelName.equals("MISSING_ITEM")) {
+                    try {
+                        MissingItem missingItem = MissingItemFragment.arrayList.get(CommentActivity.modelPosition);
+                        missingItem.setCommentsCount(missingItem.getCommentsCount()-1);
+                        MissingItemFragment.arrayList.set(CommentActivity.modelPosition, missingItem);
+                        Objects.requireNonNull(MissingItemFragment.recyclerView.getAdapter()).notifyDataSetChanged();
+                    } catch (Exception ignored) {
+                        MissingItem missingItem = AuthMissingItemFragment.arrayList.get(CommentActivity.modelPosition);
+                        missingItem.setCommentsCount(missingItem.getCommentsCount()-1);
+                        AuthMissingItemFragment.arrayList.set(CommentActivity.modelPosition, missingItem);
+                        Objects.requireNonNull(AuthMissingItemFragment.recyclerView.getAdapter()).notifyDataSetChanged();
+                    }
+
+                    MissingItemActivity.txtCommentCount.setText("Total of " + list.size() + ((list.size() > 1 ) ? " comments" : " comment"));
+                }
+            } catch (Exception ignored) {}
 
             notifyDataSetChanged();
 

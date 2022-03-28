@@ -18,6 +18,7 @@ public class Pref {
     public final static String IS_VERIFIED = "isVerified";
     public final static String IS_REMEMBER = "isRemember";
     public final static String IS_FIRST_TIME = "isFirstTime";
+    public final static String DEVICE_ID = "deviceID";
 
     // form info
     public final static String FORM_ADDRESS = "formAddress";

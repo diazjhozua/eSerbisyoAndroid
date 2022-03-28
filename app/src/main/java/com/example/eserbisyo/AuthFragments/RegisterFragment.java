@@ -51,6 +51,7 @@ public class RegisterFragment extends Fragment {
     private ProgressDialog dialog;
 
     public JSONObject errorObj = null;
+    private String deviceID;
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -76,6 +77,9 @@ public class RegisterFragment extends Fragment {
 
         Button btnRegister = view.findViewById(R.id.btnRegister);
         Button btnGoToLogin = view.findViewById(R.id.btnGoToLogin);
+
+        SharedPreferences userPref = requireActivity().getApplicationContext().getSharedPreferences(Pref.USER_PREFS, Context.MODE_PRIVATE);
+        deviceID = userPref.getString(Pref.DEVICE_ID, "");
 
         dialog = new ProgressDialog(getContext());
         dialog.setCancelable(false);
@@ -235,6 +239,7 @@ public class RegisterFragment extends Fragment {
                 map.put("email", Objects.requireNonNull(txtEmail.getText()).toString().trim());
                 map.put("password", Objects.requireNonNull(txtPassword.getText()).toString());
                 map.put("password_confirmation", Objects.requireNonNull(txtConfirm.getText()).toString());
+                map.put("device_id", deviceID);
                 return map;
             }
 

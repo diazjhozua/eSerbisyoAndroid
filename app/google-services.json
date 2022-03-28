@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "764237417734",
+    "project_id": "eserbisyo-7f5c6",
+    "storage_bucket": "eserbisyo-7f5c6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:764237417734:android:7b2848b7afc6b4907c2287",
+        "android_client_info": {
+          "package_name": "com.example.eserbisyo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "764237417734-ldlcnddq3o18em0sj32cebjjp0eaqcg4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMXx3o9bMRTVnCC6NamegA3Q8LWLCJgmA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "764237417734-ldlcnddq3o18em0sj32cebjjp0eaqcg4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

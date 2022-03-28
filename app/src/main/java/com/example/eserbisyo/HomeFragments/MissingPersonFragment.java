@@ -98,7 +98,6 @@ public class MissingPersonFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ((HomeActivity) requireActivity()).setRequirementNavCheck();
         view =  inflater.inflate(R.layout.fragment_missing_person, container, false);
         init();
         return view;

@@ -11,14 +11,25 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.eserbisyo.Constants.Api;
 import com.example.eserbisyo.Constants.Extra;
 import com.example.eserbisyo.Constants.Pref;
+import com.example.eserbisyo.ModelActivities.Profile.DocumentActivity;
 import com.example.eserbisyo.ModelRecyclerViewAdapters.ComplainantsAdapter;
 import com.example.eserbisyo.ModelRecyclerViewAdapters.DefendantsAdapter;
 import com.example.eserbisyo.Models.Complainant;
 import com.example.eserbisyo.Models.Complaint;
 import com.example.eserbisyo.Models.Defendant;
+import com.example.eserbisyo.Models.Document;
 import com.example.eserbisyo.Models.MissingPerson;
 import com.example.eserbisyo.Models.Type;
 import com.example.eserbisyo.R;
@@ -27,7 +38,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+import es.dmoral.toasty.Toasty;
 
 public class ComplaintViewActivity extends AppCompatActivity {
 
@@ -41,6 +58,7 @@ public class ComplaintViewActivity extends AppCompatActivity {
     private ComplainantsAdapter complainantsAdapter;
     private DefendantsAdapter defendantsAdapter;
 
+    private int modelId = 0;
     private SharedPreferences userPref;
     private ProgressDialog progressDialog;
     public JSONObject errorObj = null;
@@ -54,9 +72,51 @@ public class ComplaintViewActivity extends AppCompatActivity {
 
         Bundle extras  = getIntent().getExtras();
         if (extras != null) {
-            try {
-                JSONObject complaintJSONObject= new JSONObject(extras.getString(Extra.JSON_OBJECT));
+            modelId = extras.getInt(Extra.MODEL_ID, 0);
+        }
+        init();
+    }
 
+    private void init() {
+        txtID = findViewById(R.id.txtID);
+        txtCreatedAt = findViewById(R.id.txtCreatedAt);
+        txtType = findViewById(R.id.txtType);
+        txtReason = findViewById(R.id.txtReason);
+        txtAction = findViewById(R.id.txtAction);
+        txtComplainantCount = findViewById(R.id.txtComplainantCount);
+        txtDefendantCount = findViewById(R.id.txtDefendantCount);
+        txtStatus = findViewById(R.id.txtStatus);
+        txtAdminMessage = findViewById(R.id.txtAdminMessage);
+        txtUpdatedAt = findViewById(R.id.txtUpdatedAt);
+
+        userPref = ComplaintViewActivity.this.getSharedPreferences(Pref.USER_PREFS, Context.MODE_PRIVATE);
+
+        rvComplainant = findViewById(R.id.recyclerViewComplainant);
+        rvDefendant = findViewById(R.id.recyclerViewDefendant);
+
+        rvDefendant.setHasFixedSize(false);
+        rvDefendant.setLayoutManager(new LinearLayoutManager(ComplaintViewActivity.this));
+
+        rvComplainant.setHasFixedSize(false);
+        rvComplainant.setLayoutManager(new LinearLayoutManager(ComplaintViewActivity.this));
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+
+        getData();
+    }
+
+    private void getData() {
+        progressDialog.setMessage("Getting the data.....");
+        progressDialog.show();
+
+        StringRequest request = new StringRequest(Request.Method.GET, Api.COMPLAINTS + "/" + modelId, response -> {
+            try {
+
+                progressDialog.dismiss();
+
+                JSONObject object = new JSONObject(response);
+                JSONObject complaintJSONObject = object.getJSONObject("data");
                  mComplaint = new Complaint(
                         complaintJSONObject.getInt("id"), complaintJSONObject.getInt("contact_id"), complaintJSONObject.getString("contact_name"),
                         new Type(complaintJSONObject.getInt("type_id"), complaintJSONObject.getString("complaint_type")), complaintJSONObject.getString("custom_type"),
@@ -100,40 +160,79 @@ public class ComplaintViewActivity extends AppCompatActivity {
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
-
             }
-        }
-        init();
+            setData();
 
+            progressDialog.dismiss();
+
+        },error -> {
+            error.printStackTrace();
+            progressDialog.dismiss();
+
+            try {
+                if (errorObj.has("errors")) {
+                    try {
+                        JSONObject errors = errorObj.getJSONObject("errors");
+                        showErrorMessage(errors);
+                    } catch (JSONException ignored) {
+                    }
+                } else if (errorObj.has("message")) {
+                    try {
+                        Toasty.error(this, errorObj.getString("message"), Toast.LENGTH_LONG, true).show();
+                    } catch (JSONException ignored) {
+                    }
+                } else {
+                    Toasty.error(this, "Request Timeout", Toast.LENGTH_SHORT, true).show();
+                }
+            } catch (Exception ignored) {
+                Toasty.error(this, "No internet/data connection detected", Toast.LENGTH_SHORT, true).show();
+            }
+
+            finish();
+        }){
+
+            // provide token in header
+            @Override
+            public Map<String, String> getHeaders() {
+                String token = userPref.getString(Pref.TOKEN,"");
+                HashMap<String,String> map = new HashMap<>();
+                map.put("Authorization","Bearer "+token);
+                return map;
+            }
+
+            @Override
+            protected VolleyError parseNetworkError(VolleyError volleyError) {
+                String json;
+
+                if (volleyError.networkResponse != null && volleyError.networkResponse.data != null) {
+                    try {
+                        json = new String(volleyError.networkResponse.data,
+                                HttpHeaderParser.parseCharset(volleyError.networkResponse.headers));
+
+                        errorObj = new JSONObject(json);
+                    } catch (UnsupportedEncodingException | JSONException e) {
+                        return new VolleyError(e.getMessage());
+                    }
+
+                    return new VolleyError(json);
+                }
+                return volleyError;
+            }
+        };
+
+        request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue queue = Volley.newRequestQueue(ComplaintViewActivity.this);
+        queue.add(request);
     }
 
-    private void init() {
-        txtID = findViewById(R.id.txtID);
-        txtCreatedAt = findViewById(R.id.txtCreatedAt);
-        txtType = findViewById(R.id.txtType);
-        txtReason = findViewById(R.id.txtReason);
-        txtAction = findViewById(R.id.txtAction);
-        txtComplainantCount = findViewById(R.id.txtComplainantCount);
-        txtDefendantCount = findViewById(R.id.txtDefendantCount);
-        txtStatus = findViewById(R.id.txtStatus);
-        txtAdminMessage = findViewById(R.id.txtAdminMessage);
-        txtUpdatedAt = findViewById(R.id.txtUpdatedAt);
-
-        userPref = ComplaintViewActivity.this.getSharedPreferences(Pref.USER_PREFS, Context.MODE_PRIVATE);
-
-        rvComplainant = findViewById(R.id.recyclerViewComplainant);
-        rvDefendant = findViewById(R.id.recyclerViewDefendant);
-
-        rvDefendant.setHasFixedSize(false);
-        rvDefendant.setLayoutManager(new LinearLayoutManager(ComplaintViewActivity.this));
-
-        rvComplainant.setHasFixedSize(false);
-        rvComplainant.setLayoutManager(new LinearLayoutManager(ComplaintViewActivity.this));
-
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setCancelable(false);
-
-        setData();
+    public void showErrorMessage (Object message) {
+        for(Iterator<String> iter = ((JSONObject) message).keys(); iter.hasNext();) {
+            String key = iter.next();
+            try {
+                Object value = ((JSONObject) message).get(key);
+                Toasty.error(this, value.toString().replaceAll("\\p{P}", ""), Toast.LENGTH_LONG, true).show();
+            } catch (JSONException ignored) {}
+        }
     }
 
     @SuppressLint("SetTextI18n")
