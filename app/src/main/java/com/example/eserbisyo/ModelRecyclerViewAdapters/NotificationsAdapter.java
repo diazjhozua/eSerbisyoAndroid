@@ -1,6 +1,8 @@
 package com.example.eserbisyo.ModelRecyclerViewAdapters;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,10 +12,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.eserbisyo.AccountActivities.UserVerificationActivity;
 import com.example.eserbisyo.Biker.BikerOrderActivity;
 import com.example.eserbisyo.Biker.BikerViewRegistrationActivity;
@@ -21,19 +31,28 @@ import com.example.eserbisyo.Constants.Api;
 import com.example.eserbisyo.Constants.Extra;
 import com.example.eserbisyo.Constants.Pref;
 import com.example.eserbisyo.HomeActivity;
+import com.example.eserbisyo.ModelActivities.ComplaintEditActivity;
 import com.example.eserbisyo.ModelActivities.ComplaintViewActivity;
 import com.example.eserbisyo.ModelActivities.Profile.AnnouncementActivity;
 import com.example.eserbisyo.ModelActivities.Profile.MissingItemActivity;
 import com.example.eserbisyo.ModelActivities.Profile.MissingPersonActivity;
 import com.example.eserbisyo.ModelActivities.Profile.OrdinanceActivity;
 import com.example.eserbisyo.ModelActivities.Profile.ProjectActivity;
+import com.example.eserbisyo.Models.Complainant;
 import com.example.eserbisyo.Models.Document;
 import com.example.eserbisyo.Models.Notification;
 import com.example.eserbisyo.OrderActivity.OrderViewActivity;
 import com.example.eserbisyo.R;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import es.dmoral.toasty.Toasty;
@@ -42,7 +61,10 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
     private final Context context;
     private final ArrayList<Notification> list;
     private final SharedPreferences sharedPreferences;
-    private Intent intent;
+
+    private JSONObject errorObj = null;
+    private ProgressDialog progressDialog;
+
     public NotificationsAdapter(Context context, ArrayList<Notification> list) {
         this.context = context;
         this.list = list;
@@ -58,7 +80,7 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NotificationsAdapter.NotificationsHolder holder, int position) {
+    public void onBindViewHolder(@NonNull NotificationsAdapter.NotificationsHolder holder, @SuppressLint("RecyclerView") int position) {
         Notification mNotification = list.get(position);
 
         holder.txtMessage.setText(mNotification.getMessage());
@@ -122,9 +144,89 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
         holder.layoutNotification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                seeNotification(mNotification);
+                if (mNotification.getSeenStatus().equals("No")) {
+                    markedAsSeen(mNotification, position);
+                } else {
+                    seeNotification(mNotification);
+                }
+
+
             }
         });
+    }
+
+    private void markedAsSeen(Notification mNotification, int position) {
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setCancelable(false);
+
+        progressDialog.setMessage("Please wait.....");
+        progressDialog.show();
+
+        StringRequest request = new StringRequest(Request.Method.PUT, Api.SEEN_NOTIFICATION + "/" + mNotification.getId(), response -> {
+            mNotification.setSeenStatus("Yes");
+            // Set the updateGenre to the array list
+            list.set(position, mNotification);
+            // Notify the changes
+            notifyItemChanged(position);
+            progressDialog.dismiss();
+
+            seeNotification(mNotification);
+
+        },error -> {
+            error.printStackTrace();
+            progressDialog.dismiss();
+
+            try {
+                if (errorObj.has("errors")) {
+                    try {
+                        JSONObject errors = errorObj.getJSONObject("errors");
+                        ((ComplaintEditActivity)context).showErrorMessage(errors);
+                    } catch (JSONException ignored) {
+                    }
+                } else if (errorObj.has("message")) {
+                    try {
+                        Toasty.error(context, errorObj.getString("message"), Toast.LENGTH_LONG, true).show();
+                    } catch (JSONException ignored) {
+                    }
+                } else {
+                    Toasty.error(context, "Request Timeout", Toast.LENGTH_SHORT, true).show();
+                }
+            } catch (Exception ignored) {
+                Toasty.error(context, "No internet/data connection detected", Toast.LENGTH_SHORT, true).show();
+            }
+        }){
+            // provide token in header
+            @Override
+            public Map<String, String> getHeaders() {
+                String token = sharedPreferences.getString(Pref.TOKEN,"");
+                HashMap<String,String> map = new HashMap<>();
+                map.put("Authorization","Bearer "+token);
+                return map;
+            }
+
+            @Override
+            protected VolleyError parseNetworkError(VolleyError volleyError) {
+                String json;
+
+                if (volleyError.networkResponse != null && volleyError.networkResponse.data != null) {
+                    try {
+                        json = new String(volleyError.networkResponse.data,
+                                HttpHeaderParser.parseCharset(volleyError.networkResponse.headers));
+
+                        errorObj = new JSONObject(json);
+                    } catch (UnsupportedEncodingException | JSONException e) {
+                        return new VolleyError(e.getMessage());
+                    }
+
+                    return new VolleyError(json);
+                }
+                return volleyError;
+            }
+        };
+
+        request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue queue = Volley.newRequestQueue(Objects.requireNonNull(context));
+        queue.add(request);
     }
 
     private void seeNotification(Notification mNotification) {

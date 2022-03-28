@@ -40,4 +40,8 @@ public class Notification {
     public String getCreatedAt() {
         return createdAt;
     }
+
+    public void setSeenStatus(String seenStatus) {
+        this.seenStatus = seenStatus;
+    }
 }
