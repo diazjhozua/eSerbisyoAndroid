@@ -14,6 +14,7 @@ import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -82,7 +83,34 @@ public class ProfileActivity extends AppCompatActivity {
 
     private JSONObject errorObj = null;
 
-    // Getting of images from the gallery
+    private Bitmap scaleBitmap(Bitmap bm) {
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+
+        Log.v("Pictures", "Width and height are " + width + "--" + height);
+
+        if (width > height) {
+            // landscape
+            float ratio = (float) width / 1250;
+            width = 1250;
+            height = (int)(height / ratio);
+        } else if (height > width) {
+            // portrait
+            float ratio = (float) height / 1250;
+            height = 1250;
+            width = (int)(width / ratio);
+        } else {
+            // square
+            height = 1250;
+            width = 1250;
+        }
+
+        Log.v("Pictures", "after scaling Width and height are " + width + "--" + height);
+
+        bm = Bitmap.createScaledBitmap(bm, width, height, true);
+        return bm;
+    }
+
     ActivityResultLauncher<Intent> getImageResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -94,9 +122,8 @@ public class ProfileActivity extends AppCompatActivity {
                         assert data != null;
                         Uri imgUri = data.getData();
                         circleImageView.setImageURI(imgUri);
-
                         try {
-                            bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),imgUri);
+                            bitmap = scaleBitmap(MediaStore.Images.Media.getBitmap(getContentResolver(),imgUri));
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

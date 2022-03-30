@@ -23,6 +23,7 @@ import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -96,13 +97,41 @@ public class MissingItemEditActivity extends AppCompatActivity {
             "Missing", "Found"
     };
 
-    // Getting of images from the gallery
+    private Bitmap scaleBitmap(Bitmap bm) {
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+
+        Log.v("Pictures", "Width and height are " + width + "--" + height);
+
+        if (width > height) {
+            // landscape
+            float ratio = (float) width / 1250;
+            width = 1250;
+            height = (int)(height / ratio);
+        } else if (height > width) {
+            // portrait
+            float ratio = (float) height / 1250;
+            height = 1250;
+            width = (int)(width / ratio);
+        } else {
+            // square
+            height = 1250;
+            width = 1250;
+        }
+
+        Log.v("Pictures", "after scaling Width and height are " + width + "--" + height);
+
+        bm = Bitmap.createScaledBitmap(bm, width, height, true);
+        return bm;
+    }
+
     ActivityResultLauncher<Intent> getImageResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == Activity.RESULT_OK) {
+                        // There are no request codes
                         Intent data = result.getData();
                         assert data != null;
                         Uri imgUri = data.getData();
@@ -110,19 +139,20 @@ public class MissingItemEditActivity extends AppCompatActivity {
                         try {
                             if (isSelectingCredential) {
                                 ivCredentialPicture.setImageURI(imgUri);
-                                credentialBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),imgUri);
+                                credentialBitmap = scaleBitmap(MediaStore.Images.Media.getBitmap(getContentResolver(),imgUri));
                             } else {
                                 cirIvMissingPicture.setImageURI(imgUri);
-                                pictureBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),imgUri);
+                                pictureBitmap = scaleBitmap(MediaStore.Images.Media.getBitmap(getContentResolver(),imgUri));
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+
                     }
                 }
             });
 
-    // Getting of images from the gallery
+
     ActivityResultLauncher<Intent> getCaptureResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {

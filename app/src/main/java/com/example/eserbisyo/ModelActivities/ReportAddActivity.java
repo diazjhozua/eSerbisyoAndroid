@@ -8,12 +8,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -56,6 +58,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -94,7 +97,34 @@ public class ReportAddActivity extends AppCompatActivity {
             "Urgent", "Nonurgent"
     };
 
-    // Getting of images from the gallery
+    private Bitmap scaleBitmap(Bitmap bm) {
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+
+        Log.v("Pictures", "Width and height are " + width + "--" + height);
+
+        if (width > height) {
+            // landscape
+            float ratio = (float) width / 1250;
+            width = 1250;
+            height = (int)(height / ratio);
+        } else if (height > width) {
+            // portrait
+            float ratio = (float) height / 1250;
+            height = 1250;
+            width = (int)(width / ratio);
+        } else {
+            // square
+            height = 1250;
+            width = 1250;
+        }
+
+        Log.v("Pictures", "after scaling Width and height are " + width + "--" + height);
+
+        bm = Bitmap.createScaledBitmap(bm, width, height, true);
+        return bm;
+    }
+
     ActivityResultLauncher<Intent> getImageResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -106,9 +136,8 @@ public class ReportAddActivity extends AppCompatActivity {
                         assert data != null;
                         Uri imgUri = data.getData();
                         ivReportPicture.setImageURI(imgUri);
-
                         try {
-                            bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),imgUri);
+                            bitmap = scaleBitmap(MediaStore.Images.Media.getBitmap(getContentResolver(),imgUri));
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -116,7 +145,6 @@ public class ReportAddActivity extends AppCompatActivity {
                 }
             });
 
-    // Getting of images from the gallery
     ActivityResultLauncher<Intent> getCaptureResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -127,7 +155,6 @@ public class ReportAddActivity extends AppCompatActivity {
                         assert data != null;
 
                         bitmap = (Bitmap) data.getExtras().get("data");
-                        //                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
 
                         //set the image into imageview
                         ivReportPicture.setImageBitmap(bitmap);
