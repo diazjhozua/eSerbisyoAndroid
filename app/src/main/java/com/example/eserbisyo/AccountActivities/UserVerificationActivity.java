@@ -185,7 +185,7 @@ public class UserVerificationActivity extends AppCompatActivity {
                 JSONObject object = new JSONObject(response);
 
                 if (object.getBoolean("isEmpty")) {
-                    startActivity(new Intent(this, UserVerificationActivity.class));
+
                 } else {
                     userVerification = object.getJSONObject("data");
                 }
