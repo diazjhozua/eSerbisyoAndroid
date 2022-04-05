@@ -33,6 +33,7 @@ import com.example.eserbisyo.AuthActivity;
 import com.example.eserbisyo.Constants.Api;
 import com.example.eserbisyo.Constants.Pref;
 import com.example.eserbisyo.HomeActivity;
+import com.example.eserbisyo.ModelActivities.MissingItemAddActivity;
 import com.example.eserbisyo.ModelActivities.MissingPersonAddActivity;
 import com.example.eserbisyo.ModelRecyclerViewAdapters.MissingPersonsAdapter;
 import com.example.eserbisyo.Models.MissingPerson;
@@ -113,10 +114,11 @@ public class AuthMissingPersonFragment extends Fragment {
 
         getData();
 
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(((HomeActivity)getContext()), MissingPersonAddActivity.class));
+        btnAdd.setOnClickListener(view -> {
+            if(!sharedPreferences.getBoolean(Pref.IS_VERIFIED, false)){
+                Toasty.info(requireContext(), "This function is for verified user only.", Toast.LENGTH_LONG, true).show();
+            } else {
+                startActivity(new Intent(getContext(), MissingPersonAddActivity.class));
             }
         });
 

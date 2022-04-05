@@ -189,9 +189,9 @@ public class CreateOrderActivity extends AppCompatActivity {
             if (formsAdapter.checkIfExists(selCertificate.getId())) {
                 Toasty.info(CreateOrderActivity.this, "You already requested this certificate.", Toasty.LENGTH_LONG, true).show();
             } else {
-                Intent intent = new Intent(CreateOrderActivity.this, FormAddActivity.class);
-                intent.putExtra(Extra.MODEL, selCertificate);
-                startActivity(intent);
+                checkRequirements();
+
+
             }
         });
 
@@ -334,6 +334,66 @@ public class CreateOrderActivity extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    private void checkRequirements() {
+        progressDialog.setMessage("Checking requirements please wait.....");
+        progressDialog.show();
+
+        StringRequest request = new StringRequest(Request.Method.GET, Api.ORDER_CHECK_REQUIREMENTS + "/" +  selCertificate.getId(), response->{
+            progressDialog.dismiss();
+            Intent intent = new Intent(CreateOrderActivity.this, FormAddActivity.class);
+            intent.putExtra(Extra.MODEL, selCertificate);
+            startActivity(intent);
+        },error ->{
+            progressDialog.dismiss();
+            if (errorObj.has("errors")) {
+                try {
+                    JSONObject errors = errorObj.getJSONObject("errors");
+                    showErrorMessage(errors);
+                } catch (JSONException ignored) {
+                }
+            } else if (errorObj.has("message")) {
+                try {
+                    Toasty.error(this, errorObj.getString("message"), Toast.LENGTH_LONG, true).show();
+                } catch (JSONException ignored) {
+                }
+            } else {
+                Toasty.error(this, "Request Timeout", Toast.LENGTH_LONG, true).show();
+            }
+        } ){
+
+            //add token to headers
+            @Override
+            public Map<String, String> getHeaders() {
+                String token = userPref.getString(Pref.TOKEN,"");
+                HashMap<String,String> map = new HashMap<>();
+                map.put("Authorization","Bearer "+token);
+                return map;
+            }
+
+            @Override
+            protected VolleyError parseNetworkError(VolleyError volleyError) {
+                String json;
+
+                if (volleyError.networkResponse != null && volleyError.networkResponse.data != null) {
+                    try {
+                        json = new String(volleyError.networkResponse.data,
+                                HttpHeaderParser.parseCharset(volleyError.networkResponse.headers));
+
+                        errorObj = new JSONObject(json);
+                    } catch (UnsupportedEncodingException | JSONException e) {
+                        return new VolleyError(e.getMessage());
+                    }
+                    return new VolleyError(json);
+                }
+                return volleyError;
+            }
+        };
+
+        request.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue queue = Volley.newRequestQueue(CreateOrderActivity.this);
+        queue.add(request);
     }
 
     private void submitData() {
