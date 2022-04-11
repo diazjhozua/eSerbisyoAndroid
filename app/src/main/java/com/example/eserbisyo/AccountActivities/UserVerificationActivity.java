@@ -183,10 +183,10 @@ public class UserVerificationActivity extends AppCompatActivity {
 
             try {
                 JSONObject object = new JSONObject(response);
+                Log.d("order", object.toString(4));
 
-                if (object.getBoolean("isEmpty")) {
-
-                } else {
+                if (!object.getBoolean("isEmpty")) {
+                    isEmpty = false;
                     userVerification = object.getJSONObject("data");
                 }
 

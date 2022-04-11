@@ -1,34 +1,31 @@
 package com.example.eserbisyo;
 
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.example.eserbisyo.ModelActivities.Profile.MissingPersonActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import java.util.Objects;
+
 public class PushNotificationService extends FirebaseMessagingService {
 
-    private static final String TAG = "PushNotification";
     private static final String CHANNEL_ID ="1002";
 
-//    @Override
-//    public void onNewToken(String mToken) {
-//        super.onNewToken(mToken);
-//    }
+    @Override
+    public void onNewToken(@NonNull String mToken) {
+        super.onNewToken(mToken);
+    }
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        Log.d("Title: ", remoteMessage.getNotification().getTitle());
+        Log.d("Title: ", Objects.requireNonNull(remoteMessage.getNotification()).getTitle());
         Log.d("Body: ", remoteMessage.getNotification().getBody());
 
         showNotification(remoteMessage.getNotification().getTitle(),remoteMessage.getNotification().getBody());
@@ -41,13 +38,25 @@ public class PushNotificationService extends FirebaseMessagingService {
 
         Intent intent = new Intent(this, NotificationActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, requestID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//        PendingIntent pendingIntent = PendingIntent.getActivity(this, requestID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
+        PendingIntent pendingIntent;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            pendingIntent = PendingIntent.getActivity(this,
+                    requestID, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+        }else {
+            pendingIntent = PendingIntent.getActivity(this,
+                    requestID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        }
+
+//        PendingIntent.FLAG_IMMUTABLE;
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.cupang)
                 .setContentTitle(title)
                 .setContentText(message)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
                 // Set the intent that will fire when the user taps the notification
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true);

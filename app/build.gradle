@@ -97,4 +97,8 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation platform('com.google.firebase:firebase-bom:29.1.0')
     implementation 'com.google.firebase:firebase-messaging:23.0.1'
+    implementation 'com.google.firebase:firebase-iid:21.1.0' // add this
+
+    // For Java
+    implementation 'androidx.work:work-runtime:2.7.1'
 }

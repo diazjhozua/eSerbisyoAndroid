@@ -1,18 +1,9 @@
 package com.example.eserbisyo.HomeFragments;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -22,23 +13,24 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.eserbisyo.AuthActivity;
 import com.example.eserbisyo.Constants.Api;
 import com.example.eserbisyo.Constants.Pref;
 import com.example.eserbisyo.HomeActivity;
-import com.example.eserbisyo.ModelActivities.ComplaintAddActivity;
-import com.example.eserbisyo.ModelActivities.FeedbackAddActivity;
-import com.example.eserbisyo.ModelRecyclerViewAdapters.ComplaintsAdapter;
 import com.example.eserbisyo.ModelRecyclerViewAdapters.OrdersAdapter;
-import com.example.eserbisyo.Models.Complaint;
 import com.example.eserbisyo.Models.Order;
-import com.example.eserbisyo.Models.Type;
 import com.example.eserbisyo.Models.User;
 import com.example.eserbisyo.OrderActivity.SelectPickupActivity;
 import com.example.eserbisyo.R;
