@@ -1,10 +1,10 @@
-# eSerbisyoAndroid
+# eSerbisyo Android
 
 # e-Serbisyo (Android App): BARANGAY CUPANG INFORMATION DISSEMINATION AND CERTIFICATE ISSUANCE SYSTEMe-Serbisyo (Android App): BARANGAY CUPANG INFORMATION DISSEMINATION AND 
 CERTIFICATE ISSUANCE SYSTEM
 
 
-## Associated with Technological University of the PhilippinesAssociated with Technological University of the Philippines
+## Associated with Technological University of the Philippines
 
 This system is part of our capstone project entitled e-Serbisyo: BARANGAY CUPANG INFORMATION DISSEMINATION AND CERTIFICATE ISSUANCE SYSTEM. The main point of creating this system is to allow barangay Cupang organization to centralize their data and make the services available online. This pandemic proves that digital services are now a trend to stop the spread of the COVID-19 virus.
 
@@ -23,3 +23,4 @@ Some functions of this application:
 These are the list of technologies used in creating the android application
 - Java
 - Firebase Messaging
+- Android Studio
